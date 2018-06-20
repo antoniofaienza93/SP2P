@@ -5,13 +5,13 @@
  * Desc: TODO 
  * ===========================================================================
  */
-var Labyrinth = Labyrinth || {};
+var P2PMaze = P2PMaze || {};
 
-Labyrinth.Game = function(){
+P2PMaze.Game = function(){
     console.log("%cStarting Game", "color:black; background:yellow");
 };
 
-Labyrinth.Boot.prototype = {
+P2PMaze.Game.prototype = {
     preload: function() {
 
     }, 
