@@ -1,44 +1,66 @@
-/*
- * ===========================================================================
- * File: Preaload.js - 2 
- * Author: Antonio Faienza
- * Desc: TODO  
- * ===========================================================================
- */
+    /*
+     * ===========================================================================
+     * File: Preaload.js - 2 
+     * Author: Antonio Faienza
+     * Desc: TODO  
+     * ===========================================================================
+     */
 
-var P2PMaze = P2PMaze || {};
+     var P2PMaze = P2PMaze || {};
 
-P2PMaze.Preload = function(game){
-    console.log("%cStarting Preload State", "color:white; background:green");
-};
+     P2PMaze.Preload = function(game){
+         this.ready = false;
+        console.log("%cStarting Preload State", "color:white; background:green");
+    };
 
-P2PMaze.Preload.prototype = {
-    preload: function() {
-       
-        this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
-        this.splash.anchor.setTo(0.5);
+    
+    var button; 
+    var logo; 
+    var name_project;
+    var progress;
+    var percentDone = 1;
+    P2PMaze.Preload.prototype = {
+        // in this function we can load all the asset for the game. 
+        preload: function() {
 
-        this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar');
-        this.preloadBar.anchor.setTo(0.5);
+             // settings button
+            this.load.spritesheet('settings', 'assets/buttons/settings.png'); 
+            this.load.onLoadComplete.add(this.loadComplete, this);
 
-        this.load.setPreloadSprite(this.preloadBar);
-    }, 
-    create: function() {
-        // this.game.stage.backgroundColor ="#4488AA";
-        
-        // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        // // this.scale.minWidth = 240;
-        // // this.scale.minHeight = 170;
-        // // this.scale.maxWidth = 2880;
-        // // this.scale.maxHeight = 1920;
+          }, 
+          loadComplete: function() {  
+            this.ready = true;
+        },
+          create: function() {
 
-        // this.scale.pageAlignHorizontally = true;
+            // LOGO 
+            logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY-60, 'logoPhaser');
+            logo.scale.setTo(0.4,0.4);
+            logo.anchor.setTo(0.5);
 
 
-        // //have the game centered horizontally
-        // this.scale.pageAlignHorizontaly = true;
-       //  ...
-      
-       this.state.start('MainMenu');
-    }
-};
+            // TITOLO 
+            name_project = this.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'desyrel', 'P2PMaze', 64); // default 400  - 270
+            name_project.anchor.x = 0.5;
+
+            
+            button = this.game.add.button(this.game.world.centerX -95, 400, 'button_play', this.actionClick, this );
+            button.scale.setTo(0.3,0.3);
+            button.onInputOver.add(this.over, this);
+            button.onInputOut.add(this.out, this);
+            
+
+            
+        }, 
+        over: function() {
+            button.scale.setTo(0.33,0.33);
+        }, 
+        out:  function() {
+            button.scale.setTo(0.3,0.3);
+        },
+        actionClick: function(){
+            
+            this.state.start('MainMenu');
+        }
+
+    };
