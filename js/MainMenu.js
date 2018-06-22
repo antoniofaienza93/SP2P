@@ -15,6 +15,7 @@ P2PMaze.MainMenu = function(){
 P2PMaze.MainMenu.prototype = {
     preload: function() {
         // Provare a caricare Texture Atlas
+       
     }, 
     create: function() {
 

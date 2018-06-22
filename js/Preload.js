@@ -23,6 +23,9 @@
         // in this function we can load all the asset for the game. 
         preload: function() {
 
+             // TODO - spostare tutto nel Preload 
+        
+
              // settings button
             this.load.spritesheet('settings', 'assets/buttons/settings.png'); 
             this.load.onLoadComplete.add(this.loadComplete, this);
