@@ -24,7 +24,7 @@
         preload: function() {
 
              // TODO - spostare tutto nel Preload 
-        
+            
 
              // settings button
             this.load.spritesheet('settings', 'assets/buttons/settings.png'); 
