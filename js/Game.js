@@ -12,7 +12,8 @@ var map;
 var backgroudLayer; 
 var blockedLayer;
 var player;  
-var cursor;  
+var cursor; 
+var items; 
 
 
 
@@ -143,13 +144,7 @@ P2PMaze.Game.prototype = {
         //     they overlap. If this is set then overlapCallback will only be called if 
         //     this callback returns true
         // - The context in which to run the callbacks.
-        
-        
-        
-        // console.log(this.items.cursor.sprite);
-        // console.log(this.items.cursor.type);
-        // console.log(" ");
-        this.game.physics.arcade.overlap(player, this.items, this.collect, null, this);
+        this.game.physics.arcade.overlap(player, items, this.collect, null, this);
         
         
     },
@@ -179,54 +174,56 @@ P2PMaze.Game.prototype = {
 
         return result;
     },
-    createItems: function(){
-        // create items
-        this.items = this.game.add.group();
-
-        // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
-        this.items.enableBody = true;
-        var item; 
-        result = this.findObjectsByType('item', map, 'objectLayer');
-        
-        // result = take all element from tileset with specific proprieties
-        //    |--> element = take a specific result with proprieties etc
-        result.forEach(function(element){            
-            this.createFromTiledObject(element, this.items);
-          }, this);
-    },
     // createItems: function(){
-    //     var items;
-    //     var resultItem;
-
     //     // create items
-    //     items = this.game.add.group();
+    //     this.items = this.game.add.group();
 
     //     // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
-    //     items.enableBody = true;
-         
-    //     // result = take all element from tileset with 'item' proprieties
-    //     resultItem = this.findObjectsByType('item', map, 'objectLayer');
+    //     this.items.enableBody = true;
+    //     var item; 
+    //     result = this.findObjectsByType('item', map, 'objectLayer');
         
-        
-    //     // element = take a specific result with proprieties etc
-    //     resultItem.forEach(function(element){              
-    //         this.createFromTiledObject(element, items);
+    //     // result = take all element from tileset with specific proprieties
+    //     //    |--> element = take a specific result with proprieties etc
+    //     result.forEach(function(element){            
+    //         this.createFromTiledObject(element, this.items);
     //       }, this);
-    // }, 
-    createFromTiledObject: function(element, group) {
+    // },
+    createItems: function(){
 
-        // Creates a new Phaser.Sprite object and adds it to the top of this group.
-        // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
-        // This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache Image entry, or other. See documentation for more detail.        
-        var sprite = group.create(element.x, element.y, element.properties.sprite);
+        // create items
+        items = this.game.add.group();
+
+        // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
+        items.enableBody = true;
+         
+        // result = take all element from tileset with 'item' proprieties
+        var resultItem = this.findObjectsByType('item', map, 'objectLayer');
         
-        // TODO - Capire perchè stava messo sto codice
-        //copy all properties to the sprite
-        Object.keys(element.properties).forEach(function(key){
-            sprite[key] = element.properties[key];
-            // console.log(" --------------> " + sprite[key]);
-        });
+        
+        // element = take a specific result with proprieties etc
+        resultItem.forEach(function(element){    
 
-        return sprite;
-    }
+            // Creates a new Phaser.Sprite object and adds it to the top of this group.
+            // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
+            // This is the image or texture used by the Sprite during rendering. 
+            // It must matching from proprieties in Tiled and the name of sprite i.e redcup
+            items.create(element.x, element.y, element.properties.sprite);    
+            //this.createFromTiledObject(element, items);
+          }, this);
+    } 
+    // createFromTiledObject: function(element, group) {
+
+    //     // Creates a new Phaser.Sprite object and adds it to the top of this group.
+    //     // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
+    //     // This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache Image entry, or other. See documentation for more detail.        
+    //     var sprite = group.create(element.x, element.y, element.properties.sprite);
+        
+    //     // TODO - Capire perchè stava messo sto codice
+    //     //copy all properties to the sprite
+    //     // Object.keys(element.properties).forEach(function(key){
+    //     //     sprite[key] = element.properties[key];
+    //     //     // console.log(" --------------> " + sprite[key]);
+    //     // });
+    // }
 };
