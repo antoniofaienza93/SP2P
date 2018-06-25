@@ -7,6 +7,7 @@
  */
 var P2PMaze = P2PMaze || {};
 
+// global variable 
 var map;
 var backgroudLayer; 
 var blockedLayer;
@@ -32,6 +33,11 @@ P2PMaze.Game.prototype = {
         this.load.spritesheet('player', 'assets/images/dude.png',32,48);        // Quello che vorrei usare 
         // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
+
+        // TODO carichiamo le immagini
+        this.load.image('greycup', 'assets/images/if_house_extinguisher_1378842 (1).png');
+        this.load.image('redcup', 'assets/images/if_house_extinguisher_1378842 (2).png');
+        this.load.image('bluecup', 'assets/images/if_house_extinguisher_1378842.png');
     }, 
     create: function() {
 
@@ -57,6 +63,7 @@ P2PMaze.Game.prototype = {
        backgroudLayer.resizeWorld();
 
 
+       this.createItems();
        
        var result = this.findObjectsByType('playerStart', map, 'objectLayer');
 
@@ -80,43 +87,14 @@ P2PMaze.Game.prototype = {
        player.animations.add('right', [5, 6, 7, 8], 10, true);
 
        // TODO deve esse qualcosa nell'update
-       
-       
-       
 
        //the camera will follow the player in the world
-       this.game.camera.follow(player);
+       this.game.camera.follow(player); // TODO forse questo non serve
 
 
        // move player with cursor key 
        cursor = this.game.input.keyboard.createCursorKeys();
-                
-       
-
-
-
-       
-       
     },
-    findObjectsByType: function(type, map, layer){
-
-        // DEBUG
-        // console.log(map);
-        // console.log(map.objects);
-
-        var result = new Array();
-        map.objects[layer].forEach(function(element){
-                if(element.properties.type === type ){
-                    //Phaser uses top left, Tiled bottom left so we have to adjust the y position
-                    //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
-                    //so they might not be placed in the exact pixel position as in Tiled
-                    element.y -= map.tileHeight;
-                    result.push(element);
-                }
-        });
-
-        return result;
-    }, 
     update: function(){
 
         //  Collide the player and the stars with the platforms
@@ -125,7 +103,7 @@ P2PMaze.Game.prototype = {
         // collisio to do 
         // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
         var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
-
+        
         // player movement   
         // NB: comment these to gain less control over the sprite      
         // player.body.velocity.y = 0; // the player cab be jump and for this have to not "resize" to 0 the position
@@ -151,9 +129,104 @@ P2PMaze.Game.prototype = {
 
         // if(cursor.up.isDown && player.body.touching.down){
         if(cursor.up.isDown && hitPlatform){
-            console.log("VEDIAMO SE SALTA");
             player.body.velocity.y = -250;           
         }
+
+        // TODO cambiare e togliere il null
+        // Checks for overlaps between two game objects.
+        // - The first object or array of objects to check. 
+        // - The second object or array of objects to check.
+        // - An optional callback function that is called if the objects overlap. 
+        //      The two objects will be passed to this function in the same order in which you specified them, 
+        //      unless you are checking Group vs. Sprite, in which case Sprite will always be the first parameter.
+        // - A callback function that lets you perform additional checks against the two objects if 
+        //     they overlap. If this is set then overlapCallback will only be called if 
+        //     this callback returns true
+        // - The context in which to run the callbacks.
         
+        
+        
+        // console.log(this.items.cursor.sprite);
+        // console.log(this.items.cursor.type);
+        // console.log(" ");
+        this.game.physics.arcade.overlap(player, this.items, this.collect, null, this);
+        
+        
+    },
+    collect: function(player, collectable){
+        console.log("PRESO");
+
+        // remove sprite
+        collectable.destroy();
+
+    },
+    findObjectsByType: function(type, map, layer){
+
+        // DEBUG
+        // console.log(map);
+        // console.log(map.objects);
+
+        var result = new Array();
+        map.objects[layer].forEach(function(element){
+                if(element.properties.type === type ){
+                    //Phaser uses top left, Tiled bottom left so we have to adjust the y position
+                    //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
+                    //so they might not be placed in the exact pixel position as in Tiled
+                    element.y -= map.tileHeight;
+                    result.push(element);
+                }
+        });
+
+        return result;
+    },
+    createItems: function(){
+        // create items
+        this.items = this.game.add.group();
+
+        // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
+        this.items.enableBody = true;
+        var item; 
+        result = this.findObjectsByType('item', map, 'objectLayer');
+        
+        // result = take all element from tileset with specific proprieties
+        //    |--> element = take a specific result with proprieties etc
+        result.forEach(function(element){            
+            this.createFromTiledObject(element, this.items);
+          }, this);
+    },
+    // createItems: function(){
+    //     var items;
+    //     var resultItem;
+
+    //     // create items
+    //     items = this.game.add.group();
+
+    //     // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
+    //     items.enableBody = true;
+         
+    //     // result = take all element from tileset with 'item' proprieties
+    //     resultItem = this.findObjectsByType('item', map, 'objectLayer');
+        
+        
+    //     // element = take a specific result with proprieties etc
+    //     resultItem.forEach(function(element){              
+    //         this.createFromTiledObject(element, items);
+    //       }, this);
+    // }, 
+    createFromTiledObject: function(element, group) {
+
+        // Creates a new Phaser.Sprite object and adds it to the top of this group.
+        // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
+        // This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache Image entry, or other. See documentation for more detail.        
+        var sprite = group.create(element.x, element.y, element.properties.sprite);
+        
+        // TODO - Capire perchè stava messo sto codice
+        //copy all properties to the sprite
+        Object.keys(element.properties).forEach(function(key){
+            sprite[key] = element.properties[key];
+            // console.log(" --------------> " + sprite[key]);
+        });
+
+        return sprite;
     }
 };

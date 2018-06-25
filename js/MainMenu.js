@@ -50,7 +50,6 @@ P2PMaze.MainMenu.prototype = {
        //
     },
     over: function() {
-        console.log("Adesso iniziamo a giocare");
         this.state.start('Game');
     },
     over2: function() {
