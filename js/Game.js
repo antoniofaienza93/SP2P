@@ -39,9 +39,9 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('redcup', 'assets/images/if_house_extinguisher_1378842 (1).png');
-        this.load.image('greycup', 'assets/images/estintore_grande.png');
-        this.load.image('bluecup', 'assets/images/if_house_extinguisher_1378842.png');
+        this.load.image('redcup', 'assets/images/estintore_grande.png');
+        this.load.image('greycup', 'assets/images/greencup.png');
+        this.load.image('bluecup', 'assets/images/bluecup.png');
     }, 
     create: function() {
 
