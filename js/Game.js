@@ -100,6 +100,7 @@ P2PMaze.Game.prototype = {
 
        // move player with cursor key 
        cursor = this.game.input.keyboard.createCursorKeys();
+       
     },
     update: function(){
 
@@ -114,6 +115,12 @@ P2PMaze.Game.prototype = {
         // NB: comment these to gain less control over the sprite      
         // player.body.velocity.y = 0; // the player cab be jump and for this have to not "resize" to 0 the position
         player.body.velocity.x = 0;
+
+        if(this.game.input.activePointer.justPressed()){
+            // move on the direction of the input 
+            this.game.physics.arcade.moveToPointer(player, -150); 
+            player.animations.play('left');
+        }
 
         // if(cursor.up.isDown) {
         //     player.body.velocity.y = -50;            
@@ -166,10 +173,11 @@ P2PMaze.Game.prototype = {
     },
     choiceItems: function(player, item){
         
+        // TODO delete
         // BODY ENABLE https://phaser.io/examples/v2/arcade-physics/body-enable
         // console.log(" ORDINE DEL GIOCATORE " + playerOrder);
         // console.log(" liSTA ");
-        console.log(logicalOrder);
+        // console.log(logicalOrder);
 
        // if exist inside the hashmap a key with the same name of the sprite
        // and the value is equal of playerOrder then return true
