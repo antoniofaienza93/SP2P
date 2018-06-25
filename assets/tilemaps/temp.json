@@ -54,11 +54,13 @@
                  "name":"",
                  "properties":
                     {
+                     "order":1,
                      "sprite":"bluecup",
                      "type":"item"
                     },
                  "propertytypes":
                     {
+                     "order":"int",
                      "sprite":"string",
                      "type":"string"
                     },
@@ -76,11 +78,13 @@
                  "name":"",
                  "properties":
                     {
+                     "order":3,
                      "sprite":"redcup",
                      "type":"item"
                     },
                  "propertytypes":
                     {
+                     "order":"int",
                      "sprite":"string",
                      "type":"string"
                     },
@@ -98,11 +102,13 @@
                  "name":"",
                  "properties":
                     {
+                     "order":2,
                      "sprite":"greycup",
                      "type":"item"
                     },
                  "propertytypes":
                     {
+                     "order":"int",
                      "sprite":"string",
                      "type":"string"
                     },

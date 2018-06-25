@@ -99,18 +99,21 @@
   </object>
   <object id="2" gid="1261" x="415" y="560" width="16" height="16">
    <properties>
+    <property name="order" type="int" value="1"/>
     <property name="sprite" value="bluecup"/>
     <property name="type" value="item"/>
    </properties>
   </object>
   <object id="3" gid="1217" x="339" y="592" width="16" height="16">
    <properties>
+    <property name="order" type="int" value="3"/>
     <property name="sprite" value="redcup"/>
     <property name="type" value="item"/>
    </properties>
   </object>
   <object id="4" gid="1129" x="238" y="537" width="16" height="16">
    <properties>
+    <property name="order" type="int" value="2"/>
     <property name="sprite" value="greycup"/>
     <property name="type" value="item"/>
    </properties>

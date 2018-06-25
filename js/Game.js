@@ -15,6 +15,9 @@ var player;
 var cursor; 
 var items; 
 
+var logicalOrder = {};
+var playerOrder = 1; // the player starts to 1 for compare the item to take 
+
 
 
 P2PMaze.Game = function(){
@@ -36,8 +39,8 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('greycup', 'assets/images/if_house_extinguisher_1378842 (1).png');
-        this.load.image('redcup', 'assets/images/if_house_extinguisher_1378842 (2).png');
+        this.load.image('redcup', 'assets/images/if_house_extinguisher_1378842 (1).png');
+        this.load.image('greycup', 'assets/images/estintore_grande.png');
         this.load.image('bluecup', 'assets/images/if_house_extinguisher_1378842.png');
     }, 
     create: function() {
@@ -53,6 +56,8 @@ P2PMaze.Game.prototype = {
        // create the layer 
        backgroudLayer = map.createLayer('backgroudLayer');
        blockedLayer = map.createLayer('blockedLayer');
+
+        // TODO verificare per la nuova mappa che ciò avvenga
 
         // The number between 1 and 2000 is an index range for the tiles for which we want to enable
         // collision (in this case such a big number should include them all which is what I intended).
@@ -130,10 +135,10 @@ P2PMaze.Game.prototype = {
 
         // if(cursor.up.isDown && player.body.touching.down){
         if(cursor.up.isDown && hitPlatform){
-            player.body.velocity.y = -250;           
+            player.body.velocity.y = -250;  // TODO se si vuole aumentare l'altezza vedere esempio index9.html         
         }
 
-        // TODO cambiare e togliere il null
+        
         // Checks for overlaps between two game objects.
         // - The first object or array of objects to check. 
         // - The second object or array of objects to check.
@@ -144,17 +149,41 @@ P2PMaze.Game.prototype = {
         //     they overlap. If this is set then overlapCallback will only be called if 
         //     this callback returns true
         // - The context in which to run the callbacks.
-        this.game.physics.arcade.overlap(player, items, this.collect, null, this);
+        // DECOMMENTARE 
+        this.game.physics.arcade.overlap(player, items, this.collect, this.choiceItems, this);
         
+       
         
     },
     collect: function(player, collectable){
-        console.log("PRESO");
 
+        // TODO aggiungere il suono 
+
+        console.log("PRESO " + collectable.key);
         // remove sprite
         collectable.destroy();
 
     },
+    choiceItems: function(player, item){
+        
+        // BODY ENABLE https://phaser.io/examples/v2/arcade-physics/body-enable
+        // console.log(" ORDINE DEL GIOCATORE " + playerOrder);
+        // console.log(" liSTA ");
+        console.log(logicalOrder);
+
+       // if exist inside the hashmap a key with the same name of the sprite
+       // and the value is equal of playerOrder then return true
+        if((item.key in logicalOrder) && logicalOrder[item.key] === playerOrder){
+            playerOrder++;                  // icrease the order of player 
+            delete logicalOrder[item.key];  // delete key-value            
+            return true;
+        }else {
+            this.game.physics.arcade.collide(player, items);
+            return false;
+        }
+       
+        
+    }, 
     findObjectsByType: function(type, map, layer){
 
         // DEBUG
@@ -196,6 +225,7 @@ P2PMaze.Game.prototype = {
 
         // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
         items.enableBody = true;
+        // items.physicsBodyType = Phaser.Physics.ARCADE;
          
         // result = take all element from tileset with 'item' proprieties
         var resultItem = this.findObjectsByType('item', map, 'objectLayer');
@@ -208,10 +238,43 @@ P2PMaze.Game.prototype = {
             // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
             // This is the image or texture used by the Sprite during rendering. 
             // It must matching from proprieties in Tiled and the name of sprite i.e redcup
-            items.create(element.x, element.y, element.properties.sprite);    
+            var spriteObject = items.create(element.x, element.y, element.properties.sprite);
+            
+            // enable for all sprites of object a physical properties
+            this.game.physics.arcade.enable(spriteObject);
+            
+            // default = each objects are immovable
+            spriteObject.body.immovable = true;
+
+            // DEBUG
+            //  console.log(element.properties.order + " " + element.properties.sprite);
+           
+            // fill the HashMap for the logic of game
+            // key = sprite name
+            // value = order  
+            logicalOrder[element.properties.sprite] = element.properties.order;
+                      
             //this.createFromTiledObject(element, items);
           }, this);
-    } 
+    },
+    render:function() {
+
+        // ===== DEBUG PLAYER 
+        // this.game.debug.body(player);
+        // this.game.debug.spriteInfo(player, 32, 32);
+
+        // ===== DEBUG ITEMS
+        // this.game.debug.physicsGroup(items);
+        // space = 130; 
+        // items.forEachAlive(this.renderGroup, this, space);       
+       
+    },
+    renderGroup: function(member, number){
+       
+        this.game.debug.body(member);
+        this.game.debug.spriteInfo(member, 32, number);
+        space = number + 130;
+    }
     // createFromTiledObject: function(element, group) {
 
     //     // Creates a new Phaser.Sprite object and adds it to the top of this group.
