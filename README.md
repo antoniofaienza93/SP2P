@@ -4,8 +4,13 @@
 
 # TODO 
 
+- VEDERE LA GRANDEZZA DEI PERSONAGGI 
+- Fare il personaggio che salta
 - Eliminare phaser in js 
 - Cambiare Font
+
 - Fare Progress Bar usare https://phaser.io/examples/v2/loader/load-events e index2.html
+- cambiare il preload e mettere tutto nel file Preload.js
+- 
 
 

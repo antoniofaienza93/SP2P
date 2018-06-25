@@ -17,16 +17,31 @@
 
  //setting game configuration and loading the assets for the PreloadState
  P2PMaze.Boot.prototype = {
+
+     /*
+     * assets we'll use in the Preloading Screen
+     */
      preload: function() {
-        // http://www.emanueleferonato.com/2014/08/28/phaser-tutorial-understanding-phaser-states/
-        //assets we'll use in the loading screen
-        this.load.image('logo', 'assets/images/zenvalogo.png');
-        this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+
+        // this.load.image('logo', 'assets/images/zenvalogo.png');
+        this.load.image('logoPhaser', 'assets/images/phaser.png');
+
+        // load FONT 
+        this.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
+
+        // Preloader Bar - TODO Da Cambiare forse
+        this.load.image('preloadbar', 'assets/images/preloader-bar.png'); 
+
+        // load Button Play -  https://www.iconfinder.com/icons/3049265/audio_button_control_multimedia_play_video_icon 
+        this.load.spritesheet('button_play', 'assets/buttons/play_button.png');
+
+        
+        
             
      }, 
      create: function() {
 
-        
+        // background color 
         this.game.stage.backgroundColor ="#4488AA";
         
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
