@@ -6,7 +6,10 @@
  * ===========================================================================
  */
 
+
+// import {BACKGROUND_COLOR} from '../util/const';
  var P2PMaze = P2PMaze || {};
+
 
 
  // is the function that is called from state inside main.js
@@ -41,8 +44,9 @@
      }, 
      create: function() {
 
+       
         // background color 
-        this.game.stage.backgroundColor ="#4488AA";
+        this.game.stage.backgroundColor = BACKGROUND_COLOR; // 
         
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         // this.scale.minWidth = 240;
