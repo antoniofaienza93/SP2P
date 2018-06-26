@@ -14,6 +14,10 @@
 - Aggiugere schermata hai vinto 
 - Aggiungere schermata hai perso
 - Mettere le vite / tempo 
-- Fare il peer to peer 
+- Fare il peer to peer - https://www.toptal.com/webrtc/taming-webrtc-with-peerjs
 - Implementare la chat con il Peer to Peer
+
+- Vedere il progetto di SuperMario l'index con l'ottimizzazione dell'interfaccia
+- creare il modulo costanti
+- vedere GRUNT 
 
