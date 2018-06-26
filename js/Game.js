@@ -82,7 +82,7 @@ P2PMaze.Game.prototype = {
 
        //  Player physics properties. Give the little guy a slight bounce.
         player.body.bounce.y = 0.2;
-        player.body.gravity.y = 300;
+        player.body.gravity.y = PLAYER.GRAVITY_Y;
         player.body.collideWorldBounds = true;
 
        // see image: 0, 1, 2, 3 is the frame for runring to left 
@@ -114,7 +114,7 @@ P2PMaze.Game.prototype = {
         // player movement   
         // NB: comment these to gain less control over the sprite      
         // player.body.velocity.y = 0; // the player cab be jump and for this have to not "resize" to 0 the position
-        player.body.velocity.x = 0;
+        player.body.velocity.x = PLAYER.VELOCITY_X_START;
 
         if(this.game.input.activePointer.justPressed()){
             // move on the direction of the input 
@@ -128,10 +128,10 @@ P2PMaze.Game.prototype = {
         //     player.body.velocity.y = +50;
         // }else
          if(cursor.left.isDown){
-            player.body.velocity.x = -150;
+            player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;
             player.animations.play('left');
         }else if(cursor.right.isDown){
-            player.body.velocity.x = +150;
+            player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
             player.animations.play('right');
         }
         else{

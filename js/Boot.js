@@ -7,7 +7,6 @@
  */
 
 
-// import {BACKGROUND_COLOR} from '../util/const';
  var P2PMaze = P2PMaze || {};
 
 

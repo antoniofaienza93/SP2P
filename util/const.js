@@ -1,6 +1,6 @@
 /*
  * ===========================================================================
- * File: Const.js - 4 
+ * File: Const.js 
  * Author: Antonio Faienza
  * Desc: This scritp is module that define the constant that can be called 
  * from other file 
@@ -12,14 +12,25 @@
  /**
   * Background color
   */
-const BACKGROUND_COLOR = "#4488AA";
+var BACKGROUND_COLOR = "#4488AA";
 
 /**
  * Width and heiht of screen 
  */
-const SIZE_SCREEN = {
+const SCREEN_SIZE = {
     WIDTH: 800,
     HEIGHT: 600
 };
 
+// /**
+//  * Constant of the player 
+//  */
+const PLAYER = {
+
+    GRAVITY_Y: 300,
+    VELOCITY_X_START: 0,
+    VELOCITY_Y_START: 0,
+    VELOCITY_X_RIGHT: +150,
+    VELOCITY_X_LEFT: -150
+};
 
