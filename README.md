@@ -17,7 +17,7 @@
 - Fare il peer to peer - https://www.toptal.com/webrtc/taming-webrtc-with-peerjs
 - Implementare la chat con il Peer to Peer
 
-- Vedere il progetto di SuperMario l'index con l'ottimizzazione dell'interfaccia
+- Vedere il progetto di SuperMario l'index con l'ottimizzazione dell'interfaccia. Aggiungere un proprio DIV 
 - creare il modulo costanti
 - vedere GRUNT 
 
