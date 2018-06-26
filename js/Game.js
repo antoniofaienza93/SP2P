@@ -118,7 +118,7 @@ P2PMaze.Game.prototype = {
 
         if(this.game.input.activePointer.justPressed()){
             // move on the direction of the input 
-            this.game.physics.arcade.moveToPointer(player, -150); 
+            this.game.physics.arcade.moveToPointer(player, 150); 
             player.animations.play('left');
         }
 
