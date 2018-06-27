@@ -1,0 +1,22 @@
+{
+  "name": "SP2P",
+  "version": "1.0.0",
+  "description": "This project implements a peer to peer maze. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoniofaienza93/SP2P.git"
+  },
+  "author": "Antonio Faienza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antoniofaienza93/SP2P/issues"
+  },
+  "homepage": "https://github.com/antoniofaienza93/SP2P#readme",
+  "dependencies": {
+    "grunt": "^1.0.3"
+  }
+}
