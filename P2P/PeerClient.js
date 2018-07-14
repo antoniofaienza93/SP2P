@@ -55,14 +55,25 @@ class PeerClient {
         this._path = newPath;
     }
 
-    // ===============================================================================================
-    // Open Connection with Server. Viene passato come parametro la callback
-    // ===============================================================================================
-    openConnection(callback) {
+    
+    /**
+     * Make the peer avilable for the connection 
+     */
+    openConnection() {
         this._peer.on('open', function(id_peer) {
         // DEBUG  console.log('My peer ID is: ' + id_peer);
-          callback(id_peer);        
+        // callback(id_peer);        
         });
+    }
+
+    /**
+     * Make the peer NOT-avilable for the connection. TODO test it 
+     */
+    closeConnection(callback) {
+        this._peer.on('close', function(id_peer) {
+            // DEBUG  console.log('My peer ID is: ' + id_peer);
+            callback(id_peer);        
+            });
     }
 
     
@@ -86,12 +97,9 @@ class PeerClient {
     // RECEIVE.
     // ===============
     enableReceptionData(callback) {
-        console.log("Sto iniziando a sentire se qualcuno invia i dati....");
         this._peer.on('connection', function(conn) {
             conn.on('data', function(data){
-                console.log(data);
-                callback(data);
-                
+                callback(data);                
             });
         });
     }

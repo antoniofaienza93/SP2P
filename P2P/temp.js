@@ -1,9 +1,8 @@
 window.onload = function () {
     document.getElementById("connect").onclick = function () { clickConnect() };
-    document.getElementById("join").onclick = function () { clickJoin() };
-    // document.getElementById("send").onclick = function() { sendData()}; // TODO delete
+    document.getElementById("join").onclick = function () { seeAvailablePeer() };
+    
 
-    var temp_var = undefined;
     var peerClient = undefined;
     var peer_choice = undefined;
     var connection_choice = undefined;
@@ -30,11 +29,22 @@ window.onload = function () {
     var chatForm = document.getElementById("chat");
 
     var see_chat_message = document.getElementById("seeChatMessage");
-    // when click on the button i want subscrive my peer as available for the other peer
-    function clickConnect() {
 
-        // Server get-request for generate the random String
+
+    
+    /**
+     * Server get-request for generate the random String. When finish it call a callback that create a new Peer 
+     */
+    function clickConnect() {
         httpGetAsync("http://localhost:9000", createPeerClient);
+    }
+
+    /**
+     * when click on the button i request all peer subscribed. When finisch it call a callback that display 
+     * in a form all peer end exclude my personal peer 
+     */
+    function seeAvailablePeer() {
+        httpGetAsync("http://localhost:9000/available-peer/", returnPeerAvailable);
     }
 
     // Callback when receive data
@@ -73,8 +83,8 @@ window.onload = function () {
                     chat.onclickButton(sendChatMessage, ID_requestor_peer);
 
                 }else {
-                    // connection refused 
-
+                    // connection refused // TODO metterlo a posto 
+                    peerClient.closeConnection(close);
                 }
                 
             }
@@ -85,24 +95,25 @@ window.onload = function () {
 
     }
 
-    
+    function close(id_peer){
+        alert("Il peer " + id_peer + " si è disconnesso");
+    }
 
-    // callback after Server get-request 
+    /**
+     * Callback after creation string by Server
+     */ 
     function createPeerClient(data) {
-        console.log("STRINGA GENERATA: " + data);
-        var input = document.getElementById("rid").value;
+        // console.log("STRINGA GENERATA: " + data); // DEBUG
+        var input = document.getElementById("username-choice").value;
 
         // TODO cambiare i path 
         peerClient = new PeerClient(input + "-" + data, "localhost", 9000, "/peerjs");
 
-        // alert(peerClient.getId());
-        peerClient.openConnection(returnId);
+        // open connection 
+        peerClient.openConnection();
 
-        // ----------------------------------------------------------------------------------
-        // TODO questo dovrebbe essere messo a priori
-        // when the peer is create it start to listen the channel and receive the data
+        // enable reception of data
         peerClient.enableReceptionData(requestConnectionBetweenPeer);
-        // ----------------------------------------------------------------------------------
 
         // add username
         var user = document.createElement('label');
@@ -117,22 +128,15 @@ window.onload = function () {
     // callback from onclick button message
     function sendChatMessage(message, id_another_peer) {
         // alert(message + " " + id_another_peer);
-        exchangeMessage(message, id_another_peer);
+        exchangeChatMessage(message, id_another_peer);
 
     }
 
 
 
-    // Async callback that instantiate the variable 
-    function returnId(id) {
-        temp_var = id;
-        // console.log("TEMP vaR " + temp_var);  // DEBUG 
-    }
+    
 
-    // TODO 
-    function clickJoin() {
-        httpGetAsync("http://localhost:9000/available-peer/", returnPeerAvailable);
-    }
+    
 
     // ==============================================================
     // function that create a form 
@@ -216,15 +220,16 @@ window.onload = function () {
     }
 
     function provaCallback(data){
+        alert(" ------------------------------------ ");
         var chat = new Chat();
+        chat.sendMessage(chatForm);
         chat.receiveMessage(see_chat_message, data);
     }
 
 
-    function exchangeMessage(inputMessage, id_another_peer){
+    function exchangeChatMessage(inputMessage, id_another_peer){
         var conn = peerClient.conn(id_another_peer); // TODO per adesso ci mettiamo il primo e poi cambiare simultaneamente
         peerClient.sendData(conn, inputMessage);
-
         peerClient.enableReceptionData(provaCallback);
         
 
@@ -300,4 +305,5 @@ window.onload = function () {
     }
 
 };
+
 
