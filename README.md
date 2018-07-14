@@ -18,6 +18,7 @@
 - Implementare la chat con il Peer to Peer
 
 - Vedere il progetto di SuperMario l'index con l'ottimizzazione dell'interfaccia. Aggiungere un proprio DIV 
+- https://github.com/adelciotto/multiplayer-mario
 
 - vedere GRUNT 
 

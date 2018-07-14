@@ -1,0 +1,23 @@
+{
+  "name": "p2p",
+  "version": "1.0.0",
+  "description": "# Per vedere la pagina WEB : https://antoniofaienza93.github.io/SP2P/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoniofaienza93/SP2P.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antoniofaienza93/SP2P/issues"
+  },
+  "homepage": "https://github.com/antoniofaienza93/SP2P#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "peer": "^0.2.8"
+  }
+}
