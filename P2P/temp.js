@@ -50,46 +50,49 @@ window.onload = function () {
     // Callback when receive data
     function requestConnectionBetweenPeer(ID_requestor_peer) {
 
+        var chat = new Chat();
+        chat.sendMessage(chatForm);
+        chat.onclickButton(sendChatMessage, ID_requestor_peer);
         // DATA RECEIVED 
-        var label = document.createElement('label');
-        label.setAttribute("name", "request_connection_label");
-        label.htmlFor = "Il peer " + ID_requestor_peer + " want to connect with you";
-        label.appendChild(document.createTextNode("Il peer " + ID_requestor_peer + " want to connect with you")); 
-        res.appendChild(label);
+        // var label = document.createElement('label');
+        // label.setAttribute("name", "request_connection_label");
+        // label.htmlFor = "Il peer " + ID_requestor_peer + " want to connect with you";
+        // label.appendChild(document.createTextNode("Il peer " + ID_requestor_peer + " want to connect with you")); 
+        // res.appendChild(label);
 
-        var choice = ["YES", "NO"];
-        for(var i = 0; i < choice.length; i++){
-            addCheckBoxItem(connection_choice_form, choice[i], connection_choice_form_class, connection_choice, (value) => connection_choice = value);
-        }
+        // var choice = ["YES", "NO"];
+        // for(var i = 0; i < choice.length; i++){
+        //     addCheckBoxItem(connection_choice_form, choice[i], connection_choice_form_class, connection_choice, (value) => connection_choice = value);
+        // }
 
-        // add button to checkbox
-        var buttonChoice = document.createElement("input");
-        buttonChoice.setAttribute("type", "button");
-        buttonChoice.setAttribute("class", "button");
-        buttonChoice.setAttribute("name", connection_choice_form_class);       
-        buttonChoice.setAttribute("value", "Choice Peer to Connect");
-        buttonChoice.onclick = function () {
-            if (connection_choice === undefined) {
-                alert("SELECT YES OR NOT");
-            } else {
-                if(connection_choice == "YES") {
-                    // connection accepted 
-                    // sendData(ID_requestor_peer);
-                    // **************************************************************************
-                    // TODO PULIRE IL FORM DELLA SCELTA      
+        // // add button to checkbox
+        // var buttonChoice = document.createElement("input");
+        // buttonChoice.setAttribute("type", "button");
+        // buttonChoice.setAttribute("class", "button");
+        // buttonChoice.setAttribute("name", connection_choice_form_class);       
+        // buttonChoice.setAttribute("value", "Choice Peer to Connect");
+        // buttonChoice.onclick = function () {
+        //     if (connection_choice === undefined) {
+        //         alert("SELECT YES OR NOT");
+        //     } else {
+        //         if(connection_choice == "YES") {
+        //             // connection accepted 
+        //             // sendData(ID_requestor_peer);
+        //             // **************************************************************************
+        //             // TODO PULIRE IL FORM DELLA SCELTA      
                    
-                    var chat = new Chat();
-                    chat.sendMessage(chatForm);
-                    chat.onclickButton(sendChatMessage, ID_requestor_peer);
+        //             var chat = new Chat();
+        //             chat.sendMessage(chatForm);
+        //             chat.onclickButton(sendChatMessage, ID_requestor_peer);
 
-                }else {
-                    // connection refused // TODO metterlo a posto 
-                    peerClient.closeConnection(close);
-                }
+        //         }else {
+        //             // connection refused // TODO metterlo a posto 
+        //             peerClient.closeConnection(close);
+        //         }
                 
-            }
-        };
-        connection_choice_form.appendChild(buttonChoice);
+        //     }
+        // };
+        // connection_choice_form.appendChild(buttonChoice);
         
 
 
