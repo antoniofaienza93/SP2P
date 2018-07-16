@@ -46,12 +46,6 @@ class Chat {
         this._div_req.appendChild(label);
     }
 
-    // onclickButton(callback, id_peer) {
-    //     this._buttonSend.onclick = function (data) {
-    //         var input = document.getElementById("sendMessageInput").value;     
-    //         callback(input, id_peer);
-    //     };
-    // }
 
     onclickButton(callback) {
         this._buttonSend.onclick = function (data) {
