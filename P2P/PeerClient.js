@@ -1,6 +1,3 @@
-
-
-
 class PeerClient {   
 
     constructor(id, h, p, pth){
@@ -25,17 +22,7 @@ class PeerClient {
         return this._id;
     }
 
-    getHost() {
-        return this._host;
-    }
-
-    getPort() {
-        return this._port;
-    }
-
-    getPath() {
-        return this._path
-    }
+    
 
     getConnectTo() {
         return this._peerToConnect;
@@ -44,21 +31,6 @@ class PeerClient {
     // ===========
     // Setter
     // ===========
-    setId(newId) {
-        this._id = newId;
-    }
-
-    setHost(newHost){
-        this._host = newHost;
-    }
-
-    setPort(newPort){
-        this._port = newPort
-    }
-
-    setPath(newPath) {
-        this._path = newPath;
-    }
 
     setConnectTo(peerToConnect){
         this._peerToConnect = peerToConnect;
@@ -76,11 +48,28 @@ class PeerClient {
     }
 
     /**
-     * Make the peer NOT-avilable for the connection. TODO test it 
+     * Closes the data connection gracefully, cleaning up underlying DataChannels and PeerConnections.
+     * https://stackoverflow.com/questions/25797345/peerjs-manually-close-the-connection-between-peers
      */
-    closeConnection(callback) {
+    closeConnection(conn) {
+        conn.on('open', function(){            
+            conn.close();
+            alert("CONNESSIONE CHIUSA");
+          });
+    }
+    
+
+    seeError(){
+        this._peer.on('error', function(err){
+            alert(err.message);
+        });
+    }
+    /**
+     * Emitted when either you or the remote peer closes the data connection.     * .
+     */
+    listenCloseConnection(callback){
         this._peer.on('close', function(id_peer) {
-            // DEBUG  console.log('My peer ID is: ' + id_peer);
+            console.log('STO CHIUDENDO LA CONNESSIONE: ' + id_peer);
             callback(id_peer);        
             });
     }
@@ -90,15 +79,16 @@ class PeerClient {
     // CONNECT
     // ===============
     conn(id_another_peer) {
-        return this._peer.connect(id_another_peer)
+        return this._peer.connect(id_another_peer);
     }
+
+    
 
     // ===================================================================================================
     // Sharing data among peer. The first param is the value that return from the previusly method (conn)
     // ===================================================================================================
     sendData(conn, data) {
         conn.on('open', function(){
-            // conn.send("ciao, sono il clientA e voglio connettermi con te.. ");
             conn.send(data);
           });
     }
@@ -113,8 +103,12 @@ class PeerClient {
         });
     }
 
-
-    
-
+    returnConn(callback) {
+        console.log("DIOOOOOOOOOOOOOOOOOOOOOO");
+        this._peer.on('connection', function(conn) {
+            console.log(conn);
+            callback(conn);
+        });
+    }
 
 }
