@@ -4,7 +4,6 @@ window.onload = function () {
     
     
     var peerClient = undefined;
-    var peer_choice = undefined;
     var connectionChoice = undefined;
     
     
@@ -30,15 +29,11 @@ window.onload = function () {
     
     // var see_chat_message = document.getElementById("seeChatMessage");
     
-    // tihs variable define if the peer HAS RECEIVED the request-connection the first time that a peer try to connect with him.
-    // The value of default is @false
-    var receivedConnection = false; // equivalent to `var foo = Object(Boolean(bar));`
     
     var connectionChoice = undefined;
     
     var chat = new Chat();
 
-    var retConn;
     
     
     /**
@@ -100,13 +95,7 @@ window.onload = function () {
                     var conn = peerClient.conn(data);
                     peerClient.closeConnection(conn);
 
-                    // peerClient.listenCloseConnection(callbackCloseConnection);
-                    
-                    // peerClient.returnConn(returnConn);
-                    
-                    // peerClient.closeConnection(callbackCloseConnection)
-                    // TODO close the connection
-                    // alert("TODO CHIUDERE LA CONNESSIONE");               
+                    // TODO Cancellare il form               
                 }
             };        
             formConnectionChoice.appendChild(buttonChoice);
@@ -156,7 +145,6 @@ window.onload = function () {
         user.htmlFor = peerClient.getId();
         user.appendChild(document.createTextNode("USERNAME " + peerClient.getId()));
         info.appendChild(user);
-        
     }
     
     
@@ -166,10 +154,7 @@ window.onload = function () {
     // ==============================================================
     // function that require peer available 
     // ==============================================================
-    function returnPeerAvailable(peer_a) {
-    
-        // set the choice when request peer as undefined 
-        peer_choice = undefined;
+    function returnPeerAvailable(peer_a) {        
     
         // console.log("I peer a disposizione sono: " + peer_a); // DEBUG 
         var peer_available = JSON.parse(peer_a);        

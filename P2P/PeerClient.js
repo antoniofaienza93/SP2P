@@ -1,3 +1,6 @@
+
+
+
 class PeerClient {   
 
     constructor(id, h, p, pth){
@@ -54,24 +57,17 @@ class PeerClient {
     closeConnection(conn) {
         conn.on('open', function(){            
             conn.close();
-            alert("CONNESSIONE CHIUSA");
+            alert("CONNESSIONE CHIUSA"); // TODO mettere un qualche messaggio
           });
     }
     
-
+    /**
+     * See the error of peer .     * .
+     */
     seeError(){
         this._peer.on('error', function(err){
             alert(err.message);
         });
-    }
-    /**
-     * Emitted when either you or the remote peer closes the data connection.     * .
-     */
-    listenCloseConnection(callback){
-        this._peer.on('close', function(id_peer) {
-            console.log('STO CHIUDENDO LA CONNESSIONE: ' + id_peer);
-            callback(id_peer);        
-            });
     }
 
     
@@ -84,9 +80,12 @@ class PeerClient {
 
     
 
-    // ===================================================================================================
-    // Sharing data among peer. The first param is the value that return from the previusly method (conn)
-    // ===================================================================================================
+   
+    /**
+     * Sharing data among peer. The first param is the value that return from the previusly method (conn)
+     * @param {*} conn 
+     * @param {*} data to send
+     */
     sendData(conn, data) {
         conn.on('open', function(){
             conn.send(data);
