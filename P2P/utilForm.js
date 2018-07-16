@@ -50,11 +50,11 @@ function deleteCheckboxItem(attributeNameItem){
  * Add checkbox specifing the sequent param: 
  * @param {*} form 
  * @param {*} value 
- * @param {*} name_checkbox 
+ * @param {*} nameItemCheckbox 
  * @param {*} returnChoice 
  * @param {*} callback 
  */
-function addCheckBoxItem(form, value, name_checkbox, returnChoice, callback) {
+function addCheckBoxItem(form, value, nameItemCheckbox, returnChoice, callback) {
 
     // https://stackoverflow.com/questions/17758773/trouble-adding-checkboxes-to-html-div-using-js
 
@@ -63,12 +63,12 @@ function addCheckBoxItem(form, value, name_checkbox, returnChoice, callback) {
     newCheckbox.type = "checkbox";
     newCheckbox.setAttribute("value", value);
     newCheckbox.setAttribute("id", value);
-    newCheckbox.setAttribute("name", name_checkbox);
+    newCheckbox.setAttribute("name", nameItemCheckbox);
 
     // IMPORTANT: https://stackoverflow.com/questions/23667086/why-is-my-variable-unaltered-after-i-modify-it-inside-of-a-function-asynchron
     // mutually exclusive choice - https://stackoverflow.com/questions/19362284/uncheck-a-checkbox-if-another-checked-with-javascript
     newCheckbox.onchange = function () {
-        var cbs = document.getElementsByName(name_checkbox);
+        var cbs = document.getElementsByName(nameItemCheckbox);
         for (var i = 0; i < cbs.length; i++) {
             cbs[i].checked = false;
         }
@@ -83,7 +83,7 @@ function addCheckBoxItem(form, value, name_checkbox, returnChoice, callback) {
 
     // add label to checkbox
     var label = document.createElement('label');
-    label.setAttribute("name", name_checkbox);
+    label.setAttribute("name", nameItemCheckbox);
     label.htmlFor = value;
     label.appendChild(document.createTextNode(value));
 
@@ -91,7 +91,7 @@ function addCheckBoxItem(form, value, name_checkbox, returnChoice, callback) {
 
     // add br tag to checkbox 
     var br = document.createElement("br")
-    br.setAttribute("name", name_checkbox);
+    br.setAttribute("name", nameItemCheckbox);
     form.appendChild(br);
 
 }

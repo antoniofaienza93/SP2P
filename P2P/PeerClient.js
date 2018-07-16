@@ -8,6 +8,7 @@ class PeerClient {
         this._host = h;
         this._port = p;
         this._path = pth;
+        this._peerToConnect = undefined;
  
         this._peer = new Peer(this._id, {
             host: this._host, // 'localhost',
@@ -36,6 +37,10 @@ class PeerClient {
         return this._path
     }
 
+    getConnectTo() {
+        return this._peerToConnect;
+    }
+
     // ===========
     // Setter
     // ===========
@@ -53,6 +58,10 @@ class PeerClient {
 
     setPath(newPath) {
         this._path = newPath;
+    }
+
+    setConnectTo(peerToConnect){
+        this._peerToConnect = peerToConnect;
     }
 
     

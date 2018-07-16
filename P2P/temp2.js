@@ -5,7 +5,7 @@ document.getElementById("join").onclick = function () { seeAvailablePeer() };
 
 var peerClient = undefined;
 var peer_choice = undefined;
-var connection_choice = undefined;
+var connectionChoice = undefined;
 
 
 // div info
@@ -21,15 +21,22 @@ var form_peer_available = document.getElementById("choice-peer");
 var res = document.getElementById("request_connection");
 
 // var form req res
-var connection_choice_form = document.getElementById("connection_choice_form");
+var formConnectionChoice = document.getElementById("connection_choice_form");
 
 // form that decide if woy want connect or not with peer
-var connection_choice_form_class = "accept-connection";
+var classItemForm = "accept-connection";
 
 var chatForm = document.getElementById("chat");
 
-var see_chat_message = document.getElementById("seeChatMessage");
+// var see_chat_message = document.getElementById("seeChatMessage");
 
+// tihs variable define if the peer HAS RECEIVED the request-connection the first time that a peer try to connect with him.
+// The value of default is @false
+var receivedConnection = new Boolean(false); // equivalent to `var foo = Object(Boolean(bar));`
+
+
+
+var connectionChoice = undefined;
 
 
 /**
@@ -50,20 +57,68 @@ function seeAvailablePeer() {
 // Callback when receive data
 function dataReceived(data) {
 
-    var chat = new Chat();
-    chat.sendMessage(chatForm);
-    chat.onclickButton(sendChatMessage);
-    console.log("DATI RICEVUTIIII : " + data);
+    console.log("ciaoooooooooooooooooooo " + receivedConnection)
+    if(receivedConnection==false){
+        // TODO questo mi sa lo devo cancellare 
+        var label = document.createElement('label');
+        label.setAttribute("name", "request_connection_label");
+        label.htmlFor = "Il peer " + data + " want to connect with you";
+        label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you")); 
+        res.appendChild(label);
+
+        var decideToConnect = ["YES", "NO"];
+        for(var i = 0; i < decideToConnect.length; i++){
+            addCheckBoxItem(formConnectionChoice, decideToConnect[i], classItemForm, connectionChoice, (value) => connectionChoice = value);
+        }
+        
+
+        // add button to checkbox
+        var buttonChoice = document.createElement("input");
+        buttonChoice.setAttribute("type", "button");
+        buttonChoice.setAttribute("class", "button");
+        buttonChoice.setAttribute("name", classItemForm);       
+        buttonChoice.setAttribute("value", "Choice Peer to Connect");
+        buttonChoice.onclick = function () {
+            if(connectionChoice==undefined){
+                alert("Select if you want to connect of peer " + data);
+            }else if(connectionChoice=="YES"){
+    
+                peerClient.setConnectTo(data);
+                
+                var chat = new Chat();
+                chat.sendMessage(chatForm);
+                chat.onclickButton(sendChatMessage);
+                
+                receivedConnection = true; // TODO non funziona
+    
+                deleteCheckboxItem(classItemForm);
+    
+            }else if(connectionChoice == "NO"){
+                peerClient.closeConnection(callbackCloseConnection)
+                // TODO close the connection
+                alert("TODO CHIUDERE LA CONNESSIONE");
+                receivedConnection = true; // TODO non funziona
+            }
+        };
+        
+        formConnectionChoice.appendChild(buttonChoice);
+        receivedConnection = !receivedConnection;
+    }else {
+        var chat = new Chat();
+        chat.sendMessage(chatForm);
+        chat.onclickButton(sendChatMessage);
+        console.log("DATI RICEVUTIIII : " + data);
+    }
 }
 
 // callback from onclick button message
 function sendChatMessage(message) {
-    console.log("MESSAGGIO " + message + " al peer " + peer_choice);
-    sendData(message,peer_choice);
+    console.log("MESSAGGIO " + message + " al peer " + peerClient.getConnectTo());
+    sendData(message,peerClient.getConnectTo());
 }
 
-function close(id_peer){
-    alert("Il peer " + id_peer + " si è disconnesso");
+function callbackCloseConnection(data){
+    alert("Il peer " + data + " si è disconnesso");
 }
 
 /**
@@ -127,19 +182,18 @@ function returnPeerAvailable(peer_a) {
 
 /**
  * This callback return the choise by user when select the peer to connect
- * @param {*} choice 
+ * @param {*} peerSelected 
  */
-function peerSelected(choice){
-    if (choice === undefined) {
+function peerSelected(peerSelected){
+    if (peerSelected === undefined) {
         alert("KEEP ATTENTION: NO PEER SELECTED");
     } else {
-        sendData(peerClient.getId(),choice); 
+        sendData(peerClient.getId(),peerSelected); 
     }
 }
 
 // SEND data between peer 
-function sendData(message, id_another_peer) {
-    // var inputMessage = document.getElementById("sendMessage").value;  
+function sendData(message, id_another_peer) {  
     var conn = peerClient.conn(id_another_peer); // TODO per adesso ci mettiamo il primo e poi cambiare simultaneamente
     console.log(conn.peer);
     peerClient.sendData(conn, message);
