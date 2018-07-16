@@ -34,9 +34,9 @@ var chatForm = document.getElementById("chat");
 // The value of default is @false
 var receivedConnection = false; // equivalent to `var foo = Object(Boolean(bar));`
 
-
-
 var connectionChoice = undefined;
+
+var chat = new Chat();
 
 
 /**
@@ -84,30 +84,30 @@ function dataReceived(data) {
     
                 peerClient.setConnectTo(data);
                 
-                var chat = new Chat();
+                
                 chat.sendMessage(chatForm);
                 chat.onclickButton(sendChatMessage);
                 
-                // receivedConnection = true; // TODO non funziona
+                
     
                 deleteCheckboxItem(classItemForm);
     
             }else if(connectionChoice == "NO"){
                 peerClient.closeConnection(callbackCloseConnection)
                 // TODO close the connection
-                alert("TODO CHIUDERE LA CONNESSIONE");
-                // receivedConnection = true; // TODO non funziona
+                alert("TODO CHIUDERE LA CONNESSIONE");               
             }
-        };
-        
+        };        
         formConnectionChoice.appendChild(buttonChoice);
-        // receivedConnection = 1;
     }else {
-        var chat = new Chat();
+        
+        
         chat.sendMessage(chatForm);
         chat.onclickButton(sendChatMessage);
-        console.log("MESSAGGIO RICEVUTO : " + data);
+        // console.log("MESSAGGIO RICEVUTO : " + data);
     }
+
+    console.log("MESSAGGIO RICEVUTO : " + data);
 }
 
 // callback from onclick button message

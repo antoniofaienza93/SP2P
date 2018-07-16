@@ -4,36 +4,42 @@ class Chat {
 
     
     constructor(){
+        
     }
 
     sendMessage(div) {
-        this._div = div;
 
-        this._input = document.createElement("input");
-        this._input.setAttribute("type", "text");
-        this._input.setAttribute("id", "sendMessageInput");
-        this._input.setAttribute("placeholder", "Send message");
-        
+        // It has at least one
+        if (!(div.hasChildNodes())) {
+            this._div = div;
 
-        this._buttonSend = document.createElement("input");
-        this._buttonSend.setAttribute("type", "button");
-        this._buttonSend.setAttribute("class", "button");
-        this._buttonSend.setAttribute("id", "send");
-        // sendMessage.setAttribute("name", connection_choice_form_class);       
-        this._buttonSend.setAttribute("value", "Send");
-        
+            this._input = document.createElement("input");
+            this._input.setAttribute("type", "text");
+            this._input.setAttribute("id", "sendMessageInput");
+            this._input.setAttribute("placeholder", "Send message");
+            
 
-        this._br = document.createElement("br")
-        // br.setAttribute("name", name_checkbox);
-        
+            this._buttonSend = document.createElement("input");
+            this._buttonSend.setAttribute("type", "button");
+            this._buttonSend.setAttribute("class", "button");
+            this._buttonSend.setAttribute("id", "send");
+            // sendMessage.setAttribute("name", connection_choice_form_class);       
+            this._buttonSend.setAttribute("value", "Send");
+            
 
-        this._br2 = document.createElement("br")
-        // br.setAttribute("name", name_checkbox);
+            this._br = document.createElement("br")
+            // br.setAttribute("name", name_checkbox);
+            
+
+            this._br2 = document.createElement("br")
+            // br.setAttribute("name", name_checkbox);
+            
+            this._div.appendChild(this._input);
+            this._div.appendChild(this._buttonSend);
+            this._div.appendChild(this._br);
+            this._div.appendChild(this._br2);
+        }
         
-        this._div.appendChild(this._input);
-        this._div.appendChild(this._buttonSend);
-        this._div.appendChild(this._br);
-        this._div.appendChild(this._br2);
     }
 
     receiveMessage(div, data){
@@ -46,9 +52,15 @@ class Chat {
         this._div_req.appendChild(label);
     }
 
+    // onclickButton(callback, id_peer) {
+    //     this._buttonSend.onclick = function (data) {
+    //         var input = document.getElementById("sendMessageInput").value;     
+    //         callback(input, id_peer);
+    //     };
+    // }
 
     onclickButton(callback) {
-        this._buttonSend.onclick = function (data) {
+        this._buttonSend.onclick = function () {
             var input = document.getElementById("sendMessageInput").value;     
             callback(input);
         };
