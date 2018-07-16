@@ -1,3 +1,4 @@
+// questa classe si chiaerà comunicationPeer
 window.onload = function () {
     document.getElementById("connect").onclick = function () { clickConnect() };
     document.getElementById("join").onclick = function () { seeAvailablePeer() };
@@ -40,6 +41,14 @@ window.onload = function () {
      * Server get-request for generate the random String. When finish it call a callback that create a new Peer 
      */
     function clickConnect() {
+        // TODO IMPORTANT questo va messo nel YES
+        
+        // console.log(P2PMaze.game.state); // this.state.start('GameMultiplayer');
+        // var divGame = document.getElementById("P2PMaze");
+        // divGame.style.display = "block";
+        // P2PMaze.game.state.start("GameMultiplayer");
+
+        
         httpGetAsync("http://localhost:9000", createPeerClient);
     }
     
@@ -79,15 +88,22 @@ window.onload = function () {
                     alert("Select if you want to connect of peer " + data);
                 }else if(connectionChoice=="YES"){
         
+                    // the player has accepted the comuniation and for this the div is again visible
+                    var divGame = document.getElementById("P2PMaze");
+                    divGame.style.display = "block";
+
                     peerClient.setConnectTo(data);
                     
                     
+                    // TODO questa è una chat provvisoria che deve essere messa a posto
                     chat.sendMessage(chatForm);
                     chat.onclickButton(sendChatMessage);
                     
                     
         
                     deleteCheckboxItem(classItemForm);
+
+                    
 
         
                 }else if(connectionChoice == "NO"){

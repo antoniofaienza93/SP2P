@@ -31,7 +31,9 @@ P2PMaze.game = new Phaser.Game(config);
 P2PMaze.game.state.add('Boot', P2PMaze.Boot);
 P2PMaze.game.state.add('Preload', P2PMaze.Preload);
 P2PMaze.game.state.add('MainMenu', P2PMaze.MainMenu);
+P2PMaze.game.state.add('GameMultiplayer', P2PMaze.GameMultiplayer);
 P2PMaze.game.state.add('Game', P2PMaze.Game);
+
 
 
 P2PMaze.game.state.start('Boot'); // After all the states are added, we start the game by calling the boot state

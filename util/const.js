@@ -18,8 +18,8 @@ var BACKGROUND_COLOR = "#4488AA";
  * Width and heiht of screen 
  */
 const SCREEN_SIZE = {
-    WIDTH: 800,
-    HEIGHT: 600
+    WIDTH: 800, // 800
+    HEIGHT: 600 // 600
 };
 
 // /**
