@@ -54,52 +54,13 @@ P2PMaze.MainMenu.prototype = {
     },
     multiplayer: function() {
 
-        // TODO SETTARE IL PATH CORRETTO
-        // window.location.href = "http://localhost/SP2P/P2P/client.html";
-        // window.location.href = "/SP2P/P2P/client.html"; // OK
-        // document.write('<iframe src="http://localhost/SP2P/P2P/client.html"></iframe>');
-        
-        // document.getElementById("connect").display = "hidden";
-        // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp QUESTO QUAA
-        // this.state.start('GameMultiplayer');
-        // var form_id = "jwdplayer"
-        // var lines = `
-        // <div id="${form_id}">
-        //         PROVAAAAAAAAAAa
-        // </div>`
-        
-
-        // document.write(lines);
-        // document.getElementById(form_id).onclick = function () {   };
-        // var form = document.getElementById("ciao");
-        // // 
-        // var buttonChoice = document.createElement("input");
-        // buttonChoice.setAttribute("class", "button");
-        // buttonChoice.setAttribute("name", "attributeNameItem");
-        // buttonChoice.setAttribute("type", "button");
-        // buttonChoice.setAttribute("value", "Choice Peer to Connect");
-        // buttonChoice.onclick = function(){
-        //     this.state.start('GameMultiplayer');
-        // };
-        // form.appendChild(buttonChoice);
-
         // now show again the div for the multiplayer 
-        var multipForm = document.getElementById("multiplayer-section");
-        multipForm.style.display = "inline-block";
+        var multiplayerForm = document.getElementById("multiplayer-section");
+        multiplayerForm.style.display = "inline-block";
 
+        // hidden the div game
         var divGame = document.getElementById("P2PMaze");
         divGame.style.display = "none";
-        // this.state.start('GameMultiplayer');
-        console.log(this.state);
-        // this div is now visible because in file comunication.js the player has accepted the comunication
-        // if (divGame.style.display == "block") {
-        //     this.state.start('GameMultiplayer');
-        // }else {
-        //     alert("NON E NEL BLOCK");
-        // }
-        
-        
-        
         
     },
     setting: function() {

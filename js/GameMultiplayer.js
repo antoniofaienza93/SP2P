@@ -77,6 +77,7 @@ P2PMaze.GameMultiplayer.prototype = {
 
        // create the player 
        player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+       var player2= this.game.add.sprite(result[0].x+100, result[0].y+100, 'player');
 
        // create the phisics body. Can be a single object (as in this case) or of array of Objects
        this.game.physics.arcade.enable(player);
@@ -85,6 +86,10 @@ P2PMaze.GameMultiplayer.prototype = {
         player.body.bounce.y = 0.2;
         player.body.gravity.y = PLAYER.GRAVITY_Y;
         player.body.collideWorldBounds = true;
+
+        // player2.body.bounce.y = 0.2;
+        // player2.body.gravity.y = PLAYER.GRAVITY_Y;
+        // player2.body.collideWorldBounds = true;
 
        // see image: 0, 1, 2, 3 is the frame for runring to left 
        // see image: 5, 6, 7, 8 is the frame for running to right 

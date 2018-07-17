@@ -41,14 +41,6 @@ window.onload = function () {
      * Server get-request for generate the random String. When finish it call a callback that create a new Peer 
      */
     function clickConnect() {
-        // TODO IMPORTANT questo va messo nel YES
-        
-        // console.log(P2PMaze.game.state); // this.state.start('GameMultiplayer');
-        // var divGame = document.getElementById("P2PMaze");
-        // divGame.style.display = "block";
-        // P2PMaze.game.state.start("GameMultiplayer");
-
-        
         httpGetAsync("http://localhost:9000", createPeerClient);
     }
     
@@ -88,23 +80,22 @@ window.onload = function () {
                     alert("Select if you want to connect of peer " + data);
                 }else if(connectionChoice=="YES"){
         
-                    // the player has accepted the comuniation and for this the div is again visible
-                    var divGame = document.getElementById("P2PMaze");
-                    divGame.style.display = "block";
-
+                    
+                    
                     peerClient.setConnectTo(data);
                     
                     
                     // TODO questa è una chat provvisoria che deve essere messa a posto
                     chat.sendMessage(chatForm);
                     chat.onclickButton(sendChatMessage);
-                    
-                    
-        
                     deleteCheckboxItem(classItemForm);
 
+                    // the player accept the connection and then it can see the canvas with multiplayer
+                    enableGame();
                     
-
+                    // comunication to other peer that the comunication it's accepted
+                    var message = "Invitation accepted";
+                    send(message,peerClient.getConnectTo());
         
                 }else if(connectionChoice == "NO"){
 
@@ -117,7 +108,9 @@ window.onload = function () {
             formConnectionChoice.appendChild(buttonChoice);
         }else {
             
-            
+            if(data=="Invitation accepted"){
+                enableGame();
+            }
             chat.sendMessage(chatForm);
             chat.onclickButton(sendChatMessage);
             // console.log("MESSAGGIO RICEVUTO : " + data);
@@ -131,10 +124,6 @@ window.onload = function () {
     function sendChatMessage(message) {
         console.log("MESSAGGIO " + message + " AL PEER " + peerClient.getConnectTo());
         send(message,peerClient.getConnectTo());
-    }
-    
-    function callbackCloseConnection(data){
-        alert("Il peer " + data + " si è disconnesso");
     }
     
     /**
@@ -164,7 +153,14 @@ window.onload = function () {
     }
     
     
-    
+    function enableGame(){
+        // the player has accepted the comuniation and for this the div is again visible
+        // console.log(P2PMaze.game.state); // DEBUG
+        P2PMaze.game.state.start("GameMultiplayer");
+        var divGame = document.getElementById("P2PMaze");
+        divGame.style.display = "block";
+        
+    }
     
     
     // ==============================================================
