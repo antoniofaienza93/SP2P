@@ -5,7 +5,9 @@
  * @param {int} port the number of port
  * @param {path} pht the app name of the server. It is useful for establish the connection
  */
-class PeerClient {   
+class PeerClient {  
+    
+    
 
     constructor(id, h, p, pth){
         this._id = id;
@@ -37,7 +39,6 @@ class PeerClient {
     getConnectTo() {
         return this._peerToConnect;
     }
-
     
     /**
      * This metohd is used for setting the peer with i want connect. It used when I receive the request of 
@@ -45,16 +46,26 @@ class PeerClient {
      * @param {peer} peerToConnect 
      */
     setConnectTo(peerToConnect){
-        this._peerToConnect = peerToConnect;
+        this._peerToConnect = new PeerClient(peerToConnect, this._host, this._port, this._path);
     }
 
     
+    /**
+     * This allow to create the player
+     * @param {*} x initial position x
+     * @param {*} y initial position y
+     * @param {*} identifierString the unique string by which we'll identify the image later in our code.
+     */
+    createPlayer(x,y, identifierString){
+        return P2PMaze.game.add.sprite(x,y,identifierString)
+    }
+
     /**
      * Make the peer avilable for the connection 
      */
     openConnection() {
         this._peer.on('open', function(id_peer) {
-        // DEBUG  console.log('My peer ID is: ' + id_peer);
+          console.log('My peer ID is: ' + id_peer); //DEBUG
         });
     }
 
@@ -110,6 +121,10 @@ class PeerClient {
     enableReceptionData(callback) {
         this._peer.on('connection', function(conn) {
             conn.on('data', function(data){
+                console.log("--------------------------------");
+                console.log("MESSAGGIO RICEVUTO : \n");
+                console.log(data);
+                console.log("--------------------------------");
                 callback(data);                
             });
         });

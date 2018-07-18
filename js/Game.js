@@ -2,7 +2,7 @@
  * ===========================================================================
  * File: Game.js - 4 
  * Author: Antonio Faienza
- * Desc: TODO 
+ * Desc: QUESTO Eé SOLO PER PRESERVARE LA COPIA DEL FILE
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
@@ -100,12 +100,14 @@ P2PMaze.Game.prototype = {
 
        // move player with cursor key 
        cursor = this.game.input.keyboard.createCursorKeys();
+
+       
        
     },
     update: function(){
 
         //  Collide the player and the stars with the platforms
-         
+        
 
         // collisio to do 
         // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
@@ -128,8 +130,8 @@ P2PMaze.Game.prototype = {
         //     player.body.velocity.y = +50;
         // }else
          if(cursor.left.isDown){
-            player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;
-            player.animations.play('left');
+            player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;            
+            player.animations.play('left');            
         }else if(cursor.right.isDown){
             player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
             player.animations.play('right');

@@ -2,8 +2,7 @@
  * ===========================================================================
  * File: GameMultiplayer.js - 4 
  * Author: Antonio Faienza
- * Desc: TODO https://github.com/sugendran/webrtc-tanks/blob/master/js/game.js
- * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ PUO ESSERE UTILE 
+ * Desc: TODO 
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
@@ -12,46 +11,14 @@ var P2PMaze = P2PMaze || {};
 var map;
 var backgroudLayer; 
 var blockedLayer;
-var player; 
-var toOpponentPlayer = []; 
+var player;  
 var cursor; 
 var items; 
 
 var logicalOrder = {};
 var playerOrder = 1; // the player starts to 1 for compare the item to take 
 
-var createdOpponentPlayer = false;
 
-var opponentPlayer;
-var prova; // TODO delete
-
-// TODO delete
-P2PMaze.Prova = function(){
-    console.log(P2PMaze.peer);
-    console.log(P2PMaze.peer.getId());
-    console.log(P2PMaze.peer.getConnectTo() + " di tipo " + typeof P2PMaze.peer.getConnectTo());
-    alert("CIAO COME STAI ? ");
-};
-
-P2PMaze.send = function(data){
-    var id = P2PMaze.peer.getConnectTo().getId();
-    var conn = P2PMaze.peer.conn(id); 
-    P2PMaze.peer.sendData(conn, data);
-    console.log("INVIO " + data + " DA " + P2PMaze.peer.getId() + " A " + id);
-    
-}; 
-
-P2PMaze.receive = function(){
-    // P2PMaze.peer.enableReceptionData(dataReceived, (value) => dataReceived = value);
-    // console.log(P2PMaze.peer);
-    // P2PMaze.peer.enableReceptionData((value) => dataReceived = value);
-    console.log(P2PMaze.dataReceived);
-    // dataReceived;
-};
-
-// P2PMaze.callbackDataReceived = function(data){
-//     console.log(data);
-// };
 
 P2PMaze.GameMultiplayer = function(){
     console.log("%cStarting GameMultiplayer", "color:black; background:yellow");
@@ -75,16 +42,11 @@ P2PMaze.GameMultiplayer.prototype = {
         this.load.image('redcup', 'assets/images/estintore_grande.png');
         this.load.image('greycup', 'assets/images/greencup.png');
         this.load.image('bluecup', 'assets/images/bluecup.png');
-
-
-
-
-
     }, 
     create: function() {
-       
-        //  We're going to be using physics, so enable the Arcade Physics system
-        // TODO - mettere questo nel Boot
+        
+
+        console.log(peerClient.getId());
         //  We're going to be using physics, so enable the Arcade Physics system
         // TODO - mettere questo nel Boot
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -116,6 +78,7 @@ P2PMaze.GameMultiplayer.prototype = {
 
        // create the player 
        player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+       var player2= this.game.add.sprite(result[0].x+100, result[0].y+100, 'player');
 
        // create the phisics body. Can be a single object (as in this case) or of array of Objects
        this.game.physics.arcade.enable(player);
@@ -125,6 +88,10 @@ P2PMaze.GameMultiplayer.prototype = {
         player.body.gravity.y = PLAYER.GRAVITY_Y;
         player.body.collideWorldBounds = true;
 
+        // player2.body.bounce.y = 0.2;
+        // player2.body.gravity.y = PLAYER.GRAVITY_Y;
+        // player2.body.collideWorldBounds = true;
+
        // see image: 0, 1, 2, 3 is the frame for runring to left 
        // see image: 5, 6, 7, 8 is the frame for running to right 
        // 10 = frames per second 
@@ -132,171 +99,72 @@ P2PMaze.GameMultiplayer.prototype = {
        player.animations.add('left', [0, 1, 2, 3], 10, true);
        player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-      
+       // TODO deve esse qualcosa nell'update
 
        //the camera will follow the player in the world
        this.game.camera.follow(player); // TODO forse questo non serve
 
-       var keyPlayer = {"key": P2PMaze.peer.getId()};
-       var posx ={"posx":player.position.x};
-       var posy = {"posy":player.position.y}
-       var key = {"Key":player.key};       
-       var animationLeft_name = {"animationLeft_name": "left"};
-       var animationLeft_frame = {"animationLeft_frame": [0, 1, 2, 3]};
-       var animationLeft_frameRate = {"animationLeft_frameRate": 10};
-       var animationLeft_Loop = {"animationLeft_Loop": true};
 
-       var animationRight_name = {"animationRight_name": "right"};
-       var animationRight_frame = {"animationRight_frame": [5, 6, 7, 8]};
-       var animationRight_frameRate = {"animationRight_frameRate": 10};
-       var animationRight_Loop = {"animationRight_Loop": true};
-       
-        toOpponentPlayer.push(keyPlayer);
-        toOpponentPlayer.push(posx);
-        toOpponentPlayer.push(posy);
-        toOpponentPlayer.push(key);
-        toOpponentPlayer.push(animationLeft_name);
-        toOpponentPlayer.push(animationLeft_frame);
-        toOpponentPlayer.push(animationLeft_frameRate);
-        toOpponentPlayer.push(animationLeft_Loop);
-        toOpponentPlayer.push(animationRight_name);
-        toOpponentPlayer.push(animationRight_frame);
-        toOpponentPlayer.push(animationRight_frameRate);
-        toOpponentPlayer.push(animationRight_Loop);
-        P2PMaze.send(toOpponentPlayer);
-        // prova = document.getElementById("prova");
-        // prova.onclick = function () {  P2PMaze.send(opponentPlayer); P2PMaze.receive() };
        // move player with cursor key 
-       cursor = this.game.input.keyboard.createCursorKeys();       
+       cursor = this.game.input.keyboard.createCursorKeys();
+       
     },
     update: function(){
 
+        //  Collide the player and the stars with the platforms
+         
+
+        // collisio to do 
+        // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
+        var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
         
+        // player movement   
+        // NB: comment these to gain less control over the sprite      
+        // player.body.velocity.y = 0; // the player cab be jump and for this have to not "resize" to 0 the position
+        player.body.velocity.x = PLAYER.VELOCITY_X_START;
 
-        if(P2PMaze.dataReceived!=undefined && createdOpponentPlayer==false){
-            console.log(P2PMaze.dataReceived);
-
-            opponentPlayer = this.game.add.sprite(P2PMaze.dataReceived[1].posx, P2PMaze.dataReceived[2].posy, 'player');
-
-            // create the phisics body. Can be a single object (as in this case) or of array of Objects
-            this.game.physics.arcade.enable(opponentPlayer);
-     
-            //  Player physics properties. Give the little guy a slight bounce.
-            opponentPlayer.body.bounce.y = 0.2;
-            opponentPlayer.body.gravity.y = PLAYER.GRAVITY_Y;
-            opponentPlayer.body.collideWorldBounds = true;
-     
-            // see image: 0, 1, 2, 3 is the frame for runring to left 
-            // see image: 5, 6, 7, 8 is the frame for running to right 
-            // 10 = frames per second 
-            // the 'true' param tell the animation to loop 
-            opponentPlayer.animations.add('left', [0, 1, 2, 3], 10, true);
-            opponentPlayer.animations.add('right', [5, 6, 7, 8], 10, true);
-     
-            // TODO deve esse qualcosa nell'update
-     
-            //the camera will follow the player in the world
-            this.game.camera.follow(opponentPlayer); // TODO forse questo non serve
-
-
-            // cursor = this.game.input.keyboard.createCursorKeys();
-
-            createdOpponentPlayer=true;
-
-           
+        if(this.game.input.activePointer.justPressed()){
+            // move on the direction of the input 
+            this.game.physics.arcade.moveToPointer(player, 150); 
+            player.animations.play('left');
         }
 
-        // if(P2PMaze.dataReceived != undefined && P2PMaze.dataReceived[0].key=="updateKey"){
-        //     opponentPlayer.x = P2PMaze.dataReceived[1].updatePosx;
-        //     opponentPlayer.y = P2PMaze.dataReceived[2].updatePosy;
-        // }
+        // if(cursor.up.isDown) {
+        //     player.body.velocity.y = -50;            
+        // }else if(cursor.down.isDown){
+        //     player.body.velocity.y = +50;
+        // }else
+         if(cursor.left.isDown){
+            player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;
+            player.animations.play('left');
+        }else if(cursor.right.isDown){
+            player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
+            player.animations.play('right');
+        }
+        else{
+            //  Stand still
+            player.animations.stop();    
+            player.frame = 4;
+        }
+
+        // if(cursor.up.isDown && player.body.touching.down){
+        if(cursor.up.isDown && hitPlatform){
+            player.body.velocity.y = -250;  // TODO se si vuole aumentare l'altezza vedere esempio index9.html         
+        }
+
         
-    
-     //  Collide the player and the stars with the platforms
-    //  P2PMaze.send(player.position.x);
-
-     // collisio to do 
-     // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
-     var hitPlatform;
-      hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
-      if(opponentPlayer!=undefined){
-        this.game.physics.arcade.collide(opponentPlayer, blockedLayer);
-      }
-     
-     // player movement   
-     // NB: comment these to gain less control over the sprite      
-     // player.body.velocity.y = 0; // the player cab be jump and for this have to not "resize" to 0 the position
-     player.body.velocity.x = PLAYER.VELOCITY_X_START;
-
-     console.log(opponentPlayer);
-     if(opponentPlayer!=undefined){
-        opponentPlayer.body.velocity.x = PLAYER.VELOCITY_X_START;
-     }
-
-     if(this.game.input.activePointer.justPressed()){
-         // move on the direction of the input 
-         this.game.physics.arcade.moveToPointer(player, 150); 
-         player.animations.play('left');
-     }
-
-     
-      if(cursor.left.isDown){
-         player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;         
-         player.animations.play('left');
-
-         var updatePos = [];
-         var keyupdating = {"key": "left"}
-         var updateX ={"updatePosx":player.position.x}; 
-         updatePos.push(keyupdating);
-         updatePos.push(updateX);
-         P2PMaze.send(updatePos);
-         
-     }else if(cursor.right.isDown){
-         player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
-         player.animations.play('right');
-     }
-     else{
-         //  Stand still
-         player.animations.stop();    
-         player.frame = 4;
-     }
-
-     // if(cursor.up.isDown && player.body.touching.down){
-     if(cursor.up.isDown && hitPlatform){
-         player.body.velocity.y = -250;  // TODO se si vuole aumentare l'altezza vedere esempio index9.html         
-     }
-
-    
-    //  var updateY = {"updatePosy":player.position.x};
-    //  updatePos.push(keyupdating);
-    //  updatePos.push(updateX);
-    //  updatePos.push(updateY);
-    //  P2PMaze.send(updatePos);
-         
-     // Checks for overlaps between two game objects.
-     // - The first object or array of objects to check. 
-     // - The second object or array of objects to check.
-     // - An optional callback function that is called if the objects overlap. 
-     //      The two objects will be passed to this function in the same order in which you specified them, 
-     //      unless you are checking Group vs. Sprite, in which case Sprite will always be the first parameter.
-     // - A callback function that lets you perform additional checks against the two objects if 
-     //     they overlap. If this is set then overlapCallback will only be called if 
-     //     this callback returns true
-     // - The context in which to run the callbacks.
-     // DECOMMENTARE 
-
-     if(opponentPlayer!=undefined && P2PMaze.dataReceived[0].key=="left"){
-        this.game.physics.arcade.moveToXY(opponentPlayer,P2PMaze.dataReceived[1].updatePosx,576);
-        opponentPlayer.animations.play('left');
-     }
-     
-     if(opponentPlayer!=undefined){
-        this.game.physics.arcade.overlap(opponentPlayer, items, this.collect, this.choiceItems, this);
-     }
-     this.game.physics.arcade.overlap(player, items, this.collect, this.choiceItems, this);
-     
-    
-     
+        // Checks for overlaps between two game objects.
+        // - The first object or array of objects to check. 
+        // - The second object or array of objects to check.
+        // - An optional callback function that is called if the objects overlap. 
+        //      The two objects will be passed to this function in the same order in which you specified them, 
+        //      unless you are checking Group vs. Sprite, in which case Sprite will always be the first parameter.
+        // - A callback function that lets you perform additional checks against the two objects if 
+        //     they overlap. If this is set then overlapCallback will only be called if 
+        //     this callback returns true
+        // - The context in which to run the callbacks.
+        // DECOMMENTARE 
+        this.game.physics.arcade.overlap(player, items, this.collect, this.choiceItems, this);
         
        
         
@@ -350,7 +218,21 @@ P2PMaze.GameMultiplayer.prototype = {
 
         return result;
     },
-    
+    // createItems: function(){
+    //     // create items
+    //     this.items = this.game.add.group();
+
+    //     // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
+    //     this.items.enableBody = true;
+    //     var item; 
+    //     result = this.findObjectsByType('item', map, 'objectLayer');
+        
+    //     // result = take all element from tileset with specific proprieties
+    //     //    |--> element = take a specific result with proprieties etc
+    //     result.forEach(function(element){            
+    //         this.createFromTiledObject(element, this.items);
+    //       }, this);
+    // },
     createItems: function(){
 
         // create items
@@ -393,8 +275,8 @@ P2PMaze.GameMultiplayer.prototype = {
     render:function() {
 
         // ===== DEBUG PLAYER 
-        this.game.debug.body(player);
-        this.game.debug.spriteInfo(player, 32, 32);
+        // this.game.debug.body(player);
+        // this.game.debug.spriteInfo(player, 32, 32);
 
         // ===== DEBUG ITEMS
         // this.game.debug.physicsGroup(items);

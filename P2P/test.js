@@ -1,7 +1,10 @@
-// questa classe si chiaerà comunicationPeer
+/**
+ * TODO Quando si fa refresh bisogn fare destroyed con il server
+ */
 window.onload = function () {
     document.getElementById("connect").onclick = function () { clickConnect() };
     document.getElementById("join").onclick = function () { seeAvailablePeer() };
+    
     
     
     var peerClient = undefined;
@@ -40,7 +43,7 @@ window.onload = function () {
     /**
      * Server get-request for generate the random String. When finish it call a callback that create a new Peer 
      */
-    function clickConnect() {        
+    function clickConnect() {
         httpGetAsync("http://localhost:9000", createPeerClient);
     }
     
@@ -55,6 +58,9 @@ window.onload = function () {
     // Callback when receive data
     function dataReceived(data) {
     
+        console.log("--------------------------------");
+        console.log("MESSAGGIO RICEVUTO : " + data);
+        console.log("--------------------------------");
         if(peerClient.getConnectTo()==undefined){
             // TODO questo mi sa lo devo cancellare 
             var label = document.createElement('label');
@@ -80,21 +86,22 @@ window.onload = function () {
                     alert("Select if you want to connect of peer " + data);
                 }else if(connectionChoice=="YES"){
         
-                   
-
+                    
+                    
                     peerClient.setConnectTo(data);
                     
                     
                     // TODO questa è una chat provvisoria che deve essere messa a posto
                     chat.sendMessage(chatForm);
                     chat.onclickButton(sendChatMessage);
-                    
-                    
-        
                     deleteCheckboxItem(classItemForm);
 
+                    // the player accept the connection and then it can see the canvas with multiplayer
+                    // enableGame();
                     
-
+                    // comunication to other peer that the comunication it's accepted
+                    var message = "Invitation accepted";
+                    send(message,peerClient.getConnectTo().getId());
         
                 }else if(connectionChoice == "NO"){
 
@@ -107,24 +114,26 @@ window.onload = function () {
             formConnectionChoice.appendChild(buttonChoice);
         }else {
             
-            
+            if(data=="Invitation accepted"){
+                // enableGame();
+            }
             chat.sendMessage(chatForm);
             chat.onclickButton(sendChatMessage);
             // console.log("MESSAGGIO RICEVUTO : " + data);
         }
     
-        console.log("MESSAGGIO RICEVUTO : " + data);
+        
     }
     
     
-    // callback from onclick button message
+    /**
+     * callback from onclick button message
+     * @param {*} message message to send
+     */
     function sendChatMessage(message) {
-        console.log("MESSAGGIO " + message + " AL PEER " + peerClient.getConnectTo());
-        send(message,peerClient.getConnectTo());
-    }
-    
-    function callbackCloseConnection(data){
-        alert("Il peer " + data + " si è disconnesso");
+        var id = peerClient.getConnectTo().getId();
+        console.log("MESSAGGIO " + message + " AL PEER " + id );
+        send(message,id);
     }
     
     /**
@@ -154,7 +163,16 @@ window.onload = function () {
     }
     
     
-    
+    function enableGame(){
+        // the player has accepted the comuniation and for this the div is again visible
+        // console.log(P2PMaze.game.state); // DEBUG
+        // console.log(P2PMaze);
+        P2PMaze.peer = peerClient;
+        P2PMaze.game.state.start("GameMultiplayer");
+        var divGame = document.getElementById("P2PMaze");
+        divGame.style.display = "block";
+        
+    }
     
     
     // ==============================================================
@@ -193,7 +211,8 @@ window.onload = function () {
             alert("KEEP ATTENTION: NO PEER SELECTED");
         } else {
             peerClient.setConnectTo(peerSelected);
-            send(peerClient.getId(),peerClient.getConnectTo()); 
+            var id = peerClient.getConnectTo().getId();
+            send(peerClient.getId(), id); 
         }
     }
     
