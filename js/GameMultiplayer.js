@@ -24,8 +24,11 @@ var createdOpponentPlayer = false;
 
 var opponentPlayer;
 
-
+var jump = false;
+var hitPlatformO;
+var count = 0;
 var prova; // TODO delete
+
 
 // TODO delete
 P2PMaze.Prova = function(){
@@ -36,10 +39,11 @@ P2PMaze.Prova = function(){
 };
 
 P2PMaze.send = function(data){
+     
     var id = P2PMaze.peer.getConnectTo().getId();
-    var conn = P2PMaze.peer.conn(id); 
+    var conn = P2PMaze.peer.conn(id);
     P2PMaze.peer.sendData(conn, data);
-    console.log("INVIO " + data + " DA " + P2PMaze.peer.getId() + " A " + id);
+    // console.log("INVIO " + data + " DA " + P2PMaze.peer.getId() + " A " + id);
     
 }; 
 
@@ -151,14 +155,15 @@ P2PMaze.GameMultiplayer.prototype = {
         P2PMaze.send(toOpponentPlayer);
         // prova = document.getElementById("prova");
         // prova.onclick = function () {  P2PMaze.send(opponentPlayer); P2PMaze.receive() };
+
        // move player with cursor key 
-       cursor = this.game.input.keyboard.createCursorKeys();       
+       cursor = this.game.input.keyboard.createCursorKeys();
+              
     },
     update: function(){
 
         // creation opponent player
         if(P2PMaze.dataReceived!=undefined && createdOpponentPlayer==false){
-            console.log(P2PMaze.dataReceived);
 
             opponentPlayer = this.game.add.sprite(P2PMaze.dataReceived[1].posx, P2PMaze.dataReceived[2].posy, 'player');
 
@@ -185,17 +190,24 @@ P2PMaze.GameMultiplayer.prototype = {
 
             // cursor = this.game.input.keyboard.createCursorKeys();
 
-            createdOpponentPlayer=true;
+            
 
+            // the opponent player start to 4 frame
+            opponentPlayer.frame = 4;
+
+            
+
+            createdOpponentPlayer=true;
            
         }
 
      // collisio to do 
      // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
      var hitPlatform;
+     
       hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
       if(opponentPlayer!=undefined){
-        this.game.physics.arcade.collide(opponentPlayer, blockedLayer);
+        hitPlatformO = this.game.physics.arcade.collide(opponentPlayer, blockedLayer);
       }
      
      // player movement   
@@ -211,62 +223,69 @@ P2PMaze.GameMultiplayer.prototype = {
      if(this.game.input.activePointer.justPressed()){
          // move on the direction of the input 
          this.game.physics.arcade.moveToPointer(player, 150); 
-         player.animations.play('left');
+        //  player.animations.play('left');
      }
 
-     
-      if(cursor.left.isDown){
-         player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;         
-         player.animations.play('left');
-
-         // send to opponent player the left position of player
-         var updatePos = [];
-         var keyupdating = {"key": "left"};
-         var updateX ={"updatePosx":player.x};
-         var updateY ={"updatePosy":player.y}; // TODO secondo me questo può essere tolto e posto solo in altezza 
-         updatePos.push(keyupdating);
-         updatePos.push(updateX);
-         updatePos.push(updateY);
-         P2PMaze.send(updatePos);
-         
-     }else if(cursor.right.isDown){
-         player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
-         player.animations.play('right');
-
-         // send to opponent player the right position of player
-         var updatePos = [];
-         var keyupdating = {"key": "right"};
-         var updateX ={"updatePosx":player.x};
-         var updateY ={"updatePosy":player.y}; 
-         updatePos.push(keyupdating);
-         updatePos.push(updateX);
-         updatePos.push(updateY);
-         P2PMaze.send(updatePos);
-     }
-     else{
-         //  Stand still
-         player.animations.stop();    
-         player.frame = 4;
-     }
-
-     // if(cursor.up.isDown && player.body.touching.down){
-     if(cursor.up.isDown && hitPlatform){
-         // If you want increase the height you can see the example index9.html
-         player.body.velocity.y = -250; 
-         
-         // send to opponent player the height position of player
-         var updatePos = [];
-         var keyupdating = {"key": "height"};
-         var updateX ={"updatePosx":player.position.x};
-         var updateY ={"updatePosy":player.position.y}; 
-         updatePos.push(keyupdating);
-         updatePos.push(updateX);
-         updatePos.push(updateY);
-         P2PMaze.send(updatePos);
-     }
-
-  
-         
+        var updatePos = [];
+        if(cursor.left.isDown){
+            player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;         
+            player.animations.play('left');
+   
+            // send to opponent player the left position of player
+            
+           
+                var keyupdating = {"key": "left"};
+                var updateX ={"updatePosx":player.x};
+                var updateY ={"updatePosy":player.y}; // TODO secondo me questo può essere tolto e posto solo in altezza 
+                updatePos.push(keyupdating);
+                updatePos.push(updateX);
+                updatePos.push(updateY);
+                P2PMaze.send(updatePos);
+            
+            
+            
+        }else if(cursor.right.isDown){
+            player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
+            player.animations.play('right');
+   
+            // send to opponent player the right position of player
+          
+            var keyupdating = {"key": "right"};
+            var updateX ={"updatePosx":player.x};
+            var updateY ={"updatePosy":player.y}; 
+            updatePos.push(keyupdating);
+            updatePos.push(updateX);
+            updatePos.push(updateY);
+            P2PMaze.send(updatePos);
+           
+            
+        }
+        else{
+            //  Stand still
+            player.animations.stop();    
+            player.frame = 4;
+        }
+   
+        // if(cursor.up.isDown && player.body.touching.down){
+        if(cursor.up.isDown && hitPlatform){
+            player.body.velocity.y = -250;
+            // If you want increase the height you can see the example index9.html
+        //     player.body.velocity.y = -250; 
+           
+            
+        //     // send to opponent player the height position of player
+        //     var updatePos = [];
+        //     var keyupdating = {"key": "height"};
+        //     var updateX ={"updatePosx":player.x};
+        //     var updateY ={"updatePosy":player.y};
+               
+           
+        //     updatePos.push(keyupdating);
+        //     updatePos.push(updateX);
+        //     updatePos.push(updateY);
+        //    //  updatePos.push(cc);   
+        //    P2PMaze.send(updatePos);
+        }
       
 
      // move the opponent player to specific LEFT position
@@ -280,7 +299,6 @@ P2PMaze.GameMultiplayer.prototype = {
            Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
            Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
         {
-            console.log("QUI NON SI SPOSTA PIU");
             opponentPlayer.animations.stop();
             opponentPlayer.frame = 4;
         }else {
@@ -296,14 +314,11 @@ P2PMaze.GameMultiplayer.prototype = {
         var posx = P2PMaze.dataReceived[1].updatePosx;
         var posy = P2PMaze.dataReceived[2].updatePosy; 
         
-        // console.log("POSIZIONE RICEVUTA: " + Math.floor(posx) + " " +  Math.floor(posy));
-        // console.log("POSIZIONE OPPONENT PLAYER: " + Math.floor(opponentPlayer.x) + " " + Math.floor(opponentPlayer.y) );
         // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
         if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
            Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
            Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
         {
-            console.log("QUI NON SI SPOSTA PIU");
             opponentPlayer.animations.stop();
             opponentPlayer.frame = 4;
         }else {
@@ -313,32 +328,12 @@ P2PMaze.GameMultiplayer.prototype = {
        
      }
 
-     // move the opponent player to specific HEIGHT position
-    if(opponentPlayer!=undefined && P2PMaze.dataReceived[0].key=="height"){         
-        
-        var posx = P2PMaze.dataReceived[1].updatePosx;
-        var posy = P2PMaze.dataReceived[2].updatePosy; 
-        
-        // console.log("POSIZIONE RICEVUTA: " + Math.floor(posx) + " " +  Math.floor(posy));
-        // console.log("POSIZIONE OPPONENT PLAYER: " + Math.floor(opponentPlayer.x) + " " + Math.floor(opponentPlayer.y) );
-        // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
-        if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
-           Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
-           Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
-        {
-            console.log("QUI NON SI SPOSTA PIU");
-            opponentPlayer.animations.stop();
-            opponentPlayer.frame = 4;
-        }else {
-            player.body.velocity.y = -250;
-            this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy));             
-        }              
-     }
+  
+     
+     
 
      
-     if(opponentPlayer!=undefined){
-        this.game.physics.arcade.overlap(opponentPlayer, items, this.collect, this.choiceItems, this);
-     }
+     
 
      // Checks for overlaps between two game objects.
      // - The first object or array of objects to check. 
@@ -350,20 +345,18 @@ P2PMaze.GameMultiplayer.prototype = {
      //     they overlap. If this is set then overlapCallback will only be called if 
      //     this callback returns true
      // - The context in which to run the callbacks.
-     // DECOMMENTARE
      this.game.physics.arcade.overlap(player, items, this.collect, this.choiceItems, this);
      
-    
-     
-        
-       
+     if(opponentPlayer!=undefined){
+        this.game.physics.arcade.overlap(opponentPlayer, items, this.collect, this.choiceItems, this);
+     }
         
     },
     collect: function(player, collectable){
 
         // TODO aggiungere il suono 
-
         console.log("PRESO " + collectable.key);
+       
         // remove sprite
         collectable.destroy();
 
@@ -466,18 +459,4 @@ P2PMaze.GameMultiplayer.prototype = {
         this.game.debug.spriteInfo(member, 32, number);
         space = number + 130;
     }
-    // createFromTiledObject: function(element, group) {
-
-    //     // Creates a new Phaser.Sprite object and adds it to the top of this group.
-    //     // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
-    //     // This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache Image entry, or other. See documentation for more detail.        
-    //     var sprite = group.create(element.x, element.y, element.properties.sprite);
-        
-    //     // TODO - Capire perchè stava messo sto codice
-    //     //copy all properties to the sprite
-    //     // Object.keys(element.properties).forEach(function(key){
-    //     //     sprite[key] = element.properties[key];
-    //     //     // console.log(" --------------> " + sprite[key]);
-    //     // });
-    // }
 };

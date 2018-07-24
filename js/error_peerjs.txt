@@ -1,0 +1,11 @@
+VM2455:300 Uncaught DOMException: Failed to construct 'RTCPeerConnection': Cannot create so many PeerConnections
+    at new WrappedRTCPeerConnection (<anonymous>:300:28)
+    at Object.m._startPeerConnection (http://localhost/SP2P/lib/peer.js:1:33131)
+    at Object.m._getPeerConnection (http://localhost/SP2P/lib/peer.js:1:32849)
+    at Object.m.startConnection (http://localhost/SP2P/lib/peer.js:1:32216)
+    at new d (http://localhost/SP2P/lib/peer.js:1:2579)
+    at p.connect (http://localhost/SP2P/lib/peer.js:1:25072)
+    at PeerClient.conn (http://localhost/SP2P/P2P/PeerClient.js:100:27)
+    at Object.P2PMaze.send (http://localhost/SP2P/js/GameMultiplayer.js:42:29)
+    at P2PMaze.GameMultiplayer.update (http://localhost/SP2P/js/GameMultiplayer.js:236:21)
+    at Phaser.StateManager.update (http://localhost/SP2P/lib/phaser.js:31183:39)

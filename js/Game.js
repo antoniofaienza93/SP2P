@@ -121,7 +121,7 @@ P2PMaze.Game.prototype = {
         if(this.game.input.activePointer.justPressed()){
             // move on the direction of the input 
             this.game.physics.arcade.moveToPointer(player, 150); 
-            player.animations.play('left');
+            // player.animations.play('left');
         }
 
         // if(cursor.up.isDown) {
@@ -145,8 +145,8 @@ P2PMaze.Game.prototype = {
         // if(cursor.up.isDown && player.body.touching.down){
         if(cursor.up.isDown && hitPlatform){
             player.body.velocity.y = -250;  // TODO se si vuole aumentare l'altezza vedere esempio index9.html         
+            
         }
-
         
         // Checks for overlaps between two game objects.
         // - The first object or array of objects to check. 
@@ -159,6 +159,7 @@ P2PMaze.Game.prototype = {
         //     this callback returns true
         // - The context in which to run the callbacks.
         // DECOMMENTARE 
+        // check overlapping between players and items. If the callback from the fourth param is true then, it will call the thirth param 
         this.game.physics.arcade.overlap(player, items, this.collect, this.choiceItems, this);
         
        
@@ -173,6 +174,7 @@ P2PMaze.Game.prototype = {
         collectable.destroy();
 
     },
+    // logic game
     choiceItems: function(player, item){
         
         // TODO delete
