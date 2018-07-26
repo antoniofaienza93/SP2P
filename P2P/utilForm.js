@@ -34,7 +34,8 @@ function formPeerAvailable(form, array, attributeNameItem, callbackChoice){
 }
 
 /**
- * Check if elem checkbox already exist passing the attribute "name". In this case you clear at the first and then recreate checkbox
+ * Check if elem checkbox already exist passing the attribute "name". 
+ * In this case you clear at the first and then recreate checkbox
  * @param {*} attributeNameItem is attribute name
  */
 function deleteCheckboxItem(attributeNameItem){

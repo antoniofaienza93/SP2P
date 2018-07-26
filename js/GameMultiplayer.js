@@ -179,9 +179,6 @@ P2PMaze.GameMultiplayer.prototype = {
 
         //     createdOpponentPlayer=true;
 
-
-            
-
             createdOpponentPlayer=true;
            
         // }

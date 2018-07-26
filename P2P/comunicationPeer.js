@@ -219,7 +219,6 @@ window.onload = function () {
         if (peerSelected === undefined) {
             alert("KEEP ATTENTION: NO PEER SELECTED");
         } else {
-            
             requestConnection(peerSelected)
             // send(peerClient.getId()); 
         }
@@ -234,11 +233,13 @@ window.onload = function () {
         var id = peerClient.getConnectTo().getId();
         peerClient.conn(id);             
         peerClient.openConnection(peerClient.getId());
-
-        
+        console.log(peerClient.getConnection());
     }
     
-    // SEND data between peer 
+    /**
+     * Send data between peer 
+     * @param {data} message the message that will be exchange
+     */
     function send(message) {
         peerClient.send(message);
         console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer );
