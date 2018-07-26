@@ -37,8 +37,6 @@ window.onload = function () {
     var connectionChoice = undefined;
     
     var chat = new Chat();
-
-    
     
     /**
      * Server get-request for generate the random String. When finish it call a callback that create a new Peer 
@@ -59,7 +57,7 @@ window.onload = function () {
      * Callback when receive data
      * @param {*} data are the data received
      */
-    function dataReceived(data) {        
+    function dataReceived(data) {       
         if(peerClient.getConnectTo()==undefined){
             // TODO questo mi sa lo devo cancellare 
             var label = document.createElement('label');
@@ -85,24 +83,11 @@ window.onload = function () {
                     alert("Select if you want to connect of peer " + data);
                 }else if(connectionChoice=="YES"){
                     
-                    peerClient.setConnectTo(data);
-                    
-                    // TODO questa è una chat provvisoria che deve essere messa a posto
-                    chat.sendMessage(chatForm);
-                    chat.onclickButton(sendChatMessage);
-                    deleteCheckboxItem(classItemForm);
-
-                    // the player accept the connection and then it can see the canvas with multiplayer
-                    enableGame();
-                    
-                    // comunication to other peer that the comunication it's accepted
-                    var message = "Invitation accepted";
-                    send(message,peerClient.getConnectTo().getId());
+                    acceptConnection(data);
         
                 }else if(connectionChoice == "NO"){
 
-                    var conn = peerClient.conn(data);
-                    peerClient.closeConnection(conn);
+                    refuseConnection();
 
                     // TODO Cancellare il form               
                 }
@@ -110,8 +95,8 @@ window.onload = function () {
             formConnectionChoice.appendChild(buttonChoice);
         }else {
             
-            if(data=="Invitation accepted"){
-                enableGame();
+            if(data=="INVITATION_ACCEPTED"){
+                // enableGame();
                 chat.sendMessage(chatForm);
                 chat.onclickButton(sendChatMessage);
             }else {
@@ -124,7 +109,36 @@ window.onload = function () {
         
     }
     
+
+    function acceptConnection(peerRequestor){
+
+
+
+        peerClient.setConnectTo(peerRequestor);
+        var id = peerClient.getConnectTo().getId();
+        peerClient.conn(id);             
+        peerClient.openConnection("INVITATION_ACCEPTED");
+        
+                    
+        // TODO questa è una chat provvisoria che deve essere messa a posto
+        chat.sendMessage(chatForm);
+        chat.onclickButton(sendChatMessage);
+        deleteCheckboxItem(classItemForm);
+
+        // the player accept the connection and then it can see the canvas with multiplayer
+        // enableGame();
+        
+        // comunication to other peer that the comunication it's accepted
+        // var message = "INVITATION_ACCEPTED";
+        // send(message);
+    }
     
+
+    function refuseConnection(){
+        peerClient.closeConnection();
+    }
+
+
     /**
      * callback from onclick button message
      * @param {*} message message to send
@@ -132,7 +146,7 @@ window.onload = function () {
     function sendChatMessage(message) {
         var id = peerClient.getConnectTo().getId();
         console.log("MESSAGGIO " + message + " AL PEER " + id );
-        send(message,id);
+        send(message);
     }
     
     /**
@@ -146,7 +160,7 @@ window.onload = function () {
         peerClient = new PeerClient(input + "-" + data, "localhost", 9000, "/peerjs");
     
         // open connection 
-        peerClient.openConnection();
+        // peerClient.open();
     
         // enable reception of data
         peerClient.enableReceptionData(dataReceived);
@@ -174,9 +188,10 @@ window.onload = function () {
     }
     
     
-    // ==============================================================
-    // function that require peer available 
-    // ==============================================================
+    /**
+     * Function that require peer available 
+     * @param {*} peer_a peer available 
+     */
     function returnPeerAvailable(peer_a) {        
     
         // console.log("I peer a disposizione sono: " + peer_a); // DEBUG 
@@ -209,18 +224,30 @@ window.onload = function () {
         if (peerSelected === undefined) {
             alert("KEEP ATTENTION: NO PEER SELECTED");
         } else {
-            peerClient.setConnectTo(peerSelected);
-            var id = peerClient.getConnectTo().getId();
-            send(peerClient.getId(), id); 
+            
+            requestConnection(peerSelected)
+            // send(peerClient.getId()); 
         }
+    }
+
+
+    function requestConnection(peerSelected){
+        peerClient.setConnectTo(peerSelected);
+        var id = peerClient.getConnectTo().getId();
+        peerClient.conn(id);             
+        peerClient.openConnection(peerClient.getId());
     }
     
     // SEND data between peer 
-    function send(message, id_another_peer) {  
-        var conn = peerClient.conn(id_another_peer); 
+    function send(message) {  
+        // var conn = peerClient.conn(id_another_peer); 
         // console.log(conn.peer);
-        peerClient.sendData(conn, message);
-        console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + id_another_peer);
+        // peerClient.openConnection();
+        
+        peerClient.send(message);
+        console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer );
+        // enable reception of data
+        // peerClient.enableReceptionData(dataReceived);
     }
     
     // ===================
