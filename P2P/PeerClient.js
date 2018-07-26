@@ -6,8 +6,6 @@
          * @param {path} pht the app name of the server. It is useful for establish the connection
          */
         class PeerClient {  
-            
-            
 
             constructor(id, h, p, pth){
                 this._id = id;
@@ -24,9 +22,8 @@
                 });
                 
                 this._peer.on('open', function(id_peer) {
-                    console.log('My peer ID is: ' + id_peer); //DEBUG
                     this._id = id_peer;
-                    });
+                });
             }
 
             /**

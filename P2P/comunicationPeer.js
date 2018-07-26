@@ -84,6 +84,13 @@ window.onload = function () {
                 }else if(connectionChoice=="YES"){
                     
                     acceptConnection(data);
+                    // TODO questa è una chat provvisoria che deve essere messa a posto
+                    chat.sendMessage(chatForm);
+                    chat.onclickButton(sendChatMessage);
+                    deleteCheckboxItem(classItemForm);
+
+                    // the player accept the connection and then it can see the canvas with multiplayer
+                    enableGame();
         
                 }else if(connectionChoice == "NO"){
 
@@ -96,13 +103,12 @@ window.onload = function () {
         }else {
             
             if(data=="INVITATION_ACCEPTED"){
-                // enableGame();
+                enableGame();
                 chat.sendMessage(chatForm);
                 chat.onclickButton(sendChatMessage);
             }else {
                 P2PMaze.dataReceived = data;
             }
-            
             // console.log("MESSAGGIO RICEVUTO : " + data);
         }
     
@@ -110,31 +116,22 @@ window.onload = function () {
     }
     
 
+    /**
+     * This is the second point to open a connection. Who accept the connection is considered 
+     * the opponent player
+     * @param {*} peerRequestor 
+     */
     function acceptConnection(peerRequestor){
-
-
-
         peerClient.setConnectTo(peerRequestor);
         var id = peerClient.getConnectTo().getId();
         peerClient.conn(id);             
         peerClient.openConnection("INVITATION_ACCEPTED");
-        
-                    
-        // TODO questa è una chat provvisoria che deve essere messa a posto
-        chat.sendMessage(chatForm);
-        chat.onclickButton(sendChatMessage);
-        deleteCheckboxItem(classItemForm);
-
-        // the player accept the connection and then it can see the canvas with multiplayer
-        // enableGame();
-        
-        // comunication to other peer that the comunication it's accepted
-        // var message = "INVITATION_ACCEPTED";
-        // send(message);
+       
     }
     
 
     function refuseConnection(){
+        // far ritornare la connessione
         peerClient.closeConnection();
     }
 
@@ -159,9 +156,7 @@ window.onload = function () {
         // TODO cambiare i path 
         peerClient = new PeerClient(input + "-" + data, "localhost", 9000, "/peerjs");
     
-        // open connection 
-        // peerClient.open();
-    
+          
         // enable reception of data
         peerClient.enableReceptionData(dataReceived);
 
@@ -230,24 +225,23 @@ window.onload = function () {
         }
     }
 
-
+    /**
+     * this is the firt point that you can establish one connection.
+     * @param {*} peerSelected 
+     */
     function requestConnection(peerSelected){
         peerClient.setConnectTo(peerSelected);
         var id = peerClient.getConnectTo().getId();
         peerClient.conn(id);             
         peerClient.openConnection(peerClient.getId());
+
+        
     }
     
     // SEND data between peer 
-    function send(message) {  
-        // var conn = peerClient.conn(id_another_peer); 
-        // console.log(conn.peer);
-        // peerClient.openConnection();
-        
+    function send(message) {
         peerClient.send(message);
         console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer );
-        // enable reception of data
-        // peerClient.enableReceptionData(dataReceived);
     }
     
     // ===================
