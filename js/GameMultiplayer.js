@@ -13,51 +13,24 @@ var map;
 var backgroudLayer; 
 var blockedLayer;
 var player; 
+var opponentPlayer;
 var toOpponentPlayer = []; 
 var cursor; 
 var items; 
+var dataReceived;
 
 var logicalOrder = {};
 var playerOrder = 1; // the player starts to 1 for compare the item to take 
 
 var createdOpponentPlayer = false;
 
-var opponentPlayer;
 
-var jump = false;
-var hitPlatformO;
-var count = 0;
-var prova; // TODO delete
-
-
-// TODO delete
-P2PMaze.Prova = function(){
-    console.log(P2PMaze.peer);
-    console.log(P2PMaze.peer.getId());
-    console.log(P2PMaze.peer.getConnectTo() + " di tipo " + typeof P2PMaze.peer.getConnectTo());
-    alert("CIAO COME STAI ? ");
-};
-
-P2PMaze.send = function(data){
-     
-    var id = P2PMaze.peer.getConnectTo().getId();
-    var conn = P2PMaze.peer.conn(id);
-    P2PMaze.peer.sendData(conn, data);
-    // console.log("INVIO " + data + " DA " + P2PMaze.peer.getId() + " A " + id);
-    
+// var prova; // TODO delete
+P2PMaze.send = function(data){     
+    P2PMaze.peer.send(data);
+    console.log("INVIO " + data + " DA " + P2PMaze.peer.getId() + " A " + P2PMaze.peer.getConnection().peer);    
 }; 
 
-P2PMaze.receive = function(){
-    // P2PMaze.peer.enableReceptionData(dataReceived, (value) => dataReceived = value);
-    // console.log(P2PMaze.peer);
-    // P2PMaze.peer.enableReceptionData((value) => dataReceived = value);
-    console.log(P2PMaze.dataReceived);
-    // dataReceived;
-};
-
-// P2PMaze.callbackDataReceived = function(data){
-//     console.log(data);
-// };
 
 P2PMaze.GameMultiplayer = function(){
     console.log("%cStarting GameMultiplayer", "color:black; background:yellow");
@@ -81,11 +54,6 @@ P2PMaze.GameMultiplayer.prototype = {
         this.load.image('redcup', 'assets/images/estintore_grande.png');
         this.load.image('greycup', 'assets/images/greencup.png');
         this.load.image('bluecup', 'assets/images/bluecup.png');
-
-
-
-
-
     }, 
     create: function() {
        
@@ -95,9 +63,9 @@ P2PMaze.GameMultiplayer.prototype = {
         // TODO - mettere questo nel Boot
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-       map = this.game.add.tilemap('temp'); 
+        map = this.game.add.tilemap('temp'); 
 
-       map.addTilesetImage('tiles','tempImage');
+        map.addTilesetImage('tiles','tempImage');
 
        // create the layer 
        backgroudLayer = map.createLayer('backgroudLayer');
@@ -122,84 +90,101 @@ P2PMaze.GameMultiplayer.prototype = {
 
        // create the player 
        player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+       opponentPlayer = this.game.add.sprite(result[0].x, result[0].y, 'player');
+
 
        // create the phisics body. Can be a single object (as in this case) or of array of Objects
        this.game.physics.arcade.enable(player);
+       this.game.physics.arcade.enable(opponentPlayer);
+
+
 
        //  Player physics properties. Give the little guy a slight bounce.
         player.body.bounce.y = 0.2;
         player.body.gravity.y = PLAYER.GRAVITY_Y;
         player.body.collideWorldBounds = true;
 
-       // see image: 0, 1, 2, 3 is the frame for runring to left 
-       // see image: 5, 6, 7, 8 is the frame for running to right 
-       // 10 = frames per second 
-       // the 'true' param tell the animation to loop 
-       player.animations.add('left', [0, 1, 2, 3], 10, true);
-       player.animations.add('right', [5, 6, 7, 8], 10, true);
+        opponentPlayer.body.bounce.y = 0.2;
+        opponentPlayer.body.gravity.y = PLAYER.GRAVITY_Y;
+        opponentPlayer.body.collideWorldBounds = true;
+
+        // see image: 0, 1, 2, 3 is the frame for runring to left 
+        // see image: 5, 6, 7, 8 is the frame for running to right 
+        // 10 = frames per second 
+        // the 'true' param tell the animation to loop 
+        player.animations.add('left', [0, 1, 2, 3], 10, true);
+        player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+        opponentPlayer.animations.add('left', [0, 1, 2, 3], 10, true);
+        opponentPlayer.animations.add('right', [5, 6, 7, 8], 10, true);
+
 
       
 
        //the camera will follow the player in the world
-       this.game.camera.follow(player); // TODO forse questo non serve
+       this.game.camera.follow(player);
+   
 
-       var keyPlayer = {"key": P2PMaze.peer.getId()};
-       var posx ={"posx":player.position.x};
-       var posy = {"posy":player.position.y}
-       var key = {"Key":player.key};       
+
+    //    var keyPlayer = {"key": P2PMaze.peer.getId()};
+    //    var posx ={"posx":player.position.x};
+    //    var posy = {"posy":player.position.y}
+    //    var key = {"Key":player.key};       
        
-        toOpponentPlayer.push(keyPlayer);
-        toOpponentPlayer.push(posx);
-        toOpponentPlayer.push(posy);
-        toOpponentPlayer.push(key);
-        P2PMaze.send(toOpponentPlayer);
+    //     toOpponentPlayer.push(keyPlayer);
+    //     toOpponentPlayer.push(posx);
+    //     toOpponentPlayer.push(posy);
+    //     toOpponentPlayer.push(key);
+    //     P2PMaze.send(toOpponentPlayer);
         // prova = document.getElementById("prova");
         // prova.onclick = function () {  P2PMaze.send(opponentPlayer); P2PMaze.receive() };
 
-       // move player with cursor key 
-       cursor = this.game.input.keyboard.createCursorKeys();
-              
+       // move player with cursor key
+       cursor = this.game.input.keyboard.createCursorKeys(); 
     },
     update: function(){
 
+        P2PMaze.peer.enableReceptionData((value) => dataReceived = value);
+        // console.log(dataReceived);
         // creation opponent player
-        if(P2PMaze.dataReceived!=undefined && createdOpponentPlayer==false){
 
-            opponentPlayer = this.game.add.sprite(P2PMaze.dataReceived[1].posx, P2PMaze.dataReceived[2].posy, 'player');
+        // if(P2PMaze.dataReceived!=undefined && createdOpponentPlayer==false){
 
-            // create the phisics body. Can be a single object (as in this case) or of array of Objects
-            this.game.physics.arcade.enable(opponentPlayer);
+
+        //     opponentPlayer = this.game.add.sprite(P2PMaze.dataReceived[1].posx+10, P2PMaze.dataReceived[2].posy, 'player');
+
+        //     // create the phisics body. Can be a single object (as in this case) or of array of Objects
+        //     this.game.physics.arcade.enable(opponentPlayer);
      
-            //  Player physics properties. Give the little guy a slight bounce.
-            opponentPlayer.body.bounce.y = 0.2;
-            opponentPlayer.body.gravity.y = PLAYER.GRAVITY_Y;
-            opponentPlayer.body.collideWorldBounds = true;
+        //     //  Player physics properties. Give the little guy a slight bounce.
+        //     opponentPlayer.body.bounce.y = 0.2;
+        //     opponentPlayer.body.gravity.y = PLAYER.GRAVITY_Y;
+        //     opponentPlayer.body.collideWorldBounds = true;
      
-            // see image: 0, 1, 2, 3 is the frame for runring to left 
-            // see image: 5, 6, 7, 8 is the frame for running to right 
-            // 10 = frames per second 
-            // the 'true' param tell the animation to loop 
-            opponentPlayer.animations.add('left', [0, 1, 2, 3], 10, true);
-            opponentPlayer.animations.add('right', [5, 6, 7, 8], 10, true);
+        //     // see image: 0, 1, 2, 3 is the frame for runring to left 
+        //     // see image: 5, 6, 7, 8 is the frame for running to right 
+        //     // 10 = frames per second 
+        //     // the 'true' param tell the animation to loop 
+        //     opponentPlayer.animations.add('left', [0, 1, 2, 3], 10, true);
+        //     opponentPlayer.animations.add('right', [5, 6, 7, 8], 10, true);
      
-            // TODO deve esse qualcosa nell'update
+        //     // TODO deve esse qualcosa nell'update
      
-            //the camera will follow the player in the world
-            this.game.camera.follow(opponentPlayer); // TODO forse questo non serve
+        //     //the camera will follow the player in the world
+        //     this.game.camera.follow(opponentPlayer); // TODO forse questo non serve
 
 
-            // cursor = this.game.input.keyboard.createCursorKeys();
+        //     // cursor = this.game.input.keyboard.createCursorKeys();
 
-            
 
-            // the opponent player start to 4 frame
-            opponentPlayer.frame = 4;
+        //     createdOpponentPlayer=true;
+
 
             
 
             createdOpponentPlayer=true;
            
-        }
+        // }
 
      // collisio to do 
      // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
@@ -223,114 +208,144 @@ P2PMaze.GameMultiplayer.prototype = {
      if(this.game.input.activePointer.justPressed()){
          // move on the direction of the input 
          this.game.physics.arcade.moveToPointer(player, 150); 
-        //  player.animations.play('left');
      }
 
-        var updatePos = [];
-        if(cursor.left.isDown){
-            player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;         
-            player.animations.play('left');
-   
-            // send to opponent player the left position of player
-            
-           
-                var keyupdating = {"key": "left"};
-                var updateX ={"updatePosx":player.x};
-                var updateY ={"updatePosy":player.y}; // TODO secondo me questo può essere tolto e posto solo in altezza 
-                updatePos.push(keyupdating);
-                updatePos.push(updateX);
-                updatePos.push(updateY);
-                P2PMaze.send(updatePos);
-            
-            
-            
-        }else if(cursor.right.isDown){
-            player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
-            player.animations.play('right');
-   
-            // send to opponent player the right position of player
-          
-            var keyupdating = {"key": "right"};
-            var updateX ={"updatePosx":player.x};
-            var updateY ={"updatePosy":player.y}; 
-            updatePos.push(keyupdating);
-            updatePos.push(updateX);
-            updatePos.push(updateY);
-            P2PMaze.send(updatePos);
-           
-            
-        }
-        else{
-            //  Stand still
-            player.animations.stop();    
-            player.frame = 4;
-        }
-   
-        // if(cursor.up.isDown && player.body.touching.down){
-        if(cursor.up.isDown && hitPlatform){
-            player.body.velocity.y = -250;
-            // If you want increase the height you can see the example index9.html
-        //     player.body.velocity.y = -250; 
-           
-            
-        //     // send to opponent player the height position of player
-        //     var updatePos = [];
-        //     var keyupdating = {"key": "height"};
-        //     var updateX ={"updatePosx":player.x};
-        //     var updateY ={"updatePosy":player.y};
-               
-           
-        //     updatePos.push(keyupdating);
-        //     updatePos.push(updateX);
-        //     updatePos.push(updateY);
-        //    //  updatePos.push(cc);   
-        //    P2PMaze.send(updatePos);
-        }
-      
+     
+      if(cursor.left.isDown){
+         player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;         
+         player.animations.play('left');
 
-     // move the opponent player to specific LEFT position
-     if(opponentPlayer!=undefined && P2PMaze.dataReceived[0].key=="left"){       
-        
-        var posx = P2PMaze.dataReceived[1].updatePosx;
-        var posy = P2PMaze.dataReceived[2].updatePosy; 
-        
-        // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
-        if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
-           Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
-           Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
-        {
-            opponentPlayer.animations.stop();
-            opponentPlayer.frame = 4;
-        }else {
-            this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy)); 
-            opponentPlayer.animations.play('left');
-        }        
-       
+         // send to opponent player the left position of player
+         var updatePos = [];
+         var keyupdating = {"key": "left"};
+         var updateX ={"updatePosx":player.x};
+         var updateY ={"updatePosy":player.y}; // TODO secondo me questo può essere tolto e posto solo in altezza 
+         updatePos.push(keyupdating);
+         updatePos.push(updateX);
+         updatePos.push(updateY);
+         P2PMaze.send(updatePos);
+         
+     }else if(cursor.right.isDown){
+         player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
+         player.animations.play('right');
+
+         // send to opponent player the right position of player
+         var updatePos = [];
+         var keyupdating = {"key": "right"};
+         var updateX ={"updatePosx":player.x};
+         var updateY ={"updatePosy":player.y}; 
+         updatePos.push(keyupdating);
+         updatePos.push(updateX);
+         updatePos.push(updateY);
+         P2PMaze.send(updatePos);
+     }
+     else{
+         //  Stand still
+         player.animations.stop();    
+         player.frame = 4;
      }
 
-     // move the opponent player to specific RIGHT position
-     if(opponentPlayer!=undefined && P2PMaze.dataReceived[0].key=="right"){         
-        
-        var posx = P2PMaze.dataReceived[1].updatePosx;
-        var posy = P2PMaze.dataReceived[2].updatePosy; 
-        
-        // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
-        if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
-           Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
-           Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
-        {
-            opponentPlayer.animations.stop();
-            opponentPlayer.frame = 4;
-        }else {
-            this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy)); 
-            opponentPlayer.animations.play('right');
-        }        
-       
+     // if(cursor.up.isDown && player.body.touching.down){
+     if(cursor.up.isDown && hitPlatform){
+         // If you want increase the height you can see the example index9.html
+         player.body.velocity.y = -250; 
+         
+         // send to opponent player the height position of player
+         var updatePos = [];
+         var keyupdating = {"key": "height"};
+         var updateX ={"updatePosx":player.position.x};
+         var updateY ={"updatePosy":player.position.y}; 
+         updatePos.push(keyupdating);
+         updatePos.push(updateX);
+         updatePos.push(updateY);
+         P2PMaze.send(updatePos);
      }
 
   
-     
-     
+
+
+     // move the opponent player to specific RIGHT position
+     if(opponentPlayer!=undefined && P2PMaze.dataReceived!=undefined ){         
+        
+
+        if(P2PMaze.dataReceived[0].key=="left"){
+            var posx = P2PMaze.dataReceived[1].updatePosx;
+            var posy = P2PMaze.dataReceived[2].updatePosy; 
+            
+            // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
+            if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
+            Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
+            Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
+            {
+                opponentPlayer.animations.stop();
+                opponentPlayer.frame = 4;
+            }else {
+                this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy)); 
+                opponentPlayer.animations.play('left');
+            }   
+        }
+        else if(P2PMaze.dataReceived[0].key=="right"){
+            var posx = P2PMaze.dataReceived[1].updatePosx;
+            var posy = P2PMaze.dataReceived[2].updatePosy; 
+            
+          
+            if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
+               Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
+               Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
+            {
+                
+                opponentPlayer.animations.stop();
+                opponentPlayer.frame = 4;
+            }else {
+                this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy)); 
+                opponentPlayer.animations.play('right');
+            }       
+        }else {
+                        
+            var posx = P2PMaze.dataReceived[1].updatePosx;
+            var posy = P2PMaze.dataReceived[2].updatePosy; 
+            
+            // console.log("POSIZIONE RICEVUTA: " + Math.floor(posx) + " " +  Math.floor(posy));
+            // console.log("POSIZIONE OPPONENT PLAYER: " + Math.floor(opponentPlayer.x) + " " + Math.floor(opponentPlayer.y) );
+            // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
+            if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
+            Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
+            Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
+            {
+                
+                opponentPlayer.animations.stop();
+                opponentPlayer.frame = 4;
+            }else {
+                opponentPlayer.body.velocity.y = -250;
+                this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy));             
+            }      
+        }
+        
+       
+     }
+
+     // move the opponent player to specific HEIGHT position
+    // if(opponentPlayer!=undefined && P2PMaze.dataReceived!=undefined){         
+        
+    //     var posx = P2PMaze.dataReceived[1].updatePosx;
+    //     var posy = P2PMaze.dataReceived[2].updatePosy; 
+        
+    //     // console.log("POSIZIONE RICEVUTA: " + Math.floor(posx) + " " +  Math.floor(posy));
+    //     // console.log("POSIZIONE OPPONENT PLAYER: " + Math.floor(opponentPlayer.x) + " " + Math.floor(opponentPlayer.y) );
+    //     // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
+    //     if(Math.floor(opponentPlayer.x) === Math.floor(posx) || 
+    //        Math.floor(opponentPlayer.x) === (Math.floor(posx) +1) ||
+    //        Math.floor(opponentPlayer.x) === (Math.floor(posx) -1)) 
+    //     {
+    //         console.log("QUI NON SI SPOSTA PIU");
+    //         opponentPlayer.animations.stop();
+    //         opponentPlayer.frame = 4;
+    //     }else {
+    //         player.body.velocity.y = -250;
+    //         this.game.physics.arcade.moveToXY(opponentPlayer,Math.floor(posx),Math.floor(posy));             
+    //     }              
+    //  }
+
 
      
      
