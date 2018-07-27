@@ -2,6 +2,16 @@
 
 # Per vedere la pagina WEB : https://antoniofaienza93.github.io/SP2P/ 
 
+# Install Peer Server 
+npm install peer
+
+# Install Peer Server 
+npm install express --save
+
+# Install Random String
+npm install randomstring
+
+
 # TODO 
 
 - VEDERE LA GRANDEZZA DEI PERSONAGGI 
@@ -21,14 +31,3 @@
 - https://github.com/adelciotto/multiplayer-mario
 
 - vedere GRUNT 
-
-# Install Peer Server 
-npm install peer
-
-# Install Peer Server 
-npm install express --save
-
-# Install Random String
-npm install randomstring
-
-
