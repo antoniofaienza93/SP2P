@@ -1,9 +1,13 @@
 /**
+ * ===========================================================================
+ * File: PeerClient.js 
+ * Author: Antonio Faienza
  * Class that create a peer. The param are: 
  * @param {string} id the id of my peer
  * @param {string} host the path of server
  * @param {int} port the number of port
  * @param {path} pht the app name of the server. It is useful for establish the connection
+ * ===========================================================================
  */
 class PeerClient {
 

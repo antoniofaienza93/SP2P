@@ -1,6 +1,11 @@
-
-// per fare il deploy: https://zeit.co/now alternativa ad Heroku 
-// https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
+/**
+ * ===========================================================================
+ * File: PeerServerExpress.js 
+ * Author: Antonio Faienza
+ * TODO: make deploy: https://zeit.co/now or Heroku 
+ * ERROR: https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
+ * ===========================================================================
+ */
 var express = require('express');
 var app = express();
 var ExpressPeerServer = require('peer').ExpressPeerServer;
