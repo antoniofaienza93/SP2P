@@ -1,5 +1,10 @@
 /**
- * TODO Quando si fa refresh bisogn fare destroyed con il server
+ * ===========================================================================
+ * File: managePeerCommunication.js 
+ * Author: Antonio Faienza
+ * This file handle the comunication between two peer
+ * TODO When the page would refresh, remember to destrou the comunication
+ * ===========================================================================
  */
 window.onload = function () {
     document.getElementById("connect").onclick = function () { clickConnect() };
