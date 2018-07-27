@@ -12,7 +12,7 @@
  /**
   * Background color
   */
-var BACKGROUND_COLOR = "#4488AA";
+
 
 /**
  * Width and heiht of screen 
@@ -34,21 +34,39 @@ const PLAYER = {
     VELOCITY_X_LEFT: -150
 };
 
+/**
+ * Global variable for server
+ */
 const PEER_SERVER = {
     ENROLLMENT: "http://localhost:9000",
     PEER_AVAILABLES: "http://localhost:9000/available-peer/"
     
 }
 
+/**
+ * Global variable for client
+ */
 const PEER_CLIENT = {
     HOST: "localhost",
     PORT: 9000,
     PATH: "/peerjs"
 }
 
+/**
+ * Message log
+ */
 const COMMUNICATION = {
     PEER_AVAILABILITY: "NO PEER AVAILABLE",
     PEER_SELECTION: "KEEP ATTENTION: NO PEER SELECTED",
     PEER_SELECTED: "Select if you want to connect of peer "
 }
 
+/**
+ * Game 
+ */
+const GAME = {
+    BACKGROUND_COLOR: "#4488AA",
+    TITLE: "P2PMaze",
+    PLAY: "PLAY",
+    MULTIPLAYER: "MULTIPLAYER"
+}

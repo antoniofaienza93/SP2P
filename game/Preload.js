@@ -42,8 +42,8 @@
             logo.anchor.setTo(0.5);
 
 
-            // TITOLO 
-            name_project = this.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'desyrel', 'P2PMaze', 64); // default 400  - 270
+            // TITLE 
+            name_project = this.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'desyrel', GAME.TITLE, 64); // default 400  - 270
             name_project.anchor.x = 0.5;
 
             
@@ -51,8 +51,6 @@
             button.scale.setTo(0.3,0.3);
             button.onInputOver.add(this.over, this);
             button.onInputOut.add(this.out, this);
-            
-
             
         }, 
         over: function() {

@@ -45,7 +45,7 @@
 
        
         // background color 
-        this.game.stage.backgroundColor = BACKGROUND_COLOR; // 
+        this.game.stage.backgroundColor = GAME.BACKGROUND_COLOR; // 
         
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         // this.scale.minWidth = 240;

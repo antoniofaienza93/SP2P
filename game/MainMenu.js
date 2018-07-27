@@ -22,7 +22,7 @@ P2PMaze.MainMenu.prototype = {
         // https://phaser.io/examples/v2/text/text-events
         var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
         
-        var text = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "PLAY", style);
+        var text = this.game.add.text(this.game.world.centerX, this.game.world.centerY, GAME.PLAY, style);
 
         text.anchor.set(0.5);
 
@@ -31,7 +31,7 @@ P2PMaze.MainMenu.prototype = {
         text.events.onInputDown.add(this.singleplayer, this);
 
 
-        var text2 = this.add.text(this.game.world.centerX, this.world.centerY+60, "MULTIPLAYER", style);
+        var text2 = this.add.text(this.game.world.centerX, this.world.centerY+60, GAME.MULTIPLAYER, style);
 
         text2.anchor.set(0.5);
 
@@ -64,7 +64,6 @@ P2PMaze.MainMenu.prototype = {
         
     },
     setting: function() {
-
         console.log("Adesso spieghimao come si gioca");
     }
 };
