@@ -57,8 +57,9 @@ window.onload = function () {
      * Callback when receive data
      * @param {*} data are the data received
      */
-    function dataReceived(data) {       
-        if(peerClient.getConnectTo()==undefined){
+    function dataReceived(data) {     
+
+        if(peerClient.getConnection()==undefined){
             // TODO questo mi sa lo devo cancellare 
             var label = document.createElement('label');
             label.setAttribute("name", "request_connection_label");
@@ -109,7 +110,7 @@ window.onload = function () {
             }else {
                 P2PMaze.dataReceived = data;
             }
-            // console.log("MESSAGGIO RICEVUTO : " + data);
+           
         }
     
         
@@ -122,9 +123,7 @@ window.onload = function () {
      * @param {*} peerRequestor 
      */
     function acceptConnection(peerRequestor){
-        peerClient.setConnectTo(peerRequestor);
-        var id = peerClient.getConnectTo().getId();
-        peerClient.conn(id);             
+        peerClient.conn(peerRequestor);             
         peerClient.openConnection("INVITATION_ACCEPTED");
        
     }
@@ -141,7 +140,7 @@ window.onload = function () {
      * @param {*} message message to send
      */
     function sendChatMessage(message) {
-        var id = peerClient.getConnectTo().getId();
+        var id = peerClient.getConnection().peer;
         console.log("MESSAGGIO " + message + " AL PEER " + id );
         send(message);
     }
@@ -229,11 +228,8 @@ window.onload = function () {
      * @param {*} peerSelected 
      */
     function requestConnection(peerSelected){
-        peerClient.setConnectTo(peerSelected);
-        var id = peerClient.getConnectTo().getId();
-        peerClient.conn(id);             
+        peerClient.conn(peerSelected);             
         peerClient.openConnection(peerClient.getId());
-        console.log(peerClient.getConnection());
     }
     
     /**
