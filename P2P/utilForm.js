@@ -8,12 +8,12 @@
  * @param {*} attributeNameItem is the name of all item of form
  * @param {*} callbackChoice is the callback
  */
-function formPeerAvailable(form, array, attributeNameItem, callbackChoice){
+function formPeerAvailable(form, array, attributeNameItem, callbackChoice) {
     var choice = undefined;
 
     // Clear Item if exist
     deleteCheckboxItem(attributeNameItem);
-    
+
 
     for (i = 0; i < array.length; i++) {
         addCheckBoxItem(form, array[i].key, attributeNameItem, choice, (value) => choice = value);
@@ -26,10 +26,10 @@ function formPeerAvailable(form, array, attributeNameItem, callbackChoice){
     buttonChoice.setAttribute("name", attributeNameItem);
     buttonChoice.setAttribute("type", "button");
     buttonChoice.setAttribute("value", "Choice Peer to Connect");
-    buttonChoice.onclick = function(){
+    buttonChoice.onclick = function () {
         callbackChoice(choice);
     };
-    
+
     form.appendChild(buttonChoice);
 }
 
@@ -38,7 +38,7 @@ function formPeerAvailable(form, array, attributeNameItem, callbackChoice){
  * In this case you clear at the first and then recreate checkbox
  * @param {*} attributeNameItem is attribute name
  */
-function deleteCheckboxItem(attributeNameItem){
+function deleteCheckboxItem(attributeNameItem) {
     if (document.getElementsByName(attributeNameItem).length > 0) {
         var element = document.getElementsByName(attributeNameItem), index;
 
@@ -47,14 +47,14 @@ function deleteCheckboxItem(attributeNameItem){
         }
     }
 }
- /**
- * Add checkbox specifing the sequent param: 
- * @param {*} form 
- * @param {*} value 
- * @param {*} nameItemCheckbox 
- * @param {*} returnChoice 
- * @param {*} callback 
- */
+/**
+* Add checkbox specifing the sequent param: 
+* @param {*} form 
+* @param {*} value 
+* @param {*} nameItemCheckbox 
+* @param {*} returnChoice 
+* @param {*} callback 
+*/
 function addCheckBoxItem(form, value, nameItemCheckbox, returnChoice, callback) {
 
     // https://stackoverflow.com/questions/17758773/trouble-adding-checkboxes-to-html-div-using-js

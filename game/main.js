@@ -11,18 +11,18 @@
 
 var config = {
     type: Phaser.AUTO,  // rendering. Automatic choise between PHASER.WEBGL or PHASER.CANVAS
-    width:  SCREEN_SIZE.WIDTH,        // View Pixel Tile Map i.e. if width is 20 cells x 16 pixel = 704. IT'S CONTAINED INSIDE GAME CONTAINER 
+    width: SCREEN_SIZE.WIDTH,        // View Pixel Tile Map i.e. if width is 20 cells x 16 pixel = 704. IT'S CONTAINED INSIDE GAME CONTAINER 
     height: SCREEN_SIZE.HEIGHT,         // as width 
-                        // the other @param are optional - https://phaser.io/docs/2.4.4/Phaser.Game.html
+    // the other @param are optional - https://phaser.io/docs/2.4.4/Phaser.Game.html
     parent: 'P2PMaze'
-    
-    
-    
+
+
+
 };
 
 // namespace for avoid conflicts with other library
 // Means that if the object exists already, we’ll use it. Otherwise we’ll use a new object.
-var P2PMaze =  P2PMaze || {};
+var P2PMaze = P2PMaze || {};
 
 P2PMaze.game = new Phaser.Game(config);
 

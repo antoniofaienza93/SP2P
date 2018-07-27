@@ -7,23 +7,23 @@
  */
 
 
- var P2PMaze = P2PMaze || {};
+var P2PMaze = P2PMaze || {};
 
 
 
- // is the function that is called from state inside main.js
- P2PMaze.Boot = function(){
+// is the function that is called from state inside main.js
+P2PMaze.Boot = function () {
     console.log("%cStarting Boot State", "color:white; background:red");
- };
+};
 
 
- //setting game configuration and loading the assets for the PreloadState
- P2PMaze.Boot.prototype = {
+//setting game configuration and loading the assets for the PreloadState
+P2PMaze.Boot.prototype = {
 
-     /*
-     * assets we'll use in the Preloading Screen
-     */
-     preload: function() {
+    /*
+    * assets we'll use in the Preloading Screen
+    */
+    preload: function () {
 
         // this.load.image('logo', 'assets/images/zenvalogo.png');
         this.load.image('logoPhaser', 'assets/images/phaser.png');
@@ -32,21 +32,21 @@
         this.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
         // Preloader Bar - TODO Da Cambiare forse
-        this.load.image('preloadbar', 'assets/images/preloader-bar.png'); 
+        this.load.image('preloadbar', 'assets/images/preloader-bar.png');
 
         // load Button Play -  https://www.iconfinder.com/icons/3049265/audio_button_control_multimedia_play_video_icon 
         this.load.spritesheet('button_play', 'assets/buttons/play_button.png');
 
-        
-        
-            
-     }, 
-     create: function() {
 
-       
+
+
+    },
+    create: function () {
+
+
         // background color 
         this.game.stage.backgroundColor = GAME.BACKGROUND_COLOR; // 
-        
+
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         // this.scale.minWidth = 240;
         // this.scale.minHeight = 170;
@@ -57,10 +57,10 @@
 
 
         //have the game centered horizontally
-        this.scale.pageAlignHorizontaly = true; 
+        this.scale.pageAlignHorizontaly = true;
 
         this.state.start('Preload');
-        
-        
-     }
- };
+
+
+    }
+};

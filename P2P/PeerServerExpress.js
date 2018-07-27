@@ -19,16 +19,16 @@ var server = require('http').createServer(app);
 var peerserver = ExpressPeerServer(server, options);
 
 // At first the peer are @undefined 
- var peer_available = [];
+var peer_available = [];
 
 
 // ========================================
 // Create Random String and send to client
 // ========================================
-app.get('/', function(res, res, next) { 
-	
+app.get('/', function (res, res, next) {
 
-	// Website you wish to allow to connect
+
+    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
@@ -42,17 +42,17 @@ app.get('/', function(res, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     r = randomstring.generate(7);
-	res.send(r); 
+    res.send(r);
 
     // Pass to next layer of middleware
     next();
-	
+
 });
 
 // the server send to client the peer available (even himself)
-app.get('/available-peer', function(req, res, next) { 	
+app.get('/available-peer', function (req, res, next) {
 
-	//Website you wish to allow to connect
+    //Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
@@ -67,16 +67,16 @@ app.get('/available-peer', function(req, res, next) {
 
     res.setHeader('Content-Type', 'application/json');
 
-   
+
     // console.log(peer_available.toString()); // DEBUG
     res.send(JSON.stringify(peer_available));
     // Pass to next layer of middleware
     next();
-	
+
 });
 
-function increasePlayer(id){
-    var user ={'key': id};
+function increasePlayer(id) {
+    var user = { 'key': id };
     peer_available.push(user);
     console.log(peer_available); // DEBUG 
 }
@@ -87,31 +87,31 @@ function decreasePlayer(id) {
     // console.log(obj); // DEBUG
 
     // Remove objects from array when user disconnect 
-    peer_available.splice(obj, 1); 
-       
+    peer_available.splice(obj, 1);
+
     console.log(peer_available); // DEBUG 
 }
 
 app.use('/peerjs', peerserver);
 
-server.listen(9000, function(){
-	console.log("Example app listening on port 9000");
+server.listen(9000, function () {
+    console.log("Example app listening on port 9000");
 });
 
 
 
 function addPeerAvailable(callback) {
     // The 'connection' event is emitted when a peer connects to the server.
-    peerserver.on('connection', function(id) {    
+    peerserver.on('connection', function (id) {
         // console.log("SERVER - ID_User: " + id);
         callback(id);
     });
 }
 
 
-function disconnectPeer(callback){
+function disconnectPeer(callback) {
     // The 'disconnect' event is emitted when a peer disconnects from the server or when the peer can no longer be reached.
-    peerserver.on('disconnect', function(id){
+    peerserver.on('disconnect', function (id) {
         console.log("Disconnessione utente " + id);
         callback(id);
     });
