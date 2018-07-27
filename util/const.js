@@ -65,7 +65,7 @@ const COMMUNICATION = {
  * Game field
  */
 const GAME = {
-    BACKGROUND_COLOR: "#4488AA",
+    BACKGROUND_COLOR: "#0c0c0c",
     TITLE: "P2PMaze",
     PLAY: "PLAY",
     MULTIPLAYER: "MULTIPLAYER"
