@@ -37,7 +37,7 @@ window.onload = function () {
     var chatForm = document.getElementById("chat");
 
     // var see_chat_message = document.getElementById("seeChatMessage");
-
+    var error;
 
     var connectionChoice = undefined;
 
@@ -159,11 +159,14 @@ window.onload = function () {
 
         peerClient = new PeerClient(input + "-" + data, PEER_CLIENT.HOST, PEER_CLIENT.PORT, PEER_CLIENT.PATH);
 
-
         // enable reception of data
         peerClient.enableReceptionData(dataReceived);
 
-        console.log(peerClient.seeError());
+        error = peerClient.seeError();
+        if(error!=undefined){
+            alert(error);
+        }
+        
 
         // add username
         var user = document.createElement('label');

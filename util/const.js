@@ -62,7 +62,7 @@ const COMMUNICATION = {
 }
 
 /**
- * Game 
+ * Game field
  */
 const GAME = {
     BACKGROUND_COLOR: "#4488AA",
@@ -71,6 +71,9 @@ const GAME = {
     MULTIPLAYER: "MULTIPLAYER"
 }
 
+/**
+ * Form field
+ */
 const FORM = {
     CHOICE_PEER: "Choice Peer to Connect"
 }
