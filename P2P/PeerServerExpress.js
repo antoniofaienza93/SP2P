@@ -92,12 +92,6 @@ function decreasePlayer(id) {
     console.log(peer_available); // DEBUG 
 }
 
-
-
-
-
-
-
 app.use('/peerjs', peerserver);
 
 server.listen(9000, function(){

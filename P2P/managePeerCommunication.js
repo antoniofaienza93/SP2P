@@ -47,7 +47,7 @@ window.onload = function () {
      * Server get-request for generate the random String. When finish it call a callback that create a new Peer 
      */
     function clickConnect() {
-        httpGetAsync("http://localhost:9000", createPeerClient);
+        httpGetAsync(PEER_SERVER.ENROLLMENT, createPeerClient);
     }
     
     /**
@@ -55,7 +55,7 @@ window.onload = function () {
      * in a form all peer end exclude my personal peer 
      */
     function seeAvailablePeer() {
-        httpGetAsync("http://localhost:9000/available-peer/", returnPeerAvailable);
+        httpGetAsync(PEER_SERVER.PEER_AVAILABLES, returnPeerAvailable);
     }
      
     /**
@@ -86,7 +86,7 @@ window.onload = function () {
             buttonChoice.setAttribute("value", "Choice Peer to Connect");
             buttonChoice.onclick = function () {
                 if(connectionChoice==undefined){
-                    alert("Select if you want to connect of peer " + data);
+                    alert(COMMUNICATION.PEER_SELECTED + data);
                 }else if(connectionChoice=="YES"){
                     
                     acceptConnection(data);
@@ -156,15 +156,14 @@ window.onload = function () {
     function createPeerClient(data) {
         // console.log("STRINGA GENERATA: " + data); // DEBUG
         var input = document.getElementById("username-choice").value;
-    
-        // TODO cambiare i path 
-        peerClient = new PeerClient(input + "-" + data, "localhost", 9000, "/peerjs");
+     
+        peerClient = new PeerClient(input + "-" + data, PEER_CLIENT.HOST, PEER_CLIENT.PORT, PEER_CLIENT.PATH);
     
           
         // enable reception of data
         peerClient.enableReceptionData(dataReceived);
 
-        // peerClient.seeError();
+        console.log(peerClient.seeError());
     
         // add username
         var user = document.createElement('label');
@@ -210,7 +209,7 @@ window.onload = function () {
         if (peer_available.length > 0) {
             formPeerAvailable(form_peer_available, peer_available, form_peer_available_class, peerSelected);
         } else {
-            alert("NO PEER AVAILABLE"); // TODO metterle per bene
+            alert(COMMUNICATION.PEER_AVAILABILITY); 
         }
     
     }
@@ -221,7 +220,7 @@ window.onload = function () {
      */
     function peerSelected(peerSelected){
         if (peerSelected === undefined) {
-            alert("KEEP ATTENTION: NO PEER SELECTED");
+            alert(COMMUNICATION.PEER_SELECTION);
         } else {
             requestConnection(peerSelected)
             // send(peerClient.getId()); 

@@ -34,3 +34,21 @@ const PLAYER = {
     VELOCITY_X_LEFT: -150
 };
 
+const PEER_SERVER = {
+    ENROLLMENT: "http://localhost:9000",
+    PEER_AVAILABLES: "http://localhost:9000/available-peer/"
+    
+}
+
+const PEER_CLIENT = {
+    HOST: "localhost",
+    PORT: 9000,
+    PATH: "/peerjs"
+}
+
+const COMMUNICATION = {
+    PEER_AVAILABILITY: "NO PEER AVAILABLE",
+    PEER_SELECTION: "KEEP ATTENTION: NO PEER SELECTED",
+    PEER_SELECTED: "Select if you want to connect of peer "
+}
+
