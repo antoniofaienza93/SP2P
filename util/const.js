@@ -58,7 +58,7 @@ const PEER_CLIENT = {
 const COMMUNICATION = {
     PEER_AVAILABILITY: "NO PEER AVAILABLE",
     PEER_SELECTION: "KEEP ATTENTION: NO PEER SELECTED",
-    PEER_SELECTED: "Select if you want to connect of peer "
+    PEER_SELECTED: "WARNING: Select YES or NO if you want (or not) to connect of peer "
 }
 
 /**
@@ -69,4 +69,8 @@ const GAME = {
     TITLE: "P2PMaze",
     PLAY: "PLAY",
     MULTIPLAYER: "MULTIPLAYER"
+}
+
+const FORM = {
+    CHOICE_PEER: "Choice Peer to Connect"
 }

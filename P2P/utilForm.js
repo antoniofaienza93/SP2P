@@ -1,4 +1,32 @@
-// this file is create for create all html fields and recall inside index.js
+/**
+ * ===========================================================================
+ * File: utilForm.js 
+ * Author: Antonio Faienza
+ * This file is create for create all html fields and recall inside index.js
+ * TODO: 
+ * ===========================================================================
+ */
+
+
+/**
+ * This function create the button and return the callback of click choice
+ * @param {*} cls is class of button
+ * @param {*} name is the name assign to button
+ * @param {*} value is the value of button
+ * @param {*} callbackChoice is the callback ??
+ */
+function createButton(cls, name, value, data,callback) {
+    var button = document.createElement("input");
+    button.setAttribute("type", "button");
+    button.setAttribute("class", cls);
+    button.setAttribute("name", name);
+    button.setAttribute("value", value);
+    button.onclick = function () {
+        callback(data);
+    };
+
+    return button;
+}
 
 
 /**
@@ -8,7 +36,7 @@
  * @param {*} attributeNameItem is the name of all item of form
  * @param {*} callbackChoice is the callback
  */
-function formPeerAvailable(form, array, attributeNameItem, callbackChoice) {
+function formPeerAvailable(form, array, attributeNameItem, value ,callbackChoice) {
     var choice = undefined;
 
     // Clear Item if exist
@@ -25,7 +53,7 @@ function formPeerAvailable(form, array, attributeNameItem, callbackChoice) {
     buttonChoice.setAttribute("class", "button");
     buttonChoice.setAttribute("name", attributeNameItem);
     buttonChoice.setAttribute("type", "button");
-    buttonChoice.setAttribute("value", "Choice Peer to Connect");
+    buttonChoice.setAttribute("value", value);
     buttonChoice.onclick = function () {
         callbackChoice(choice);
     };

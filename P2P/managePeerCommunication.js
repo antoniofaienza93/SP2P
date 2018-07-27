@@ -75,36 +75,10 @@ window.onload = function () {
             var decideToConnect = ["YES", "NO"];
             for (var i = 0; i < decideToConnect.length; i++) {
                 addCheckBoxItem(formConnectionChoice, decideToConnect[i], classItemForm, connectionChoice, (value) => connectionChoice = value);
-            }
-
+            }            
 
             // add button to checkbox
-            var buttonChoice = document.createElement("input");
-            buttonChoice.setAttribute("type", "button");
-            buttonChoice.setAttribute("class", "button");
-            buttonChoice.setAttribute("name", classItemForm);
-            buttonChoice.setAttribute("value", "Choice Peer to Connect");
-            buttonChoice.onclick = function () {
-                if (connectionChoice == undefined) {
-                    alert(COMMUNICATION.PEER_SELECTED + data);
-                } else if (connectionChoice == "YES") {
-
-                    acceptConnection(data);
-                    // TODO questa è una chat provvisoria che deve essere messa a posto
-                    chat.sendMessage(chatForm);
-                    chat.onclickButton(sendChatMessage);
-                    deleteCheckboxItem(classItemForm);
-
-                    // the player accept the connection and then it can see the canvas with multiplayer
-                    enableGame();
-
-                } else if (connectionChoice == "NO") {
-
-                    refuseConnection();
-
-                    // TODO Cancellare il form               
-                }
-            };
+            var buttonChoice = createButton("button", classItemForm, FORM.CHOICE_PEER, data,callbackConnectionChoice)
             formConnectionChoice.appendChild(buttonChoice);
         } else {
 
@@ -119,6 +93,32 @@ window.onload = function () {
         }
 
 
+    }
+
+
+    /**
+     * Callback of click button
+     */
+    function callbackConnectionChoice(data){
+        if (connectionChoice == undefined) {
+            alert(COMMUNICATION.PEER_SELECTED + data);
+        } else if (connectionChoice == "YES") {
+
+            acceptConnection(data);
+            // TODO questa è una chat provvisoria che deve essere messa a posto
+            chat.sendMessage(chatForm);
+            chat.onclickButton(sendChatMessage);
+            deleteCheckboxItem(classItemForm);
+
+            // the player accept the connection and then it can see the canvas with multiplayer
+            enableGame();
+
+        } else if (connectionChoice == "NO") {
+
+            refuseConnection();
+
+            // TODO Cancellare il form               
+        }        
     }
 
 
@@ -174,10 +174,11 @@ window.onload = function () {
     }
 
 
+    /**
+     * Function that assign the peer to player
+     */
     function enableGame() {
         // the player has accepted the comuniation and for this the div is again visible
-        // console.log(P2PMaze.game.state); // DEBUG
-        // console.log(P2PMaze);
         P2PMaze.peer = peerClient;
         P2PMaze.game.state.start("GameMultiplayer");
         var divGame = document.getElementById("P2PMaze");
@@ -207,7 +208,7 @@ window.onload = function () {
         }
 
         if (peer_available.length > 0) {
-            formPeerAvailable(form_peer_available, peer_available, form_peer_available_class, peerSelected);
+            formPeerAvailable(form_peer_available, peer_available, form_peer_available_class, FORM.CHOICE_PEER,peerSelected);
         } else {
             alert(COMMUNICATION.PEER_AVAILABILITY);
         }
@@ -245,9 +246,11 @@ window.onload = function () {
         console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer);
     }
 
-    // ===================
-    // GET REQUEST SERVER
-    // ===================
+    /**
+     * GET REQUEST SERVER
+     * @param {*} theUrl the url passed to method
+     * @param {*} callback the result of request
+     */
     function httpGetAsync(theUrl, callback) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function () {
