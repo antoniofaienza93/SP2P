@@ -14,9 +14,18 @@ var blockedLayer;
 var player;
 var cursor;
 var items;
+var lives;
+var stateText;
+var result;
 
+var itemCorrect;
+var itemWrong;
+var win; 
+var lose; 
 var logicalOrder = {};
-var playerOrder = 1; // the player starts to 1 for compare the item to take 
+
+// the player starts to 1 for compare the item to take 
+var playerOrder = 1; 
 
 
 
@@ -29,6 +38,7 @@ P2PMaze.Game.prototype = {
         // TODO da togliere il preload che qui non dovrebbe servire 
         this.game.load.tilemap('temp', 'assets/tilemaps/temp.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tempImage', 'assets/images/tiles.png');
+        this.game.load.image('heart', 'assets/images/heart.png');
 
         // TODO CANCELLARE - vedere la grandezza dell'immagine        
         // 37x45 is the size of each frame
@@ -42,6 +52,14 @@ P2PMaze.Game.prototype = {
         this.load.image('redcup', 'assets/images/estintore_grande.png');
         this.load.image('greycup', 'assets/images/greencup.png');
         this.load.image('bluecup', 'assets/images/bluecup.png');
+
+        this.load.image('playerParticle', 'assets/images/player-particle.png');
+
+        // sound
+        this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
+        this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
+        this.load.audio('win', 'assets/sounds/winSound.wav');
+        this.load.audio('lose', 'assets/sounds/loseSound.wav');
     },
     create: function () {
 
@@ -68,10 +86,11 @@ P2PMaze.Game.prototype = {
 
         backgroudLayer.resizeWorld();
 
+        this.createLives();
 
         this.createItems();
 
-        var result = this.findObjectsByType('playerStart', map, 'objectLayer');
+        result = this.findObjectsByType('playerStart', map, 'objectLayer');
 
 
         // create the player 
@@ -101,7 +120,15 @@ P2PMaze.Game.prototype = {
         // move player with cursor key 
         cursor = this.game.input.keyboard.createCursorKeys();
 
+        //  Text
+        stateText = this.game.add.text(this.game.world.centerX,this.game.world.centerY,' ', { font: '30px Arial', fill: '#fff' });
+        stateText.anchor.setTo(0.5, 0.5);
+        stateText.visible = false;
 
+        itemCorrect = this.game.add.audio('itemCorrect');
+        itemWrong = this.game.add.audio('itemWrong');
+        lose = this.game.add.audio('lose');
+        win = this.game.add.audio('win');
 
     },
     update: function () {
@@ -186,11 +213,13 @@ P2PMaze.Game.prototype = {
         // if exist inside the hashmap a key with the same name of the sprite
         // and the value is equal of playerOrder then return true
         if ((item.key in logicalOrder) && logicalOrder[item.key] === playerOrder) {
+            itemCorrect.play();
             playerOrder++;                  // icrease the order of player 
             delete logicalOrder[item.key];  // delete key-value            
             return true;
         } else {
             this.game.physics.arcade.collide(player, items);
+            this.decreaseLive();
             return false;
         }
 
@@ -269,6 +298,21 @@ P2PMaze.Game.prototype = {
             //this.createFromTiledObject(element, items);
         }, this);
     },
+    createLives: function(){
+
+        // Lives
+        lives =  this.game.add.group();
+        this.game.add.text(this.game.world.width - 100, 50, GAME.LIVES, { font: '34px Arial', fill: '#fff' });
+
+        // creation Life
+        for(var i = 0; i < 3; i++){
+            var heart = lives.create(this.game.world.width - 100 + (40 * i), 100, 'heart');
+            heart.anchor.setTo(0.5,0.5);
+            // heart.angle = 90;
+            // heart.alpha = 0.4;
+        }
+
+    },
     render: function () {
 
         // ===== DEBUG PLAYER 
@@ -286,6 +330,54 @@ P2PMaze.Game.prototype = {
         this.game.debug.body(member);
         this.game.debug.spriteInfo(member, 32, number);
         space = number + 130;
+    },
+    decreaseLive: function(){
+        live = lives.getFirstAlive();
+
+            if (live){
+                live.kill();
+                this.explodePlayer();
+                player.kill();                
+            }
+        
+        // when the player dies
+        if(lives.countLiving() < 1){
+            player.kill();
+
+            lose.play();
+            stateText.text=GAME.GAMEOVER;
+            stateText.visible = true;
+
+            //the "click to restart" handler
+            this.game.input.onTap.addOnce(this.restart,this);
+        }else {
+            itemWrong.play();
+            player.reset(result[0].x, result[0].y);
+        }
+    },
+    restart: function(){
+        // A new level starts
+
+        // reset the life count 
+        // lives.callAll('revive');
+        // this.createItems();
+
+        // //revives the player
+        // player.revive();
+        this.state.start('MainMenu');
+
+        //hides the text
+        stateText.visible = false;
+
+    }, 
+    explodePlayer: function(){
+        //make the player explode
+        var emitter = this.game.add.emitter(player.x, player.y, 100);
+        emitter.makeParticles('playerParticle');
+        emitter.minParticleSpeed.setTo(-200, -200);
+        emitter.maxParticleSpeed.setTo(200, 200);
+        emitter.gravity = 0;
+        emitter.start(true, 1000, null, 100);
     }
     // createFromTiledObject: function(element, group) {
 
