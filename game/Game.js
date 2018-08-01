@@ -285,7 +285,7 @@ P2PMaze.Game.prototype = {
 
         this.game.debug.body(member);
         this.game.debug.spriteInfo(member, 32, number);
-        space = number + 130;
+        space = number + 130; 
     }
     // createFromTiledObject: function(element, group) {
 
