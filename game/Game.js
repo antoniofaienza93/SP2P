@@ -297,7 +297,7 @@ P2PMaze.Game.prototype = {
 
             //this.createFromTiledObject(element, items);
         }, this);
-    },
+    }, 
     createLives: function(){
 
         // Lives
