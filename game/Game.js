@@ -27,21 +27,21 @@ P2PMaze.Game = function () {
 P2PMaze.Game.prototype = {
     preload: function () {
         // TODO da togliere il preload che qui non dovrebbe servire 
-        this.game.load.tilemap('temp', 'assets/tilemaps/temp.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tempImage', 'assets/images/tiles.png');
 
         // TODO CANCELLARE - vedere la grandezza dell'immagine        
         // 37x45 is the size of each frame
         //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
         //  blank frames at the end, so we tell the loader how many to load
-        this.load.spritesheet('player', 'assets/images/dude.png', 32, 48);        // Quello che vorrei usare 
+        this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
         // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('redcup', 'assets/images/estintore_grande.png');
-        this.load.image('greycup', 'assets/images/greencup.png');
-        this.load.image('bluecup', 'assets/images/bluecup.png');
+        // this.load.image('redcup', 'assets/images/estintore_grande.png');
+        // this.load.image('greycup', 'assets/images/greencup.png');
+        // this.load.image('bluecup', 'assets/images/bluecup.png');
     },
     create: function () {
 
@@ -64,7 +64,7 @@ P2PMaze.Game.prototype = {
         // In order to obtain this number open file.json and in “layers” – “data” of the two layers 
         // find the largest number you can find, in this case 1896 so I put 2000 just to be sure I didn’t 
         // miss a slightly larger number. 
-        map.setCollisionBetween(1, 200, true, 'blockedLayer');
+        map.setCollisionBetween(1, 4000, true, 'blockedLayer');
 
         backgroudLayer.resizeWorld();
 

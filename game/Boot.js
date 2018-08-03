@@ -26,7 +26,7 @@ P2PMaze.Boot.prototype = {
     preload: function () {
 
         // this.load.image('logo', 'assets/images/zenvalogo.png');
-        this.load.image('logoPhaser', 'assets/images/phaser.png');
+        this.load.image('logoPhaser', 'assets/images/logo/phaser.png');
 
         // load FONT 
         this.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
