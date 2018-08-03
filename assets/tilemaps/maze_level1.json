@@ -72,8 +72,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":373,
-                 "y":199
+                 "x":376,
+                 "y":195
                 }, 
                 {
                  "gid":3523,
@@ -107,7 +107,7 @@
                  "properties":
                     {
                      "order":16,
-                     "sprite":"Dracula",
+                     "sprite":"Vampiro",
                      "type":"item"
                     },
                  "propertytypes":
@@ -169,7 +169,7 @@
                  "visible":true,
                  "width":16,
                  "x":710,
-                 "y":388
+                 "y":383
                 }, 
                 {
                  "gid":3527,
@@ -275,7 +275,7 @@
                  "properties":
                     {
                      "order":4,
-                     "sprite":"Rifiuti Tossici",
+                     "sprite":"RifiutiTossici",
                      "type":"item"
                     },
                  "propertytypes":
@@ -288,8 +288,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":830,
-                 "y":457
+                 "x":831,
+                 "y":451
                 }, 
                 {
                  "gid":3532,
@@ -313,7 +313,7 @@
                  "visible":true,
                  "width":16,
                  "x":849,
-                 "y":616
+                 "y":614
                 }, 
                 {
                  "gid":3533,
@@ -385,7 +385,7 @@
                  "visible":true,
                  "width":16,
                  "x":466,
-                 "y":356
+                 "y":352
                 }, 
                 {
                  "gid":3536,
@@ -480,7 +480,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":904,
+                 "x":902,
                  "y":548
                 }, 
                 {
@@ -505,7 +505,7 @@
                  "visible":true,
                  "width":16,
                  "x":560,
-                 "y":292
+                 "y":290
                 }, 
                 {
                  "gid":3542,
@@ -515,7 +515,7 @@
                  "properties":
                     {
                      "order":13,
-                     "sprite":"Bandiera Rossa",
+                     "sprite":"BandieraRossa",
                      "type":"item"
                     },
                  "propertytypes":
@@ -729,7 +729,7 @@
         {
          "columns":1,
          "firstgid":3527,
-         "image":"..\/images\/item_16x16\/spinaci_16x16.png",
+         "image":"..\/images\/item_16x16\/Spinaci_16x16.png",
          "imageheight":16,
          "imagewidth":16,
          "margin":0,
@@ -742,7 +742,7 @@
         {
          "columns":1,
          "firstgid":3528,
-         "image":"..\/images\/item_16x16\/genio_16x16.png",
+         "image":"..\/images\/item_16x16\/Genio_16x16.png",
          "imageheight":16,
          "imagewidth":16,
          "margin":0,
@@ -781,7 +781,7 @@
         {
          "columns":1,
          "firstgid":3531,
-         "image":"..\/images\/item_16x16\/RifiutiTossici_16x20.png",
+         "image":"..\/images\/item_16x16\/RifiutiTossici_16x16.png",
          "imageheight":20,
          "imagewidth":16,
          "margin":0,
@@ -956,7 +956,7 @@
              "orientation":"orthogonal",
              "width":16
             },
-         "image":"..\/images\/item_16x16\/Mask_16x16.png",
+         "image":"..\/images\/item_16x16\/Maschera_16x16.png",
          "imageheight":15,
          "imagewidth":16,
          "margin":0,

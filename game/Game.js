@@ -39,9 +39,31 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        // this.load.image('redcup', 'assets/images/estintore_grande.png');
-        // this.load.image('greycup', 'assets/images/greencup.png');
-        // this.load.image('bluecup', 'assets/images/bluecup.png');
+        this.load.image('Banana', ASSET_PATH.PATH_ITEM_32x32+'Banana'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_32x32+'Gorilla'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_32x32+'Maschera'+ASSET_PATH.ITEM_32x32);
+        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_32x32+'RifiutiTossici'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_32x32+'Arpa'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_32x32+'Cerbero'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_32x32+'Cesoie'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_32x32+'Rovi'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_32x32+'Estintore'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_32x32+'Fuoco'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_32x32+'Cuffie'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_32x32+'Sirena'+ASSET_PATH.ITEM_32x32);
+        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_32x32+'BandieraRossa'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Toro', ASSET_PATH.PATH_ITEM_32x32+'Toro'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_32x32+'Aglio'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_32x32+'Vampiro'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_32x32+'Lampada'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Genio', ASSET_PATH.PATH_ITEM_32x32+'Genio'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_32x32+'Foglio'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_32x32+'Roccia'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_32x32+'Spinaci'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Spada', ASSET_PATH.PATH_ITEM_32x32+'Spada'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Drago', ASSET_PATH.PATH_ITEM_32x32+'Drago'+ASSET_PATH.ITEM_32x32);
+        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_32x32+'Tesoro'+ASSET_PATH.ITEM_32x32);
+        
     },
     create: function () {
 
@@ -62,9 +84,9 @@ P2PMaze.Game.prototype = {
         // The number between 1 and 2000 is an index range for the tiles for which we want to enable
         // collision (in this case such a big number should include them all which is what I intended).
         // In order to obtain this number open file.json and in “layers” – “data” of the two layers 
-        // find the largest number you can find, in this case 1896 so I put 2000 just to be sure I didn’t 
+        // find the largest number you can find, in this case 3050 so I put 3500 just to be sure I didn’t 
         // miss a slightly larger number. 
-        map.setCollisionBetween(1, 4000, true, 'blockedLayer');
+        map.setCollisionBetween(1, 3500, true, 'blockedLayer');
 
         backgroudLayer.resizeWorld();
 
@@ -108,10 +130,12 @@ P2PMaze.Game.prototype = {
 
         //  Collide the player and the stars with the platforms
 
+        
 
         // collisio to do 
         // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
         var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
+        
 
         // player movement   
         // NB: comment these to gain less control over the sprite      
@@ -253,10 +277,14 @@ P2PMaze.Game.prototype = {
             var spriteObject = items.create(element.x, element.y, element.properties.sprite);
 
             // enable for all sprites of object a physical properties
-            this.game.physics.arcade.enable(spriteObject);
+            this.game.physics.arcade.enable(spriteObject);            
 
+            
+            
             // default = each objects are immovable
             spriteObject.body.immovable = true;
+
+            
 
             // DEBUG
             //  console.log(element.properties.order + " " + element.properties.sprite);
@@ -272,8 +300,8 @@ P2PMaze.Game.prototype = {
     render: function () {
 
         // ===== DEBUG PLAYER 
-        // this.game.debug.body(player);
-        // this.game.debug.spriteInfo(player, 32, 32);
+        this.game.debug.body(player);
+        this.game.debug.spriteInfo(player, 32, 32);
 
         // ===== DEBUG ITEMS
         // this.game.debug.physicsGroup(items);

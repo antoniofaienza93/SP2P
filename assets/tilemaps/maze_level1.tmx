@@ -22,10 +22,10 @@
   <image source="../images/item_16x16/Estintore_16x16.png" width="16" height="16"/>
  </tileset>
  <tileset firstgid="3527" name="spinaci_16x16" tilewidth="16" tileheight="16" tilecount="1" columns="1">
-  <image source="../images/item_16x16/spinaci_16x16.png" width="16" height="16"/>
+  <image source="../images/item_16x16/Spinaci_16x16.png" width="16" height="16"/>
  </tileset>
  <tileset firstgid="3528" name="genio_16x16" tilewidth="16" tileheight="16" tilecount="1" columns="1">
-  <image source="../images/item_16x16/genio_16x16.png" width="16" height="16"/>
+  <image source="../images/item_16x16/Genio_16x16.png" width="16" height="16"/>
  </tileset>
  <tileset firstgid="3529" name="arpa_16x16" tilewidth="16" tileheight="16" tilecount="1" columns="1">
   <image source="../images/item_16x16/Arpa_16x16.png" width="16" height="16"/>
@@ -34,7 +34,7 @@
   <image source="../images/item_16x16/Gorilla_16x16.png" width="16" height="16"/>
  </tileset>
  <tileset firstgid="3531" name="RifiutiTossici_16x20" tilewidth="16" tileheight="16" tilecount="1" columns="1">
-  <image source="../images/item_16x16/RifiutiTossici_16x20.png" width="16" height="20"/>
+  <image source="../images/item_16x16/RifiutiTossici_16x16.png" width="16" height="20"/>
  </tileset>
  <tileset firstgid="3532" name="Toro_16x16" tilewidth="16" tileheight="16" tilecount="1" columns="1">
   <image source="../images/item_16x16/Toro_16x16.png" width="24" height="24"/>
@@ -74,7 +74,7 @@
  </tileset>
  <tileset firstgid="3544" name="Mask_16x16" tilewidth="16" tileheight="15" tilecount="1" columns="1">
   <grid orientation="orthogonal" width="16" height="16"/>
-  <image source="../images/item_16x16/Mask_16x16.png" width="16" height="15"/>
+  <image source="../images/item_16x16/Maschera_16x16.png" width="16" height="15"/>
  </tileset>
  <layer name="backgroudLayer" width="70" height="40">
   <data encoding="csv">
@@ -172,7 +172,7 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="63" gid="3522" x="373" y="199" width="16" height="16">
+  <object id="63" gid="3522" x="376" y="195" width="16" height="16">
    <properties>
     <property name="order" type="int" value="1"/>
     <property name="sprite" value="Banana"/>
@@ -189,7 +189,7 @@
   <object id="65" gid="3524" x="329" y="144" width="16" height="16">
    <properties>
     <property name="order" type="int" value="16"/>
-    <property name="sprite" value="Dracula"/>
+    <property name="sprite" value="Vampiro"/>
     <property name="type" value="item"/>
    </properties>
   </object>
@@ -200,7 +200,7 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="68" gid="3526" x="710" y="388" width="16" height="16">
+  <object id="68" gid="3526" x="710" y="383" width="16" height="16">
    <properties>
     <property name="order" type="int" value="9"/>
     <property name="sprite" value="Estintore"/>
@@ -235,14 +235,14 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="91" gid="3531" x="830" y="457" width="16" height="16">
+  <object id="91" gid="3531" x="831" y="451" width="16" height="16">
    <properties>
     <property name="order" type="int" value="4"/>
-    <property name="sprite" value="Rifiuti Tossici"/>
+    <property name="sprite" value="RifiutiTossici"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="95" gid="3532" x="849" y="616" width="16" height="16">
+  <object id="95" gid="3532" x="849" y="614" width="16" height="16">
    <properties>
     <property name="order" type="int" value="14"/>
     <property name="sprite" value="Toro"/>
@@ -263,7 +263,7 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="99" gid="3535" x="466" y="356" width="16" height="16">
+  <object id="99" gid="3535" x="466" y="352" width="16" height="16">
    <properties>
     <property name="order" type="int" value="22"/>
     <property name="sprite" value="Spada"/>
@@ -291,14 +291,14 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="107" gid="3539" x="904" y="548" width="16" height="16">
+  <object id="107" gid="3539" x="902" y="548" width="16" height="16">
    <properties>
     <property name="order" type="int" value="19"/>
     <property name="sprite" value="Foglio"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="109" gid="3540" x="560" y="292" width="16" height="16">
+  <object id="109" gid="3540" x="560" y="290" width="16" height="16">
    <properties>
     <property name="order" type="int" value="8"/>
     <property name="sprite" value="Rovi"/>
@@ -308,7 +308,7 @@
   <object id="117" gid="3542" x="32" y="603" width="16" height="16">
    <properties>
     <property name="order" type="int" value="13"/>
-    <property name="sprite" value="Bandiera Rossa"/>
+    <property name="sprite" value="BandieraRossa"/>
     <property name="type" value="item"/>
    </properties>
   </object>
