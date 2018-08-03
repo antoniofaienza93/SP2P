@@ -99,6 +99,8 @@ P2PMaze.Game.prototype = {
         // create the player 
         player = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
+        player.scale.setTo(0.6, 0.6);
+
         // create the phisics body. Can be a single object (as in this case) or of array of Objects
         this.game.physics.arcade.enable(player);
 
