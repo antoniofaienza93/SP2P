@@ -18,10 +18,16 @@ var lives;
 var stateText;
 var result;
 
+var lastItem;
+
+// sounds
 var itemCorrect;
 var itemWrong;
 var win; 
 var lose; 
+var wellDone;
+
+// logical order
 var logicalOrder = {};
 
 // the player starts to 1 for compare the item to take 
@@ -49,7 +55,7 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('redcup', 'assets/images/estintore_grande.png');
+        this.load.image('redcup', 'assets/images/estintore_piccolo.png');
         this.load.image('greycup', 'assets/images/greencup.png');
         this.load.image('bluecup', 'assets/images/bluecup.png');
 
@@ -60,6 +66,7 @@ P2PMaze.Game.prototype = {
         this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
         this.load.audio('win', 'assets/sounds/winSound.wav');
         this.load.audio('lose', 'assets/sounds/loseSound.wav');
+        this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
     },
     create: function () {
 
@@ -96,6 +103,9 @@ P2PMaze.Game.prototype = {
         // create the player 
         player = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
+        //  Set the scale of the sprite to the random value
+        player.scale.setTo(0.6, 0.6);
+
         // create the phisics body. Can be a single object (as in this case) or of array of Objects
         this.game.physics.arcade.enable(player);
 
@@ -129,6 +139,7 @@ P2PMaze.Game.prototype = {
         itemWrong = this.game.add.audio('itemWrong');
         lose = this.game.add.audio('lose');
         win = this.game.add.audio('win');
+        wellDone = this.game.add.audio('wellDone');
 
     },
     update: function () {
@@ -199,6 +210,16 @@ P2PMaze.Game.prototype = {
         console.log("PRESO " + collectable.key);
         // remove sprite
         collectable.destroy();
+        if(Object.keys(logicalOrder).length === 0) {
+            win.play();
+            wellDone.play();
+            stateText.text=GAME.GAMEWIN;
+            stateText.visible = true;
+            player.kill();
+
+            //the "click to restart" handler
+            this.game.input.onTap.addOnce(this.restart,this);
+        }
 
     },
     // logic game
@@ -271,7 +292,6 @@ P2PMaze.Game.prototype = {
         // result = take all element from tileset with 'item' proprieties
         var resultItem = this.findObjectsByType('item', map, 'objectLayer');
 
-
         // element = take a specific result with proprieties etc
         resultItem.forEach(function (element) {
 
@@ -295,8 +315,11 @@ P2PMaze.Game.prototype = {
             // value = order  
             logicalOrder[element.properties.sprite] = element.properties.order;
 
+            
+
             //this.createFromTiledObject(element, items);
         }, this);
+        
     }, 
     createLives: function(){
 
