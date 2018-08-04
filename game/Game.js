@@ -65,6 +65,8 @@ P2PMaze.Game.prototype = {
         this.load.image('Drago', ASSET_PATH.PATH_ITEM_32x32 + 'Drago' + ASSET_PATH.ITEM_32x32);
         this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_32x32 + 'Tesoro' + ASSET_PATH.ITEM_32x32);
 
+        
+
     },
     create: function () {
 
@@ -336,66 +338,32 @@ P2PMaze.Game.prototype = {
         item.scale.setTo(1);
         this.hideBox(msgBox);
     },
-    //
-    //w=width
-    //h=height
-    //
+    /**
+     * 
+     * @param {*} x initial pos x 
+     * @param {*} y initial pos ys
+     * @param {*} text 
+     * @param {*} w default value of with
+     * @param {*} h default value of height
+     */
     showMessageBox(x,y, text, w = 50, h = 20) {
-    	//just in case the message box already exists
-    	//destroy it
+    	//just in case the message box already exists destroy it
         if (this.msgBox) {
             this.msgBox.destroy();
         }
         //make a group to hold all the elements
         var msgBox = this.game.add.group();
-        //make the back of the message box
-        // var back = this.game.add.sprite(x+5, y-20, "boxBack");
         
-        //make the close button
-        // var closeButton = this.game.add.sprite(0, 0, "closeButton");
         // add style 
         var style = { font: "15px Arial", fill: '#ffffff', backgroundColor: 'rgba(205, 166, 10, 0.92)' };
         //make a text field
         var text1 = this.game.add.text(x+10, y-20, text, style);
-        // text1.addColor('#ff00ff');
+
         //set the textfeild to wrap if the text is too long
         text1.wordWrap = true;
-        //make the width of the wrap 90% of the width 
-        //of the message box
-        // text1.wordWrapWidth = w * .9;
-        //
-        //
-        //set the width and height passed
-        //in the parameters
-        // back.width = w;
-        // back.height = h;
-        //
-        //
-        //
-        //add the elements to the group
-        // msgBox.add(back);
-        // msgBox.add(closeButton);
+       
         msgBox.add(text1);
-        //
-        //set the close button
-        //in the center horizontally
-        //and near the bottom of the box vertically
-        // closeButton.x = back.width / 2 - closeButton.width / 2;
-        // closeButton.y = back.height - closeButton.height;
-        // //enable the button for input
-        // closeButton.inputEnabled = true;
-        // //add a listener to destroy the box when the button is pressed
-        // closeButton.events.onInputDown.add(this.hideBox, this);
-        //
-        //
-        //set the message box in the center of the screen
-        // msgBox.x = this.game.width / 2 - msgBox.width / 2;
-        // msgBox.y = this.game.height / 2 - msgBox.height / 2;
-        //
-        //set the text in the middle of the message box
-        // text1.x = back.width / 2 - text1.width / 2;
-        // text1.y = back.height / 2 - text1.height / 2;
-        // text1.anchor.setTo(0.5, 0.5);
+        
         //make a state reference to the messsage box
         this.msgBox = msgBox;
 
