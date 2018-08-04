@@ -232,7 +232,7 @@ P2PMaze.Game.prototype = {
             this.winParticle();
             stateText.text = GAME.GAMEWIN;
             stateText.visible = true;
-
+            playerOrder = 1;
 
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
