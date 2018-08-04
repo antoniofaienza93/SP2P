@@ -99,7 +99,9 @@ P2PMaze.Game.prototype = {
         // create the player 
         player = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
-        player.scale.setTo(0.6, 0.6);
+        player.scale.setTo(0.65, 0.65);
+
+        // player.tint = 0xff00ff; http://www.html5gamedevs.com/topic/6072-change-sprite-color/ CAMBIARE COLORE
 
         // create the phisics body. Can be a single object (as in this case) or of array of Objects
         this.game.physics.arcade.enable(player);
@@ -302,8 +304,8 @@ P2PMaze.Game.prototype = {
     render: function () {
 
         // ===== DEBUG PLAYER 
-        this.game.debug.body(player);
-        this.game.debug.spriteInfo(player, 32, 32);
+        // this.game.debug.body(player);
+        // this.game.debug.spriteInfo(player, 32, 32);
 
         // ===== DEBUG ITEMS
         // this.game.debug.physicsGroup(items);
