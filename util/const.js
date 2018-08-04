@@ -18,8 +18,8 @@
  * Width and heiht of screen 
  */
 const SCREEN_SIZE = {
-    WIDTH: 800, // 800
-    HEIGHT: 600 // 600
+    WIDTH: 1020, // 800
+    HEIGHT: 640 // 600
 };
 
 // /**
