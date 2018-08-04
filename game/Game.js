@@ -39,31 +39,31 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('Banana', ASSET_PATH.PATH_ITEM_32x32+'Banana'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_32x32+'Gorilla'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_32x32+'Maschera'+ASSET_PATH.ITEM_32x32);
-        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_32x32+'RifiutiTossici'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_32x32+'Arpa'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_32x32+'Cerbero'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_32x32+'Cesoie'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_32x32+'Rovi'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_32x32+'Estintore'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_32x32+'Fuoco'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_32x32+'Cuffie'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_32x32+'Sirena'+ASSET_PATH.ITEM_32x32);
-        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_32x32+'BandieraRossa'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Toro', ASSET_PATH.PATH_ITEM_32x32+'Toro'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_32x32+'Aglio'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_32x32+'Vampiro'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_32x32+'Lampada'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Genio', ASSET_PATH.PATH_ITEM_32x32+'Genio'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_32x32+'Foglio'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_32x32+'Roccia'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_32x32+'Spinaci'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Spada', ASSET_PATH.PATH_ITEM_32x32+'Spada'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Drago', ASSET_PATH.PATH_ITEM_32x32+'Drago'+ASSET_PATH.ITEM_32x32);
-        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_32x32+'Tesoro'+ASSET_PATH.ITEM_32x32);
-        
+        this.load.image('Banana', ASSET_PATH.PATH_ITEM_32x32 + 'Banana' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_32x32 + 'Gorilla' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_32x32 + 'Maschera' + ASSET_PATH.ITEM_32x32);
+        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_32x32 + 'RifiutiTossici' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_32x32 + 'Arpa' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_32x32 + 'Cerbero' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_32x32 + 'Cesoie' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_32x32 + 'Rovi' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_32x32 + 'Estintore' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_32x32 + 'Fuoco' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_32x32 + 'Cuffie' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_32x32 + 'Sirena' + ASSET_PATH.ITEM_32x32);
+        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_32x32 + 'BandieraRossa' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Toro', ASSET_PATH.PATH_ITEM_32x32 + 'Toro' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_32x32 + 'Aglio' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_32x32 + 'Vampiro' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_32x32 + 'Lampada' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Genio', ASSET_PATH.PATH_ITEM_32x32 + 'Genio' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_32x32 + 'Foglio' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_32x32 + 'Roccia' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_32x32 + 'Spinaci' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Spada', ASSET_PATH.PATH_ITEM_32x32 + 'Spada' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Drago', ASSET_PATH.PATH_ITEM_32x32 + 'Drago' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_32x32 + 'Tesoro' + ASSET_PATH.ITEM_32x32);
+
     },
     create: function () {
 
@@ -134,12 +134,12 @@ P2PMaze.Game.prototype = {
 
         //  Collide the player and the stars with the platforms
 
-        
+
 
         // collisio to do 
         // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
         var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
-        
+
 
         // player movement   
         // NB: comment these to gain less control over the sprite      
@@ -281,21 +281,28 @@ P2PMaze.Game.prototype = {
             var spriteObject = items.create(element.x, element.y, element.properties.sprite);
 
             // enable for all sprites of object a physical properties
-            this.game.physics.arcade.enable(spriteObject);            
+            this.game.physics.arcade.enable(spriteObject);
 
-            
-            
+            // we increase the dimesion of sprite.
+            // REF: http://www.html5gamedevs.com/topic/5171-checking-if-mouse-is-over-a-sprite-hover/
+            spriteObject.inputEnabled = true;
+            spriteObject.events.onInputOver.add(this.over, this);
+            spriteObject.events.onInputOut.add(this.out, this);
+
             // default = each objects are immovable
             spriteObject.body.immovable = true;
 
-            
+
 
             // DEBUG
             //  console.log(element.properties.order + " " + element.properties.sprite);
 
-            // fill the HashMap for the logic of game
-            // key = sprite name
-            // value = order  
+            
+            /*
+             * fill the HashMap for the logic of game
+             * key = sprite name
+             * value = order
+            */  
             logicalOrder[element.properties.sprite] = element.properties.order;
 
             //this.createFromTiledObject(element, items);
@@ -318,6 +325,15 @@ P2PMaze.Game.prototype = {
         this.game.debug.body(member);
         this.game.debug.spriteInfo(member, 32, number);
         space = number + 130;
+    },
+    over: function (item) {
+        item.scale.setTo(1.9);
+    },
+    out: function (item) {
+        // console.log("STO FUORI");
+        item.scale.setTo(1);
+       
+
     }
     // createFromTiledObject: function(element, group) {
 
