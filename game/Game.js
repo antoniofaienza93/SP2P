@@ -40,30 +40,30 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('Banana', ASSET_PATH.PATH_ITEM_32x32 + 'Banana' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_32x32 + 'Gorilla' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_32x32 + 'Maschera' + ASSET_PATH.ITEM_32x32);
-        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_32x32 + 'RifiutiTossici' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_32x32 + 'Arpa' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_32x32 + 'Cerbero' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_32x32 + 'Cesoie' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_32x32 + 'Rovi' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_32x32 + 'Estintore' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_32x32 + 'Fuoco' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_32x32 + 'Cuffie' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_32x32 + 'Sirena' + ASSET_PATH.ITEM_32x32);
-        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_32x32 + 'BandieraRossa' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Toro', ASSET_PATH.PATH_ITEM_32x32 + 'Toro' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_32x32 + 'Aglio' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_32x32 + 'Vampiro' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_32x32 + 'Lampada' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Genio', ASSET_PATH.PATH_ITEM_32x32 + 'Genio' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_32x32 + 'Foglio' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_32x32 + 'Roccia' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_32x32 + 'Spinaci' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Spada', ASSET_PATH.PATH_ITEM_32x32 + 'Spada' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Drago', ASSET_PATH.PATH_ITEM_32x32 + 'Drago' + ASSET_PATH.ITEM_32x32);
-        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_32x32 + 'Tesoro' + ASSET_PATH.ITEM_32x32);
+        this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
+        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_48x48 + 'RifiutiTossici' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_48x48 + 'Arpa' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_48x48 + 'Cerbero' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_48x48 + 'Cesoie' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_48x48 + 'Rovi' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_48x48 + 'Estintore' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_48x48 + 'Fuoco' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_48x48 + 'Cuffie' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_48x48 + 'Sirena' + ASSET_PATH.ITEM_48x48);
+        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_48x48 + 'BandieraRossa' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Toro', ASSET_PATH.PATH_ITEM_48x48 + 'Toro' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_48x48 + 'Aglio' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_48x48 + 'Vampiro' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_48x48 + 'Lampada' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Genio', ASSET_PATH.PATH_ITEM_48x48 + 'Genio' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_48x48 + 'Foglio' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_48x48 + 'Roccia' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_48x48 + 'Spinaci' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Spada', ASSET_PATH.PATH_ITEM_48x48 + 'Spada' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
 
         
 
@@ -283,6 +283,7 @@ P2PMaze.Game.prototype = {
             // It must matching from proprieties in Tiled and the name of sprite i.e redcup
             var spriteObject = items.create(element.x, element.y, element.properties.sprite);
 
+            spriteObject.scale.setTo(0.5);
             // enable for all sprites of object a physical properties
             this.game.physics.arcade.enable(spriteObject);
 
@@ -334,8 +335,7 @@ P2PMaze.Game.prototype = {
         msgBox = this.showMessageBox(item.position.x, item.position.y, item.key);
     },
     out: function (item) {
-        // console.log("STO FUORI");
-        item.scale.setTo(1);
+        item.scale.setTo(0.5);
         this.hideBox(msgBox);
     },
     /**
