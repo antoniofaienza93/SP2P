@@ -12,6 +12,9 @@ var button;
 var logo;
 var loadText;
 
+// sounds
+var startMenu;
+
 P2PMaze.Preload = function (game) {
     this.ready = false;
     console.log("%cStarting Preload State", "color:white; background:green");
@@ -30,18 +33,6 @@ P2PMaze.Preload.prototype = {
     },
     create: function () {
 
-        // LOGO 
-        logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY - 60, 'logoPhaser');
-        logo.scale.setTo(0.45, 0.45);
-        logo.anchor.setTo(0.5);
-
-
-        // BUTTON
-        button = this.game.add.button(this.game.world.centerX - 95, 450, 'button_play', this.actionClick, this);
-        button.scale.setTo(0.3, 0.3);
-        button.onInputOver.add(this.over, this);
-        button.onInputOut.add(this.out, this);
-        button.visible = false;
 
         //	You can listen for each of these events from Phaser.Loader
         // REF: https://phaser.io/examples/v2/loader/load-events
@@ -93,6 +84,9 @@ P2PMaze.Preload.prototype = {
         this.load.audio('win', 'assets/sounds/winSound.wav');
         this.load.audio('lose', 'assets/sounds/loseSound.wav');
         this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
+        this.load.audio('selectMenu', 'assets/sounds/menu_switch.mp3');
+        this.load.audio('choiceSelection', 'assets/sounds/FX241.mp3');
+
 
         // item
         this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
@@ -120,23 +114,40 @@ P2PMaze.Preload.prototype = {
         this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
         this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
 
+        // LOGO 
+        logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY - 60, 'logoPhaser');
+        logo.scale.setTo(0.45, 0.45);
+        logo.anchor.setTo(0.5);
+
+
+        // BUTTON
+        button = this.game.add.button(this.game.world.centerX - 95, 450, 'button_play', this.actionClick, this);
+        button.scale.setTo(0.3, 0.3);
+        button.onInputOver.add(this.over, this);
+        button.onInputOut.add(this.out, this);
+        button.visible = false;
+
+        // AUDIO
+        startMenu = this.game.add.audio('startMenu'); 
+        
+
         this.game.load.start();
 
     },
     loadStart: function(){
         loadText.setText("Loading ...");
-        console.log("Loading ...");
+        // console.log("Loading ...");
         
     },
     fileComplete: function(progress, cacheKey, success, totalLoaded, totalFiles){
         // loadText.setText("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles); // ORIGINAL
         loadText.setText("File Complete: " + progress + "%");
-        console.log("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles);
+        // console.log("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles);
 
     },
     loadComplete: function () {
         loadText.setText("Load Complete");
-        console.log("Load Complete");
+        // console.log("Load Complete");
         button.visible = true;
         this.ready = true;
     },
@@ -147,6 +158,8 @@ P2PMaze.Preload.prototype = {
         button.scale.setTo(0.3, 0.3);
     },
     actionClick: function () {
+
+        startMenu.play();
         this.state.start('MainMenu');
     }
 

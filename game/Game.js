@@ -183,7 +183,7 @@ P2PMaze.Game.prototype = {
         itemWrong = this.game.add.audio('itemWrong');
         lose = this.game.add.audio('lose');
         win = this.game.add.audio('win');
-        wellDone = this.game.add.audio('wellDone');
+        wellDone = this.game.add.audio('wellDone'); 
 
 
 

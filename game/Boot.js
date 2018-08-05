@@ -38,10 +38,10 @@ P2PMaze.Boot.prototype = {
 
 
         // load FONT 
-        this.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
+        // this.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-        // settings button
-        this.load.spritesheet('settings', 'assets/buttons/settings.png');
+        // load sound start play
+        this.load.audio('startMenu', 'assets/sounds/FX243.mp3');
         
 
 
