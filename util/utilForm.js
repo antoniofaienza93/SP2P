@@ -29,6 +29,38 @@ function createButton(cls, name, value, data,callback) {
 }
 
 
+
+
+/**
+ * Define the element taken
+ * @param {*} pathImg - path of image
+ * @param {*} itemKey - the item key
+ */
+P2PMaze.itemTaken = function (pathImg, itemKey)
+{
+    /* <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div> */
+    // create div
+    var div = document.createElement("div");
+    div.setAttribute("align","align");
+
+    // create image
+    var img = document.createElement("img");
+    img.setAttribute("src", pathImg);
+
+    // create br
+    var br = document.createElement("br")
+
+    // create span
+    var span = document.createElement("span");
+    span.innerHTML = itemKey;
+
+
+    div.appendChild(img);
+    div.appendChild(br);
+    div.appendChild(span);
+    document.getElementsByClassName("item")[0].appendChild(div);
+}
+
 /**
  * Function that create a form
  * @param {*} form is the name of the form
