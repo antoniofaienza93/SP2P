@@ -27,6 +27,30 @@
             display: flex;
             align-items: center;
         }
+
+        .col-centered {
+            float: none;
+            margin: 0 auto;
+        }
+
+        div {
+            /* width: 1100px;
+            height: 700px;
+            display: block; */
+            margin: auto;
+            width: 77%;
+        }
+
+        .item {
+            margin-top: 10px;
+            background-color: rgb(17, 219, 219);
+        }
+
+        .item div {
+            width: 100px;
+            display: inline-block;
+            padding-top: 5px;
+        }
     </style>
 </head>
 
@@ -54,23 +78,11 @@
         <!-- Send: <input type="text" id="sendMessage" placeholder="Send message"><input class="button" type="button" value="Send" id="send"><br><br> -->
     </div>
 
-
-    <div class="vertical-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-2">
-
-                    <!-- <div class="row">
-                        <div class="col-6">a</div>
-                        <div class="col-6">a</div>
-                    </div> -->
-
-                </div>
-                <div class="col-8" id="P2PMaze">
-                </div>
-                <div class="col-2"> </div>
-            </div>
-        </div>
+    <div id="P2PMaze"></div>
+    <div class="item">
+        <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div>
+        <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div>
+        <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div>
     </div>
 
     <script type="text/javascript" src="game/main.js"></script>
