@@ -15,11 +15,13 @@
 
 
 /**
- * Width and heiht of screen 
+ * Width and heiht of screen. 
+ * This current map has 16x16 - 70 tile x 40 tile = 1120 x 640
+ * Default value: 800 x 600
  */
 const SCREEN_SIZE = {
-    WIDTH: 1020, // 800
-    HEIGHT: 640 // 600
+    WIDTH: 1120, 
+    HEIGHT: 640 
 };
 
 // /**
@@ -71,7 +73,18 @@ const GAME = {
     MULTIPLAYER: "MULTIPLAYER",
     LIVES: 'Lives : ',
     GAMEOVER: 'GAME OVER,\nCLICK TO GO TO THE MAIN MENU',
-    GAMEWIN: 'CONGRATULATIONS, \n YOU HAVE WON'
+    GAMEWIN: 'CONGRATULATIONS, \n YOU HAVE WON'  
+}
+
+const ASSET_PATH = {
+    PATH_ITEM_16x16: 'assets/images/item_16x16/',
+    ITEM_16x16: '_16x16.png',
+
+    PATH_ITEM_32x32: 'assets/images/item_32x32/',
+    ITEM_32x32: '_32x32.png',
+
+    PATH_ITEM_48x48: 'assets/images/item_48x48/',
+    ITEM_48x48: '_48x48.png',
 }
 
 /**

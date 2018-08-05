@@ -35,7 +35,8 @@ var playerOrder = 1;
 
 
 
-
+// add message box item
+var msgBox;
 
 P2PMaze.Game = function () {
     console.log("%cStarting Game", "color:black; background:yellow");
@@ -44,7 +45,7 @@ P2PMaze.Game = function () {
 P2PMaze.Game.prototype = {
     preload: function () {
         // TODO da togliere il preload che qui non dovrebbe servire 
-        this.game.load.tilemap('temp', 'assets/tilemaps/temp.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tempImage', 'assets/images/tiles.png');
         this.game.load.image('heart', 'assets/images/heart.png');
 
@@ -52,14 +53,14 @@ P2PMaze.Game.prototype = {
         // 37x45 is the size of each frame
         //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
         //  blank frames at the end, so we tell the loader how many to load
-        this.load.spritesheet('player', 'assets/images/dude.png', 32, 48);        // Quello che vorrei usare 
+        this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
         // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('redcup', 'assets/images/estintore_piccolo.png');
-        this.load.image('greycup', 'assets/images/greencup.png');
-        this.load.image('bluecup', 'assets/images/bluecup.png');
+        // this.load.image('redcup', 'assets/images/estintore_piccolo.png');
+        // this.load.image('greycup', 'assets/images/greencup.png');
+        // this.load.image('bluecup', 'assets/images/bluecup.png');
 
         this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
 
@@ -80,6 +81,33 @@ P2PMaze.Game.prototype = {
         this.load.audio('win', 'assets/sounds/winSound.wav');
         this.load.audio('lose', 'assets/sounds/loseSound.wav');
         this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
+        this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
+        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_48x48 + 'RifiutiTossici' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_48x48 + 'Arpa' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_48x48 + 'Cerbero' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_48x48 + 'Cesoie' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_48x48 + 'Rovi' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_48x48 + 'Estintore' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_48x48 + 'Fuoco' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_48x48 + 'Cuffie' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_48x48 + 'Sirena' + ASSET_PATH.ITEM_48x48);
+        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_48x48 + 'BandieraRossa' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Toro', ASSET_PATH.PATH_ITEM_48x48 + 'Toro' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_48x48 + 'Aglio' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_48x48 + 'Vampiro' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_48x48 + 'Lampada' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Genio', ASSET_PATH.PATH_ITEM_48x48 + 'Genio' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_48x48 + 'Foglio' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_48x48 + 'Roccia' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_48x48 + 'Spinaci' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Spada', ASSET_PATH.PATH_ITEM_48x48 + 'Spada' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
+        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
+
+        
+
     },
     create: function () {
 
@@ -100,9 +128,9 @@ P2PMaze.Game.prototype = {
         // The number between 1 and 2000 is an index range for the tiles for which we want to enable
         // collision (in this case such a big number should include them all which is what I intended).
         // In order to obtain this number open file.json and in “layers” – “data” of the two layers 
-        // find the largest number you can find, in this case 1896 so I put 2000 just to be sure I didn’t 
+        // find the largest number you can find, in this case 3050 so I put 3500 just to be sure I didn’t 
         // miss a slightly larger number. 
-        map.setCollisionBetween(1, 200, true, 'blockedLayer');
+        map.setCollisionBetween(1, 3500, true, 'blockedLayer');
 
         backgroudLayer.resizeWorld();
 
@@ -116,8 +144,9 @@ P2PMaze.Game.prototype = {
         // create the player 
         player = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
-        //  Set the scale of the sprite to the random value
-        player.scale.setTo(0.6, 0.6);
+        player.scale.setTo(0.65, 0.65);
+
+        // player.tint = 0xff00ff; http://www.html5gamedevs.com/topic/6072-change-sprite-color/ CAMBIARE COLORE
 
         // create the phisics body. Can be a single object (as in this case) or of array of Objects
         this.game.physics.arcade.enable(player);
@@ -162,9 +191,11 @@ P2PMaze.Game.prototype = {
         //  Collide the player and the stars with the platforms
 
 
+
         // collisio to do 
         // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
         var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
+
 
         // player movement   
         // NB: comment these to gain less control over the sprite      
@@ -223,7 +254,7 @@ P2PMaze.Game.prototype = {
         // TODO aggiungere il suono 
 
         console.log("PRESO " + collectable.key);
-        P2PMaze.itemTaken('assets/images/estintore_grande.png', collectable.key )
+        P2PMaze.itemTaken(ASSET_PATH.PATH_ITEM_48x48 + collectable.key + ASSET_PATH.ITEM_48x48, collectable.key )
         // remove sprite
         collectable.destroy();
         // if size of objects are 0 then all items are keep
@@ -234,7 +265,7 @@ P2PMaze.Game.prototype = {
             this.winParticle();
             stateText.text = GAME.GAMEWIN;
             stateText.visible = true;
-            playerOrder = 1;
+            
             
 
             //the "click to restart" handler
@@ -321,18 +352,30 @@ P2PMaze.Game.prototype = {
             // It must matching from proprieties in Tiled and the name of sprite i.e redcup
             var spriteObject = items.create(element.x, element.y, element.properties.sprite);
 
+            spriteObject.scale.setTo(0.5);
             // enable for all sprites of object a physical properties
             this.game.physics.arcade.enable(spriteObject);
+
+            // we increase the dimesion of sprite.
+            // REF: http://www.html5gamedevs.com/topic/5171-checking-if-mouse-is-over-a-sprite-hover/
+            spriteObject.inputEnabled = true;
+            spriteObject.events.onInputOver.add(this.over, this);
+            spriteObject.events.onInputOut.add(this.out, this);
 
             // default = each objects are immovable
             spriteObject.body.immovable = true;
 
+
+
             // DEBUG
             //  console.log(element.properties.order + " " + element.properties.sprite);
 
-            // fill the HashMap for the logic of game
-            // key = sprite name
-            // value = order  
+            
+            /*
+             * fill the HashMap for the logic of game
+             * key = sprite name
+             * value = order
+            */  
             logicalOrder[element.properties.sprite] = element.properties.order;
 
 
@@ -344,12 +387,12 @@ P2PMaze.Game.prototype = {
     createLives: function () {
 
         // Lives
-        lives = this.game.add.group();
-        this.game.add.text(this.game.world.width - 100, 50, GAME.LIVES, { font: '34px Arial', fill: '#fff' });
+        lives = this.game.add.group(); 
+        this.game.add.text(this.game.world.width - 220, 5, GAME.LIVES, { font: '34px Arial', fill: '#fff' });
 
         // creation Life
         for (var i = 0; i < 3; i++) {
-            var heart = lives.create(this.game.world.width - 100 + (40 * i), 100, 'heart');
+            var heart = lives.create(this.game.world.width - 100 + (40 * i), 25, 'heart');
             heart.anchor.setTo(0.5, 0.5);
             // heart.angle = 90;
             // heart.alpha = 0.4;
@@ -390,7 +433,7 @@ P2PMaze.Game.prototype = {
             lose.play();
             stateText.text = GAME.GAMEOVER;
             stateText.visible = true;
-
+    
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
         } else {
@@ -407,6 +450,7 @@ P2PMaze.Game.prototype = {
 
         // //revives the player
         // player.revive();
+        playerOrder = 1;
         P2PMaze.clearItemDiv();
         
         this.state.start('MainMenu');
@@ -434,6 +478,52 @@ P2PMaze.Game.prototype = {
                                 'violelight', 'yellowlight', 'star_particle']);
 
         emitter.start(false, 5000, 20);
+    },
+    over: function (item) {
+        item.scale.setTo(1.9);
+        msgBox = this.showMessageBox(item.position.x, item.position.y, item.key);
+    },
+    out: function (item) {
+        item.scale.setTo(0.5);
+        if(msgBox!=undefined){
+            this.hideBox(msgBox);
+        }
+        
+    },
+    /**
+     * 
+     * @param {*} x initial pos x 
+     * @param {*} y initial pos ys
+     * @param {*} text 
+     * @param {*} w default value of with
+     * @param {*} h default value of height
+     */
+    showMessageBox(x,y, text, w = 50, h = 20) {
+    	//just in case the message box already exists destroy it
+        if (this.msgBox) {
+            this.msgBox.destroy();
+        }
+        //make a group to hold all the elements
+        var msgBox = this.game.add.group();
+        
+        // add style 
+        var style = { font: "15px Arial", fill: '#ffffff', backgroundColor: 'rgba(205, 166, 10, 0.92)' };
+        //make a text field
+        var text1 = this.game.add.text(x+10, y-20, text, style);
+
+        //set the textfeild to wrap if the text is too long
+        text1.wordWrap = true;
+       
+        msgBox.add(text1);
+        
+        //make a state reference to the messsage box
+        this.msgBox = msgBox;
+
+        return this.msgBox;
+    },
+    hideBox(msgBox) {
+    	//destroy the box when the button is pressed
+        msgBox.destroy();
     }
     // createFromTiledObject: function(element, group) {
 
