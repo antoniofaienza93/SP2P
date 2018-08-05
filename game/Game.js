@@ -46,6 +46,7 @@ P2PMaze.Game.prototype = {
         // TODO da togliere il preload che qui non dovrebbe servire 
         this.game.load.tilemap('temp', 'assets/tilemaps/temp.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tempImage', 'assets/images/tiles.png');
+        this.game.load.image('heart', 'assets/images/heart.png');
 
         // TODO CANCELLARE - vedere la grandezza dell'immagine        
         // 37x45 is the size of each frame
@@ -79,7 +80,6 @@ P2PMaze.Game.prototype = {
         this.load.audio('win', 'assets/sounds/winSound.wav');
         this.load.audio('lose', 'assets/sounds/loseSound.wav');
         this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
-
     },
     create: function () {
 
@@ -106,10 +106,11 @@ P2PMaze.Game.prototype = {
 
         backgroudLayer.resizeWorld();
 
+        this.createLives();
 
         this.createItems();
 
-        var result = this.findObjectsByType('playerStart', map, 'objectLayer');
+        result = this.findObjectsByType('playerStart', map, 'objectLayer');
 
 
         // create the player 
@@ -218,8 +219,11 @@ P2PMaze.Game.prototype = {
 
     },
     collect: function (player, collectable) {
+
+        // TODO aggiungere il suono 
+
         console.log("PRESO " + collectable.key);
-        P2PMaze.itemTaken("assets/images/estintore_grande.png", collectable.key);
+        P2PMaze.itemTaken('assets/images/estintore_grande.png', collectable.key )
         // remove sprite
         collectable.destroy();
         if (Object.keys(logicalOrder).length === 0) {
@@ -248,11 +252,13 @@ P2PMaze.Game.prototype = {
         // if exist inside the hashmap a key with the same name of the sprite
         // and the value is equal of playerOrder then return true
         if ((item.key in logicalOrder) && logicalOrder[item.key] === playerOrder) {
+            itemCorrect.play();
             playerOrder++;                  // icrease the order of player 
             delete logicalOrder[item.key];  // delete key-value            
             return true;
         } else {
             this.game.physics.arcade.collide(player, items);
+            this.decreaseLive();
             return false;
         }
 
