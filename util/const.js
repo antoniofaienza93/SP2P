@@ -18,8 +18,8 @@
  * Width and heiht of screen 
  */
 const SCREEN_SIZE = {
-    WIDTH: 800, // 800
-    HEIGHT: 600 // 600
+    WIDTH: 1020, // 800
+    HEIGHT: 640 // 600
 };
 
 // /**
@@ -65,7 +65,7 @@ const COMMUNICATION = {
  * Game field
  */
 const GAME = {
-    BACKGROUND_COLOR: "#4488AA",
+    BACKGROUND_COLOR: "#0c0c0c",
     TITLE: "P2PMaze",
     PLAY: "PLAY",
     MULTIPLAYER: "MULTIPLAYER",

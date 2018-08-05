@@ -166,10 +166,8 @@ P2PMaze.Game.prototype = {
 
     },
     collect: function (player, collectable) {
-
-        // TODO aggiungere il suono 
-
         console.log("PRESO " + collectable.key);
+        P2PMaze.itemTaken("assets/images/estintore_grande.png", collectable.key);
         // remove sprite
         collectable.destroy();
 
@@ -285,7 +283,7 @@ P2PMaze.Game.prototype = {
 
         this.game.debug.body(member);
         this.game.debug.spriteInfo(member, 32, number);
-        space = number + 130;
+        space = number + 130; 
     }
     // createFromTiledObject: function(element, group) {
 
