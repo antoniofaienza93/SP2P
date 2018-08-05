@@ -26,18 +26,23 @@ P2PMaze.Boot.prototype = {
     preload: function () {
 
         // this.load.image('logo', 'assets/images/zenvalogo.png');
-        this.load.image('logoPhaser', 'assets/images/logo/phaser.png');
+        this.load.image('logoPhaser', 'assets/images/logo/phaser_big.png');
+
+        
+
+        // Preloader Bar - TODO Da Cambiare forse
+        // this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+
+        // load Button Play -  https://www.iconfinder.com/icons/3049265/audio_button_control_multimedia_play_video_icon 
+        this.load.spritesheet('button_play', 'assets/buttons/play-3-512.png');
+
 
         // load FONT 
         this.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-        // Preloader Bar - TODO Da Cambiare forse
-        this.load.image('preloadbar', 'assets/images/preloader-bar.png');
-
-        // load Button Play -  https://www.iconfinder.com/icons/3049265/audio_button_control_multimedia_play_video_icon 
-        this.load.spritesheet('button_play', 'assets/buttons/play_button.png');
-
-
+        // settings button
+        this.load.spritesheet('settings', 'assets/buttons/settings.png');
+        
 
 
     },
@@ -58,6 +63,8 @@ P2PMaze.Boot.prototype = {
 
         //have the game centered horizontally
         this.scale.pageAlignHorizontaly = true;
+
+        
 
         this.state.start('Preload');
 

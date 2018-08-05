@@ -45,66 +45,68 @@ P2PMaze.Game = function () {
 P2PMaze.Game.prototype = {
     preload: function () {
         // TODO da togliere il preload che qui non dovrebbe servire 
-        this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('tempImage', 'assets/images/tiles.png');
-        this.game.load.image('heart', 'assets/images/heart.png');
+        // this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
+        // this.game.load.image('tempImage', 'assets/images/tiles.png');
+        // this.game.load.image('heart', 'assets/images/heart.png');
 
-        // TODO CANCELLARE - vedere la grandezza dell'immagine        
-        // 37x45 is the size of each frame
-        //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
-        //  blank frames at the end, so we tell the loader how many to load
-        this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
-        // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
-        // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
+        // // TODO CANCELLARE - vedere la grandezza dell'immagine        
+        // // 37x45 is the size of each frame
+        // //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
+        // //  blank frames at the end, so we tell the loader how many to load
+        // this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
+        // // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
+        // // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
-        // TODO carichiamo le immagini
-        // this.load.image('redcup', 'assets/images/estintore_piccolo.png');
-        // this.load.image('greycup', 'assets/images/greencup.png');
-        // this.load.image('bluecup', 'assets/images/bluecup.png');
+        // // TODO carichiamo le immagini
+        // // this.load.image('redcup', 'assets/images/estintore_piccolo.png');
+        // // this.load.image('greycup', 'assets/images/greencup.png');
+        // // this.load.image('bluecup', 'assets/images/bluecup.png');
 
-        this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
+        // this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
 
-        // win particles
-        this.load.image('blacklight', 'assets/images/particles/blacklight.png');
-        this.load.image('bluelight', 'assets/images/particles/bluelight.png');
-        this.load.image('brownlight', 'assets/images/particles/brownlight.png');
-        this.load.image('greenlight', 'assets/images/particles/greenlight.png');
-        this.load.image('orangelight', 'assets/images/particles/orangelight.png');
-        this.load.image('redlight', 'assets/images/particles/redlight.png');
-        this.load.image('violelight', 'assets/images/particles/violetlight.png');
-        this.load.image('yellowlight', 'assets/images/particles/yellowlight.png');
-        this.load.image('star_particle', 'assets/images/particles/star_particle.png');
+        // // win particles
+        // this.load.image('blacklight', 'assets/images/particles/blacklight.png');
+        // this.load.image('bluelight', 'assets/images/particles/bluelight.png');
+        // this.load.image('brownlight', 'assets/images/particles/brownlight.png');
+        // this.load.image('greenlight', 'assets/images/particles/greenlight.png');
+        // this.load.image('orangelight', 'assets/images/particles/orangelight.png');
+        // this.load.image('redlight', 'assets/images/particles/redlight.png');
+        // this.load.image('violelight', 'assets/images/particles/violetlight.png');
+        // this.load.image('yellowlight', 'assets/images/particles/yellowlight.png');
+        // this.load.image('star_particle', 'assets/images/particles/star_particle.png');
 
-        // sound
-        this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
-        this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
-        this.load.audio('win', 'assets/sounds/winSound.wav');
-        this.load.audio('lose', 'assets/sounds/loseSound.wav');
-        this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
-        this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
-        this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_48x48 + 'RifiutiTossici' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Arpa', ASSET_PATH.PATH_ITEM_48x48 + 'Arpa' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_48x48 + 'Cerbero' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_48x48 + 'Cesoie' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Rovi', ASSET_PATH.PATH_ITEM_48x48 + 'Rovi' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Estintore', ASSET_PATH.PATH_ITEM_48x48 + 'Estintore' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_48x48 + 'Fuoco' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_48x48 + 'Cuffie' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Sirena', ASSET_PATH.PATH_ITEM_48x48 + 'Sirena' + ASSET_PATH.ITEM_48x48);
-        this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_48x48 + 'BandieraRossa' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Toro', ASSET_PATH.PATH_ITEM_48x48 + 'Toro' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Aglio', ASSET_PATH.PATH_ITEM_48x48 + 'Aglio' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_48x48 + 'Vampiro' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Lampada', ASSET_PATH.PATH_ITEM_48x48 + 'Lampada' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Genio', ASSET_PATH.PATH_ITEM_48x48 + 'Genio' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Foglio', ASSET_PATH.PATH_ITEM_48x48 + 'Foglio' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Roccia', ASSET_PATH.PATH_ITEM_48x48 + 'Roccia' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_48x48 + 'Spinaci' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Spada', ASSET_PATH.PATH_ITEM_48x48 + 'Spada' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
-        this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
+        // // sound
+        // this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
+        // this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
+        // this.load.audio('win', 'assets/sounds/winSound.wav');
+        // this.load.audio('lose', 'assets/sounds/loseSound.wav');
+        // this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
+
+        // // item
+        // this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_48x48 + 'RifiutiTossici' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Arpa', ASSET_PATH.PATH_ITEM_48x48 + 'Arpa' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_48x48 + 'Cerbero' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_48x48 + 'Cesoie' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Rovi', ASSET_PATH.PATH_ITEM_48x48 + 'Rovi' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Estintore', ASSET_PATH.PATH_ITEM_48x48 + 'Estintore' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_48x48 + 'Fuoco' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_48x48 + 'Cuffie' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Sirena', ASSET_PATH.PATH_ITEM_48x48 + 'Sirena' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_48x48 + 'BandieraRossa' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Toro', ASSET_PATH.PATH_ITEM_48x48 + 'Toro' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Aglio', ASSET_PATH.PATH_ITEM_48x48 + 'Aglio' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_48x48 + 'Vampiro' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Lampada', ASSET_PATH.PATH_ITEM_48x48 + 'Lampada' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Genio', ASSET_PATH.PATH_ITEM_48x48 + 'Genio' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Foglio', ASSET_PATH.PATH_ITEM_48x48 + 'Foglio' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Roccia', ASSET_PATH.PATH_ITEM_48x48 + 'Roccia' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_48x48 + 'Spinaci' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Spada', ASSET_PATH.PATH_ITEM_48x48 + 'Spada' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
 
         
 

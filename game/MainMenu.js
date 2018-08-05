@@ -19,6 +19,10 @@ P2PMaze.MainMenu.prototype = {
     },
     create: function () {
 
+        // TITLE 
+        name_project = this.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'desyrel', GAME.TITLE, 64); // default 400  - 270
+        name_project.anchor.x = 0.5;
+
         // https://phaser.io/examples/v2/text/text-events
         var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
 
