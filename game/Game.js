@@ -14,9 +14,26 @@ var blockedLayer;
 var player;
 var cursor;
 var items;
+var lives;
+var stateText;
+var result;
 
+var lastItem;
+
+// sounds
+var itemCorrect;
+var itemWrong;
+var win;
+var lose;
+var wellDone;
+
+// logical order
 var logicalOrder = {};
-var playerOrder = 1; // the player starts to 1 for compare the item to take 
+
+// the player starts to 1 for compare the item to take 
+var playerOrder = 1;
+
+
 
 
 
@@ -39,9 +56,30 @@ P2PMaze.Game.prototype = {
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
         // TODO carichiamo le immagini
-        this.load.image('redcup', 'assets/images/estintore_grande.png');
+        this.load.image('redcup', 'assets/images/estintore_piccolo.png');
         this.load.image('greycup', 'assets/images/greencup.png');
         this.load.image('bluecup', 'assets/images/bluecup.png');
+
+        this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
+
+        // win particles
+        this.load.image('blacklight', 'assets/images/particles/blacklight.png');
+        this.load.image('bluelight', 'assets/images/particles/bluelight.png');
+        this.load.image('brownlight', 'assets/images/particles/brownlight.png');
+        this.load.image('greenlight', 'assets/images/particles/greenlight.png');
+        this.load.image('orangelight', 'assets/images/particles/orangelight.png');
+        this.load.image('redlight', 'assets/images/particles/redlight.png');
+        this.load.image('violelight', 'assets/images/particles/violetlight.png');
+        this.load.image('yellowlight', 'assets/images/particles/yellowlight.png');
+        this.load.image('star_particle', 'assets/images/particles/star_particle.png');
+
+        // sound
+        this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
+        this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
+        this.load.audio('win', 'assets/sounds/winSound.wav');
+        this.load.audio('lose', 'assets/sounds/loseSound.wav');
+        this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
+
     },
     create: function () {
 
@@ -77,6 +115,9 @@ P2PMaze.Game.prototype = {
         // create the player 
         player = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
+        //  Set the scale of the sprite to the random value
+        player.scale.setTo(0.6, 0.6);
+
         // create the phisics body. Can be a single object (as in this case) or of array of Objects
         this.game.physics.arcade.enable(player);
 
@@ -100,6 +141,17 @@ P2PMaze.Game.prototype = {
 
         // move player with cursor key 
         cursor = this.game.input.keyboard.createCursorKeys();
+
+        //  Text
+        stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', { font: '30px Arial', fill: '#fff' });
+        stateText.anchor.setTo(0.5, 0.5);
+        stateText.visible = false;
+
+        itemCorrect = this.game.add.audio('itemCorrect');
+        itemWrong = this.game.add.audio('itemWrong');
+        lose = this.game.add.audio('lose');
+        win = this.game.add.audio('win');
+        wellDone = this.game.add.audio('wellDone');
 
 
 
@@ -170,6 +222,18 @@ P2PMaze.Game.prototype = {
         P2PMaze.itemTaken("assets/images/estintore_grande.png", collectable.key);
         // remove sprite
         collectable.destroy();
+        if (Object.keys(logicalOrder).length === 0) {
+            player.kill();
+            win.play();
+            wellDone.play();
+            this.winParticle();
+            stateText.text = GAME.GAMEWIN;
+            stateText.visible = true;
+            playerOrder = 1;
+
+            //the "click to restart" handler
+            this.game.input.onTap.addOnce(this.restart, this);
+        }
 
     },
     // logic game
@@ -240,7 +304,6 @@ P2PMaze.Game.prototype = {
         // result = take all element from tileset with 'item' proprieties
         var resultItem = this.findObjectsByType('item', map, 'objectLayer');
 
-
         // element = take a specific result with proprieties etc
         resultItem.forEach(function (element) {
 
@@ -264,8 +327,26 @@ P2PMaze.Game.prototype = {
             // value = order  
             logicalOrder[element.properties.sprite] = element.properties.order;
 
+
+
             //this.createFromTiledObject(element, items);
         }, this);
+
+    },
+    createLives: function () {
+
+        // Lives
+        lives = this.game.add.group();
+        this.game.add.text(this.game.world.width - 100, 50, GAME.LIVES, { font: '34px Arial', fill: '#fff' });
+
+        // creation Life
+        for (var i = 0; i < 3; i++) {
+            var heart = lives.create(this.game.world.width - 100 + (40 * i), 100, 'heart');
+            heart.anchor.setTo(0.5, 0.5);
+            // heart.angle = 90;
+            // heart.alpha = 0.4;
+        }
+
     },
     render: function () {
 
@@ -283,7 +364,66 @@ P2PMaze.Game.prototype = {
 
         this.game.debug.body(member);
         this.game.debug.spriteInfo(member, 32, number);
-        space = number + 130; 
+        space = number + 130;
+    },
+    decreaseLive: function () {
+        live = lives.getFirstAlive();
+
+        if (live) {
+            live.kill();
+            this.explodePlayer();
+            player.kill();
+        }
+
+        // when the player dies
+        if (lives.countLiving() < 1) {
+            player.kill();
+
+            lose.play();
+            stateText.text = GAME.GAMEOVER;
+            stateText.visible = true;
+
+            //the "click to restart" handler
+            this.game.input.onTap.addOnce(this.restart, this);
+        } else {
+            itemWrong.play();
+            player.reset(result[0].x, result[0].y);
+        }
+    },
+    restart: function () {
+        // A new level starts
+
+        // reset the life count 
+        // lives.callAll('revive');
+        // this.createItems();
+
+        // //revives the player
+        // player.revive();
+        this.state.start('MainMenu');
+
+        //hides the text
+        stateText.visible = false;
+
+    },
+    explodePlayer: function () {
+        //make the player explode
+        var emitter = this.game.add.emitter(player.x, player.y, 100);
+        emitter.makeParticles('playerParticle');
+        emitter.minParticleSpeed.setTo(-200, -200);
+        emitter.maxParticleSpeed.setTo(200, 200);
+        emitter.gravity = 0;
+        emitter.start(true, 1000, null, 100);
+    },
+    winParticle: function () {
+        // https://phaser.io/examples/v2/particles/random-sprite
+        var emitter = this.game.add.emitter(this.game.world.centerX, 400, 200);
+
+        //  Here we're passing an array of image keys. It will pick one at random when emitting a new particle.
+        emitter.makeParticles(['blacklight', 'bluelight', 'brownlight',
+                                'greenlight', 'orangelight', 'redlight',
+                                'violelight', 'yellowlight', 'star_particle']);
+
+        emitter.start(false, 5000, 20);
     }
     // createFromTiledObject: function(element, group) {
 
