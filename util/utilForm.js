@@ -41,7 +41,7 @@ P2PMaze.itemTaken = function (pathImg, itemKey)
     /* <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div> */
     // create div
     var div = document.createElement("div");
-    div.setAttribute("align","align");
+    div.setAttribute("align","center");
 
     // create image
     var img = document.createElement("img");
@@ -52,6 +52,7 @@ P2PMaze.itemTaken = function (pathImg, itemKey)
 
     // create span
     var span = document.createElement("span");
+    span.setAttribute("style", "color: white");
     span.innerHTML = itemKey;
 
 
