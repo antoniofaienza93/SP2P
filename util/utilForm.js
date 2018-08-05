@@ -15,7 +15,7 @@
  * @param {*} value is the value of button
  * @param {*} callbackChoice is the callback ??
  */
-function createButton(cls, name, value, data,callback) {
+function createButton(cls, name, value, data, callback) {
     var button = document.createElement("input");
     button.setAttribute("type", "button");
     button.setAttribute("class", cls);
@@ -36,12 +36,11 @@ function createButton(cls, name, value, data,callback) {
  * @param {*} pathImg - path of image
  * @param {*} itemKey - the item key
  */
-P2PMaze.itemTaken = function (pathImg, itemKey)
-{
+P2PMaze.itemTaken = function (pathImg, itemKey) {
     /* <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div> */
     // create div
     var div = document.createElement("div");
-    div.setAttribute("align","center");
+    div.setAttribute("align", "center");
 
     // create image
     var img = document.createElement("img");
@@ -63,13 +62,24 @@ P2PMaze.itemTaken = function (pathImg, itemKey)
 }
 
 /**
+ * Remove all element inside a specific div when the game ended
+ * TODO: TEST
+ */
+P2PMaze.clearItemDiv = function () {
+    var myNode = document.getElementsByClassName("item");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+}
+
+/**
  * Function that create a form
  * @param {*} form is the name of the form
  * @param {*} array is the array that contains all item 
  * @param {*} attributeNameItem is the name of all item of form
  * @param {*} callbackChoice is the callback
  */
-function formPeerAvailable(form, array, attributeNameItem, value ,callbackChoice) {
+function formPeerAvailable(form, array, attributeNameItem, value, callbackChoice) {
     var choice = undefined;
 
     // Clear Item if exist
