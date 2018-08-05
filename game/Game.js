@@ -226,6 +226,7 @@ P2PMaze.Game.prototype = {
         P2PMaze.itemTaken('assets/images/estintore_grande.png', collectable.key )
         // remove sprite
         collectable.destroy();
+        // if size of objects are 0 then all items are keep
         if (Object.keys(logicalOrder).length === 0) {
             player.kill();
             win.play();
@@ -234,6 +235,7 @@ P2PMaze.Game.prototype = {
             stateText.text = GAME.GAMEWIN;
             stateText.visible = true;
             playerOrder = 1;
+            
 
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
@@ -405,6 +407,8 @@ P2PMaze.Game.prototype = {
 
         // //revives the player
         // player.revive();
+        P2PMaze.clearItemDiv();
+        
         this.state.start('MainMenu');
 
         //hides the text

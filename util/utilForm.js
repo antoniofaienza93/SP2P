@@ -66,7 +66,8 @@ P2PMaze.itemTaken = function (pathImg, itemKey) {
  * TODO: TEST
  */
 P2PMaze.clearItemDiv = function () {
-    var myNode = document.getElementsByClassName("item");
+    var myNode = document.getElementsByClassName("item")[0]; 
+
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
