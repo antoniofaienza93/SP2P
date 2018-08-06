@@ -1,0 +1,97 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/form.css">
+<!------ Include the above in your HEAD tag ---------->
+
+<body class="hm-gradient">
+    
+    <body class="hm-gradient">
+    
+    <main>
+        
+        <!--MDB Forms-->
+        <div class="container mt-4">
+
+            <!-- <div class="text-center darken-grey-text mb-4">
+                <h1 class="font-bold mt-4 mb-3 h5">Built with Material Design for Bootstrap 4</h1>
+                <a class="btn btn-danger btn-md" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Free download<i class="fa fa-download pl-2"></i></a>
+            </div> -->
+
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Form register -->
+                            <form id="needs-validation-id" class="needs-validation" novalidate>
+                                <h3 class="text-center pink-text font-bold py-4"><strong>Connect to a peer:</strong></h3>
+                                <div class="md-form">
+                                    <i class="fa fa-user prefix grey-text"></i>
+                                    <input type="text" id="orangeForm-name37" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Please choose an ID.
+                                    </div>
+                                    <label for="orangeForm-name37">Enter id</label>
+                                </div>
+                                <!-- <div class="md-form">
+                                    <i class="fa fa-envelope prefix grey-text"></i>
+                                    <input type="text" id="orangeForm-email37" class="form-control">
+                                    <label for="orangeForm-email37">Your email</label>
+                                </div> -->
+                                <div class="text-center py-4">
+                                    <button id="connect2" class="btn btn-outline-pink">Sign up <i class="fa fa-paper-plane-o ml-1"></i></button>
+                                </div>
+                            </form>
+                            <!-- Form register -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+          
+            <hr class="my-4">
+          
+            <!-- <div class="text-center darken-grey-text mb-4">
+                <h3 class="font-bold mb-3">Here you can find more Forms:</h3>
+                <a class="btn btn-danger" href="https://mdbootstrap.com/components/forms/" target="_blank">Bootstrap Forms</a>
+            </div> -->
+
+            <script>
+                    // Example starter JavaScript for disabling form submissions if there are invalid fields
+                    (function() {
+                      'use strict';
+                      window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                          form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                              event.preventDefault();
+                              event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                          }, false);
+                        });
+                      }, false);
+                    })();
+
+                    document.getElementById("connect2").onclick = function () { 
+                        if(document.getElementById("needs-validation-id").checkValidity()){
+                            alert("CIAAOOOOOOOOOOO");
+                        }
+                    };
+            </script>
+
+        </div>
+        <!--MDB Forms-->
+      
+    </main>
+    
+        <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
+    <script type="text/javascript" src="../lib/popper.min.js"></script>
+  
+</body>
