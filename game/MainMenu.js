@@ -78,6 +78,7 @@ P2PMaze.MainMenu.prototype = {
     setting: function () {
         choiceSelection.play();
         console.log("Adesso spieghimao come si gioca");
+        // https://phasergames.com/adding-message-box-phaser-games/
     },
     over: function (item) {
         selectMenu.play();
