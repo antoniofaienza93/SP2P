@@ -12,12 +12,6 @@
 
             <!--MDB Forms-->
             <div class="container mt-4">
-
-                <!-- <div class="text-center darken-grey-text mb-4">
-                <h1 class="font-bold mt-4 mb-3 h5">Built with Material Design for Bootstrap 4</h1>
-                <a class="btn btn-danger btn-md" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Free download<i class="fa fa-download pl-2"></i></a>
-            </div> -->
-
                 <!-- Grid column -->
                 <!-- Grid column -->
                 <div class="col-md-6 offset-md-3">
@@ -25,43 +19,10 @@
                         <div class="card-body">
                             <!-- Form register -->
                             <div id="needs-validation-id" class="needs-validation">
-                                <h3 class="text-center pink-text font-bold py-4">
-                                    <strong>Connect to a peer:</strong>
-                                </h3>
-                                <!-- <div class="md-form">  -->
-                                <div class="input-group mb-3">
-                                    <input id="inputid" type="text" class="form-control" placeholder="Enter ID" required>
-                                    <!-- <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
-                                    <div class="input-group-append">
-                                        <button id="connect2" class="btn btn-outline-pink">Sign up
-                                            <i class="fa fa-paper-plane-o ml-1"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- <i class="fa fa-user prefix grey-text"></i>
-                                    <input type="text" id="orangeForm-name37" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        Please choose an ID.
-                                    </div>
-                                    <label for="orangeForm-name37">Enter id</label> -->
-                                <!-- </div> -->
-                                <!-- <div class="md-form">
-                                    <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="text" id="orangeForm-email37" class="form-control">
-                                    <label for="orangeForm-email37">Your email</label>
-                                </div> -->
-
-                                <!-- <div class="text-center py-4">
-                                    <button class="btn btn-outline-pink">See Peer Available <i class="fa fa-paper-plane-o ml-1"></i></button>
-                                </div> -->
+                             
                             </div>
                             <br>
                             <div id="join-to-a-peer">
-                                <!-- <h4 class="text-center pink-text font-bold py-4"><strong>Join to a peer</strong></h4>
-                                     <div class="text-center py-4">
-                                    <button class="btn btn-outline-pink">See Peer Available <i class="fa fa-paper-plane-o ml-1"></i></button>
-                                </div> -->
                             </div>
                             <!-- Form register -->
                         </div>
@@ -74,13 +35,51 @@
             <hr class="my-4">
 
 
-            <!-- <div class="text-center darken-grey-text mb-4">
-                <h3 class="font-bold mb-3">Here you can find more Forms:</h3>
-                <a class="btn btn-danger" href="https://mdbootstrap.com/components/forms/" target="_blank">Bootstrap Forms</a>
-            </div> -->
+           
 
             <script>
-                var inputid = document.getElementById("inputid");
+
+                
+              
+
+                var h3 = document.createElement("h3");
+                h3.setAttribute("class", "text-center pink-text font-bold py-4");
+                h3.innerHTML = "<strong>Connect to a peer:</strong>";
+
+                var div1 = document.createElement("div");
+                div1.setAttribute("class", "input-group mb-3");
+
+                var input = document.createElement("input");
+                input.setAttribute("id", "inputid");
+                input.setAttribute("type", "text");
+                input.setAttribute("class", "form-control");
+                input.setAttribute("placeholder", "Enter ID");
+                input.setAttribute("required", true);
+
+                var div2 = document.createElement("div");
+                div2.setAttribute("class", "input-group-append"); 
+                
+                var button = document.createElement("button");
+                button.setAttribute("id", "connect2");
+                button.setAttribute("class", "btn btn-outline-pink");
+                button.innerHTML = "Sign up";
+
+                var i = document.createElement("i");
+                i.setAttribute("class", "fa fa-paper-plane-o ml-1");
+
+                button.appendChild(i);
+
+                div2.appendChild(button);
+
+                div1.appendChild(input);
+                div1.appendChild(div2);
+                
+
+
+                document.getElementById("needs-validation-id").appendChild(h3);
+                document.getElementById("needs-validation-id").appendChild(div1);
+
+
                 document.getElementById("connect2").onclick = function () {
                     var divexisted = document.getElementById("join-to-a-peer");
 
@@ -88,7 +87,7 @@
                         divexisted.removeChild(divexisted.firstChild);
                     }
 
-                    if (inputid.checkValidity()) {
+                    if (input.checkValidity()) {
 
 
                         var div = document.createElement("div");
