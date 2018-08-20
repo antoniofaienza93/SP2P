@@ -5,15 +5,15 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <body class="hm-gradient">
-    
-    <body class="hm-gradient">
-    
-    <main>
-        
-        <!--MDB Forms-->
-        <div class="container mt-4">
 
-            <!-- <div class="text-center darken-grey-text mb-4">
+    <body class="hm-gradient">
+
+        <main>
+
+            <!--MDB Forms-->
+            <div class="container mt-4">
+
+                <!-- <div class="text-center darken-grey-text mb-4">
                 <h1 class="font-bold mt-4 mb-3 h5">Built with Material Design for Bootstrap 4</h1>
                 <a class="btn btn-danger btn-md" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Free download<i class="fa fa-download pl-2"></i></a>
             </div> -->
@@ -24,25 +24,46 @@
                     <div class="card">
                         <div class="card-body">
                             <!-- Form register -->
-                            <form id="needs-validation-id" class="needs-validation" novalidate>
-                                <h3 class="text-center pink-text font-bold py-4"><strong>Connect to a peer:</strong></h3>
-                                <div class="md-form">
-                                    <i class="fa fa-user prefix grey-text"></i>
+                            <div id="needs-validation-id" class="needs-validation">
+                                <h3 class="text-center pink-text font-bold py-4">
+                                    <strong>Connect to a peer:</strong>
+                                </h3>
+                                <!-- <div class="md-form">  -->
+                                <div class="input-group mb-3">
+                                    <input id="inputid" type="text" class="form-control" placeholder="Enter ID" required>
+                                    <!-- <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
+                                    <div class="input-group-append">
+                                        <button id="connect2" class="btn btn-outline-pink">Sign up
+                                            <i class="fa fa-paper-plane-o ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- <i class="fa fa-user prefix grey-text"></i>
                                     <input type="text" id="orangeForm-name37" class="form-control" required>
                                     <div class="invalid-feedback">
                                         Please choose an ID.
                                     </div>
-                                    <label for="orangeForm-name37">Enter id</label>
-                                </div>
+                                    <label for="orangeForm-name37">Enter id</label> -->
+                                <!-- </div> -->
                                 <!-- <div class="md-form">
                                     <i class="fa fa-envelope prefix grey-text"></i>
                                     <input type="text" id="orangeForm-email37" class="form-control">
                                     <label for="orangeForm-email37">Your email</label>
                                 </div> -->
-                                <div class="text-center py-4">
-                                    <button id="connect2" class="btn btn-outline-pink">Sign up <i class="fa fa-paper-plane-o ml-1"></i></button>
-                                </div>
-                            </form>
+
+                                <!-- <div class="text-center py-4">
+                                    <button class="btn btn-outline-pink">See Peer Available <i class="fa fa-paper-plane-o ml-1"></i></button>
+                                </div> -->
+                            </div>
+                            <br>
+
+                            <div id="join-to-a-peer">
+                                <!-- <h4 class="text-center pink-text font-bold py-4"><strong>Join to a peer</strong></h4>
+                                     <div class="text-center py-4">
+                                    <button class="btn btn-outline-pink">See Peer Available <i class="fa fa-paper-plane-o ml-1"></i></button>
+                                </div> -->
+                            </div>
                             <!-- Form register -->
                         </div>
                     </div>
@@ -50,48 +71,57 @@
                 <!-- Grid column -->
             </div>
             <!-- Grid row -->
-          
+
             <hr class="my-4">
-          
+
+
             <!-- <div class="text-center darken-grey-text mb-4">
                 <h3 class="font-bold mb-3">Here you can find more Forms:</h3>
                 <a class="btn btn-danger" href="https://mdbootstrap.com/components/forms/" target="_blank">Bootstrap Forms</a>
             </div> -->
 
             <script>
-                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                    (function() {
-                      'use strict';
-                      window.addEventListener('load', function() {
-                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                        var forms = document.getElementsByClassName('needs-validation');
-                        // Loop over them and prevent submission
-                        var validation = Array.prototype.filter.call(forms, function(form) {
-                          form.addEventListener('submit', function(event) {
-                            if (form.checkValidity() === false) {
-                              event.preventDefault();
-                              event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                          }, false);
-                        });
-                      }, false);
-                    })();
+                var inputid = document.getElementById("inputid");
+                document.getElementById("connect2").onclick = function () {
+                    var divexisted = document.getElementById("join-to-a-peer");
 
-                    document.getElementById("connect2").onclick = function () { 
-                        if(document.getElementById("needs-validation-id").checkValidity()){
-                            alert("CIAAOOOOOOOOOOO");
-                        }
-                    };
+                    while (divexisted.firstChild) {
+                        divexisted.removeChild(divexisted.firstChild);
+                    }
+
+                    if (inputid.checkValidity()) {
+
+
+                        var div = document.createElement("div");
+                        div.setAttribute("class", "text-center darken-grey-text mb-4");
+
+                        var h3 = document.createElement("h3");
+                        h3.setAttribute("class", "font-bold mb-3");
+                        h3.innerHTML = "Join to a peer";
+
+                        var a = document.createElement("a");
+                        a.setAttribute("class", "btn btn-danger");
+                        a.setAttribute("target", "_blank");
+                        a.innerHTML = "See Peer Available";
+
+                        div.appendChild(h3);
+                        div.appendChild(a);
+
+                        document.getElementById("join-to-a-peer").appendChild(div);
+                    } else {
+                        alert("Please insert id");
+                    }
+
+                };
             </script>
 
-        </div>
-        <!--MDB Forms-->
-      
-    </main>
-    
+            </div>
+            <!--MDB Forms-->
+
+        </main>
+
         <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
-    <script type="text/javascript" src="../lib/popper.min.js"></script>
-  
-</body>
+        <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
+        <script type="text/javascript" src="../lib/popper.min.js"></script>
+
+    </body>
