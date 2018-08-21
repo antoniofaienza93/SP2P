@@ -1,189 +1,120 @@
-
-<!-- <!doctype html>
+<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<meta http-equiv="Content-Language" content="en-us"> 
-<script type="text/javascript" src="../lib/peer.js"></script>
-<script type="text/javascript" src="managePeerCommunication.js"></script>
-<script type="text/javascript" src="../util/utilForm.js"></script>
-<script type="text/javascript" src="../chat/Chat.js"></script>
-<script type="text/javascript" src="PeerClient.js"></script>
-<script type="text/javascript" src="../util/const.js"></script> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="en-us">
+    <script type="text/javascript" src="../lib/peer.js"></script>
+    <script type="text/javascript" src="managePeerCommunication.js"></script>
+    <script type="text/javascript" src="../util/utilForm.js"></script>
+    <script type="text/javascript" src="../chat/Chat.js"></script>
+    <script type="text/javascript" src="PeerClient.js"></script>
+    <script type="text/javascript" src="../util/const.js"></script>
 
-<script src="../lib/jquery-1.11.1.min.js"></script>
-<link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../css/form.css">
-<!------ Include the above in your HEAD tag ---------->
-<title>Peer to Peer Comunication Test</title>
-<body class="hm-gradient">
+    <script src="../lib/jquery-1.11.1.min.js"></script>
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/form.css">
+    <!------ Include the above in your HEAD tag ---------->
+    <title>Peer to Peer Comunication Test</title>
 
-    <body class="hm-gradient" id="bodyid">
+    <body class="hm-gradient">
 
-        <hr class="my-4">
+        <body class="hm-gradient" id="bodyid">
 
-
-        <script>
-
-            var div1 = document.createElement("div");
-            div1.setAttribute("class", "container mt-4");
-
-            var div2 = document.createElement("div");
-            div2.setAttribute("class", "col-md-6 offset-md-3");
-
-            var div3 = document.createElement("div");
-            div3.setAttribute("class", "card");
-
-            var div4 = document.createElement("div");
-            div4.setAttribute("class", "card-body");
-
-            var div5 = document.createElement("div");
-            div5.setAttribute("class", "needs-validation");
-            div5.setAttribute("id", "needs-validation-id");
-
-            var br = document.createElement("br");
-
-            var jointoapeer = document.createElement("div");
-            jointoapeer.setAttribute("id", "join-to-a-peer");
-
-            div1.appendChild(div2);
-            div2.appendChild(div3);
-            div3.appendChild(div4);
-            div4.appendChild(div5);
+            <hr class="my-4">
 
 
-            var h3 = document.createElement("h3");
-            h3.setAttribute("class", "text-center pink-text font-bold py-4");
-            h3.innerHTML = "<strong>Connect to a peer:</strong>";
+            <script>
 
-            var div7 = document.createElement("div");
-            div7.setAttribute("class", "input-group mb-3");
+                var div1 = document.createElement("div");
+                div1.setAttribute("class", "container mt-4");
 
-            var input = document.createElement("input");
-            input.setAttribute("id", "inputid");
-            input.setAttribute("type", "text");
-            input.setAttribute("class", "form-control");
-            input.setAttribute("placeholder", "Enter ID");
-            input.setAttribute("required", true);
+                var div2 = document.createElement("div");
+                div2.setAttribute("class", "col-md-6 offset-md-3");
 
-            var div9 = document.createElement("div");
-            div9.setAttribute("class", "input-group-append");
+                var div3 = document.createElement("div");
+                div3.setAttribute("class", "card");
 
-            var button = document.createElement("button");
-            button.setAttribute("id", "connect");
-            button.setAttribute("class", "btn btn-outline-pink");
-            button.innerHTML = "Sign up";
+                var div4 = document.createElement("div");
+                div4.setAttribute("class", "card-body");
 
-            var i = document.createElement("i");
-            i.setAttribute("class", "fa fa-paper-plane-o ml-1");
+                var div5 = document.createElement("div");
+                div5.setAttribute("class", "needs-validation");
+                div5.setAttribute("id", "needs-validation-id");
 
-            button.appendChild(i);
+                var br = document.createElement("br");
 
-            div9.appendChild(button);
+                var jointoapeer = document.createElement("div");
+                jointoapeer.setAttribute("id", "join-to-a-peer");
 
-            // creation input form user
-            div7.appendChild(input);
-            div7.appendChild(div9);
-            div5.appendChild(h3);
-            div5.appendChild(div7);
-
-            div4.appendChild(br);
-            div4.appendChild(jointoapeer);
-
-            document.getElementById("bodyid").appendChild(div1);
-
-            document.getElementById("connect").onclick = function () {
-                var divexisted = document.getElementById("join-to-a-peer");
-
-                while (divexisted.firstChild) {
-                    divexisted.removeChild(divexisted.firstChild);
-                }
-
-                if (input.checkValidity()) {
+                div1.appendChild(div2);
+                div2.appendChild(div3);
+                div3.appendChild(div4);
+                div4.appendChild(div5);
 
 
-                    var div = document.createElement("div");
-                    div.setAttribute("class", "text-center darken-grey-text mb-4");
+                var h3 = document.createElement("h3");
+                h3.setAttribute("class", "text-center pink-text font-bold py-4");
+                h3.innerHTML = "<strong>Connect to a peer:</strong>";
 
-                    var h3 = document.createElement("h3");
-                    h3.setAttribute("class", "font-bold mb-3");
-                    h3.innerHTML = "Join to a peer";
+                var div7 = document.createElement("div");
+                div7.setAttribute("class", "input-group mb-3");
 
-                    var a = document.createElement("a");
-                    a.setAttribute("class", "btn btn-danger");
-                    a.setAttribute("target", "_blank");
-                    a.setAttribute("id", "join");
-                    a.innerHTML = "See Peer Available"; // TODO qua collegare al resto
+                var input = document.createElement("input");
+                input.setAttribute("id", "inputid");
+                input.setAttribute("type", "text");
+                input.setAttribute("class", "form-control");
+                input.setAttribute("placeholder", "Enter ID");
+                input.setAttribute("required", true);
 
-                    div.appendChild(h3);
-                    div.appendChild(a);
+                var div9 = document.createElement("div");
+                div9.setAttribute("class", "input-group-append");
 
-                    var div8 = document.createElement("div");
-                    div8.setAttribute("class", "text-center darken-grey-text mb-4");
+                var button = document.createElement("button");
+                button.setAttribute("id", "connect");
+                button.setAttribute("class", "btn btn-outline-pink");
+                button.innerHTML = "Sign up";
 
-                    var h4 = document.createElement("h4");
-                    h4.setAttribute("class", "font-bold mb-2");
-                    h4.innerHTML = "USERNAME: prova username"; // TODO da cambiare
+                var i = document.createElement("i");
+                i.setAttribute("class", "fa fa-paper-plane-o ml-1");
 
-                    div8.appendChild(h4);
-                    jointoapeer.appendChild(div);
-                    jointoapeer.appendChild(div8);
+                button.appendChild(i);
 
+                div9.appendChild(button);
 
-                    document.getElementById("join").onclick = function () {
-                        alert("AdASDASD");
-                    };
+                // creation input form user
+                div7.appendChild(input);
+                div7.appendChild(div9);
+                div5.appendChild(h3);
+                div5.appendChild(div7);
 
-                    var div10 = document.createElement("div");
-                    
+                div4.appendChild(br);
+                div4.appendChild(jointoapeer);
 
-                    var div11 = document.createElement("div");
-                    div11.setAttribute("id","info");
+                document.getElementById("bodyid").appendChild(div1);
 
-                    var form = document.createElement("form");
-                    form.setAttribute("id", "choice-peer");
-                    form.setAttribute("action", "");
-                    div10.appendChild(div11);
-                    div10.appendChild(form);
+                // ---------------------------------------------
 
-                    var br = document.createElement("br");
+               
 
-                     var div12 = document.createElement("div");
-                     div12.setAttribute("id","request_connection");
+               
 
-                     var form2 = document.createElement("form");
-                     form2.setAttribute("id", "connection_choice_form");
-                     form2.setAttribute("action", "");
+                var br = document.createElement("br");
 
-                     var div13 = document.createElement("div");
-                     div13.setAttribute("id","chat"); 
+               
+            </script>
 
-                    jointoapeer.appendChild(div10);
-                    jointoapeer.appendChild(div12);
-                    jointoapeer.appendChild(form2);
-                    jointoapeer.appendChild(div13);
-
-
-                } else {
-                    alert("Please insert id");
-                }
-
-            };
-
-
-        </script>
-
-        </div>
-        <!--MDB Forms-->
+            </div>
+            <!--MDB Forms-->
 
 
 
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
-        <script type="text/javascript" src="../lib/popper.min.js"></script>
+            <!-- MDB core JavaScript -->
+            <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
+            <script type="text/javascript" src="../lib/popper.min.js"></script>
 
-    </body>
+        </body>

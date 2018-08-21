@@ -10,7 +10,8 @@ class Chat {
     sendMessage(div) {
 
         // It has at least one
-        if (!(div.hasChildNodes())) {
+        if (!(div.hasChildNodes())) 
+        {
             this._div = div;
 
             this._input = document.createElement("input");
