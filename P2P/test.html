@@ -1,55 +1,120 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<meta http-equiv="Content-Language" content="en-us"> 
-<script type="text/javascript" src="../lib/peer.js"></script>
-<!-- <script type="text/javascript" src="clientB.js"></script>
-<script type="text/javascript" src="clientA.js"></script> -->
-<script type="text/javascript" src="managePeerCommunication.js"></script>
-<script type="text/javascript" src="../util/utilForm.js"></script>
-<script type="text/javascript" src="../chat/Chat.js"></script>
-<script type="text/javascript" src="PeerClient.js"></script>
-<script type="text/javascript" src="../util/const.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="en-us">
+    <script type="text/javascript" src="../lib/peer.js"></script>
+    <script type="text/javascript" src="managePeerCommunication.js"></script>
+    <script type="text/javascript" src="../util/utilForm.js"></script>
+    <script type="text/javascript" src="../chat/Chat.js"></script>
+    <script type="text/javascript" src="PeerClient.js"></script>
+    <script type="text/javascript" src="../util/const.js"></script>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css" crossorigin="anonymous">
-<title>Peer to Peer Comunication Test</title>
-<!-- REF FORM https://bootsnipp.com/snippets/M5OE9 -->
-<body>
-	<h1> Peer to Peer Comunication Test </h1>
-	Connect to a peer: <input type="text" id="inputid" placeholder="Enter id"><input class="button" type="button" value="Sign up" id="connect"><br><br>
-	Join to a peer: <input class="button" type="button" value="See Peer Available" id="join"><br><br>
+    <script src="../lib/jquery-1.11.1.min.js"></script>
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/form.css">
+    <!------ Include the above in your HEAD tag ---------->
+    <title>Peer to Peer Comunication Test</title>
 
-	
-	<div>
-		<div id="info"></div>
-		<form id="choice-peer" action=""></form>
-	</div>
-	<br>
-	<div id="request_connection"></div>
-	<form id="connection_choice_form" action=""></form>
-	<div id="chat"></div>
-	<!-- <div id="seeChatMessage"></div> -->
-	<!-- Qui bisogna fare un form per quello che invia e uno per quello che riceve -->
-	
-	<!-- Send: <input type="text" id="sendMessage" placeholder="Send message"><input class="button" type="button" value="Send" id="send"><br><br> -->
+    <body class="hm-gradient">
 
-	<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../lib/jquery-1.11.1.min.js" crossorigin="anonymous"></script>
-    <script src="../lib/popper.min.js" crossorigin="anonymous"></script>
-	<script src="../lib/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
-	
-	 <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../lib/jquery-1.11.1.min.js" crossorigin="anonymous"></script>
-    <script src="../lib/popper.min.js" crossorigin="anonymous"></script>
-    <!-- <script src="../lib/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
-</body>
+        <body class="hm-gradient" id="bodyid">
 
-</html> 
+            <hr class="my-4">
+
+
+            <script>
+
+                var div1 = document.createElement("div");
+                div1.setAttribute("class", "container mt-4");
+
+                var div2 = document.createElement("div");
+                div2.setAttribute("class", "col-md-6 offset-md-3");
+
+                var div3 = document.createElement("div");
+                div3.setAttribute("class", "card");
+
+                var div4 = document.createElement("div");
+                div4.setAttribute("class", "card-body");
+
+                var div5 = document.createElement("div");
+                div5.setAttribute("class", "needs-validation");
+                div5.setAttribute("id", "needs-validation-id");
+
+                var br = document.createElement("br");
+
+                var jointoapeer = document.createElement("div");
+                jointoapeer.setAttribute("id", "join-to-a-peer");
+
+                div1.appendChild(div2);
+                div2.appendChild(div3);
+                div3.appendChild(div4);
+                div4.appendChild(div5);
+
+
+                var h3 = document.createElement("h3");
+                h3.setAttribute("class", "text-center pink-text font-bold py-4");
+                h3.innerHTML = "<strong>Connect to a peer:</strong>";
+
+                var div7 = document.createElement("div");
+                div7.setAttribute("class", "input-group mb-3");
+
+                var input = document.createElement("input");
+                input.setAttribute("id", "inputid");
+                input.setAttribute("type", "text");
+                input.setAttribute("class", "form-control");
+                input.setAttribute("placeholder", "Enter ID");
+                input.setAttribute("required", true);
+
+                var div9 = document.createElement("div");
+                div9.setAttribute("class", "input-group-append");
+
+                var button = document.createElement("button");
+                button.setAttribute("id", "connect");
+                button.setAttribute("class", "btn btn-outline-pink");
+                button.innerHTML = "Sign up";
+
+                var i = document.createElement("i");
+                i.setAttribute("class", "fa fa-paper-plane-o ml-1");
+
+                button.appendChild(i);
+
+                div9.appendChild(button);
+
+                // creation input form user
+                div7.appendChild(input);
+                div7.appendChild(div9);
+                div5.appendChild(h3);
+                div5.appendChild(div7);
+
+                div4.appendChild(br);
+                div4.appendChild(jointoapeer);
+
+                document.getElementById("bodyid").appendChild(div1);
+
+                // ---------------------------------------------
+
+               
+
+               
+
+                var br = document.createElement("br");
+
+               
+            </script>
+
+            </div>
+            <!--MDB Forms-->
+
+
+
+            <!-- MDB core JavaScript -->
+            <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
+            <script type="text/javascript" src="../lib/popper.min.js"></script>
+
+        </body>

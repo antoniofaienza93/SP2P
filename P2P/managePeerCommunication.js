@@ -286,8 +286,8 @@ window.onload = function () {
      * @param {obj} error 
      */
     function handleServerError(error){
-        if(error==='peer-unavailable'){
-            var d = document.getElementById("invitation");
+        var d = document.getElementById("invitation");
+        if(error==='peer-unavailable'){            
             clearDiv(d);
         }
         

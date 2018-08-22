@@ -177,9 +177,13 @@ function addCheckBoxItem(joinPeerButton, value, nameItemCheckbox, returnChoice, 
  */
 function clearDiv(div) {
 
-    while (div.firstChild) {
-        div.removeChild(div.firstChild);
+    if(div != null){
+
+        while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }
     }
+    
 }
 
 /**
