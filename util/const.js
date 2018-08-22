@@ -58,9 +58,15 @@ const PEER_CLIENT = {
  * Message log
  */
 const COMMUNICATION = {
+   
     PEER_AVAILABILITY: "NO PEER AVAILABLE",
     PEER_SELECTION: "KEEP ATTENTION: NO PEER SELECTED",
     PEER_SELECTED: "WARNING: Select YES or NO if you want (or not) to connect of peer "
+}
+
+const PEER = {
+    CONNECTION_ACCEPTED: "CONNECTION_ACCEPTED",
+    CONNECTION_REFUSED: "CONNECTION_REFUSED"
 }
 
 /**
@@ -94,5 +100,6 @@ const ASSET_PATH = {
 const FORM = {
     CHOICE_PEER: "Choice Peer to Connect",
     FILL: "Please, insert ID",
-    MESSAGE_SEND: "We send a message to"
+    MESSAGE_SEND: "We send a message to",
+    SEE_PEER_AVAILABLE: "See Peer Available"
 }

@@ -56,7 +56,8 @@ class PeerClient {
      */
     closeConnection() {
         this._conn.close();
-        alert("CONNESSIONE CHIUSA"); // TODO mettere un qualche messaggio               
+        alert("CONNESSIONE CHIUSA"); // TODO mettere un qualche messaggio        
+                       
     }
 
     /**

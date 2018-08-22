@@ -61,8 +61,8 @@
                 h3.setAttribute("class", "text-center pink-text font-bold py-4");
                 h3.innerHTML = "<strong>Connect to a peer:</strong>";
 
-                var div7 = document.createElement("div");
-                div7.setAttribute("class", "input-group mb-3");
+                var div6 = document.createElement("div");
+                div6.setAttribute("class", "input-group mb-3");
 
                 var input = document.createElement("input");
                 input.setAttribute("id", "inputid");
@@ -71,8 +71,8 @@
                 input.setAttribute("placeholder", "Enter ID");
                 input.setAttribute("required", true);
 
-                var div9 = document.createElement("div");
-                div9.setAttribute("class", "input-group-append");
+                var div7 = document.createElement("div");
+                div7.setAttribute("class", "input-group-append");
 
                 var button = document.createElement("button");
                 button.setAttribute("id", "connect");
@@ -84,13 +84,13 @@
 
                 button.appendChild(i);
 
-                div9.appendChild(button);
+                div7.appendChild(button);
 
                 // creation input form user
-                div7.appendChild(input);
-                div7.appendChild(div9);
+                div6.appendChild(input);
+                div6.appendChild(div7);
                 div5.appendChild(h3);
-                div5.appendChild(div7);
+                div5.appendChild(div6);
 
                 div4.appendChild(br);
                 div4.appendChild(jointoapeer);

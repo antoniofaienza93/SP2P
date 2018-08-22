@@ -175,15 +175,26 @@ function addCheckBoxItem(joinPeerButton, value, nameItemCheckbox, returnChoice, 
  * Remove the existing div if exist
  * @param {*} div - the div to remove
  */
-function clearDiv(div) {
+function clearChildDiv(div) {
 
-    if(div != null){
+    if (div != null) {
 
         while (div.firstChild) {
             div.removeChild(div.firstChild);
         }
+
     }
-    
+
+}
+
+/**
+ * This function delete the div and his child
+ * @param {class div} cl 
+ */
+function clearDiv(cl) {
+    var d = document.getElementById(cl);
+    clearChildDiv(d);
+    if (d != null) { d.remove(); }
 }
 
 /**
@@ -218,7 +229,7 @@ function joinPeerButton(callback) {
     a.setAttribute("class", "btn btn-danger");
     a.setAttribute("target", "_blank");
     a.setAttribute("id", "join");
-    a.innerHTML = "See Peer Available";
+    a.innerHTML = FORM.SEE_PEER_AVAILABLE;
     a.onclick = function () {
         callback();
     };
@@ -263,7 +274,7 @@ function requestConnectionForm() {
 /**
  * Return the div that contains the choice to establish connection from the peer requester
  */
-function connectionChoiceForm() {
+function itemChoiceForm() {
 
     var div = document.createElement("div");
     div.setAttribute("class", "text-center darken-grey-text mb-4");
@@ -273,6 +284,17 @@ function connectionChoiceForm() {
     form.setAttribute("action", "");
 
     div.appendChild(form);
+
+    return div;
+}
+
+/**
+ * This function return the div that contains the choise YES or NOT for estrablish the connection
+ */
+function divChoiceForm() {
+    var div = document.createElement("div");
+    div.setAttribute("class", "text-center darken-grey-text mb-4");
+    div.setAttribute("id", "div-choice-form");
 
     return div;
 }
@@ -299,9 +321,11 @@ function messageInvite(message) {
     h4.setAttribute("class", "font-bold mb-3");
     h4.innerHTML = message;
 
-   
+
 
     div.appendChild(h4);
 
     return div;
 }
+
+

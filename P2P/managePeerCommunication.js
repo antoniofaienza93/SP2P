@@ -18,6 +18,7 @@ window.onload = function () {
 
     var peerClient = undefined;
     var connectionChoice = undefined;
+    var peerRequestor = [];
 
 
     // name tag for all element of checkbox
@@ -25,11 +26,6 @@ window.onload = function () {
 
     // form that decide if woy want connect or not with peer
     var classItemForm = "accept-connection";
-
-    var chatForm = document.getElementById("chat");
-
-    // var see_chat_message = document.getElementById("seeChatMessage");
-    var error;
 
     var connectionChoice = undefined;
 
@@ -57,42 +53,65 @@ window.onload = function () {
     function dataReceived(data) {
 
         if (peerClient.getConnection() == undefined) {
-            // console.log("CIAO " + peerClient.getConnection()); RIPARTIRE DA QUII
-            // TODO questo mi sa lo devo cancellare 
-            var label = document.createElement('label');
-            label.setAttribute("name", "request_connection_label");
-            // label.htmlFor = "Il peer <strong>" + data + "</strong> want to connect with you";
-            label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
 
-            var d = requestConnectionForm();
-            jointoapeer.appendChild(d);
-            d.appendChild(label);
+            var peerAlredyRequest = peerRequestor.find(o => o.peer === data);
+            
+            // the form is created or 
+            // if is the first time that arrived the request peer (i.e undefined) or 
+            // if there are other request but non from the same peer
+            if (peerAlredyRequest==undefined || data != peerAlredyRequest.peer) {
 
-            var dc;
-            var decideToConnect = ["YES", "NO"];
-            for (var i = 0; i < decideToConnect.length; i++) {
-                dc = connectionChoiceForm();
-                jointoapeer.appendChild(dc);
-                addCheckBoxItem(dc, decideToConnect[i], classItemForm, connectionChoice, (value) => connectionChoice = value);
+                // add histroical peer for avoid to receive the request by the same peer
+                var p = { 'peer': data };
+                peerRequestor.push(p);
+                // console.log(peerRequestor); ripartire da qui
+
+                var choiceForm = divChoiceForm();
+
+                var label = document.createElement('label');
+                label.setAttribute("name", "request_connection_label");
+                // label.htmlFor = "Il peer <strong>" + data + "</strong> want to connect with you";
+                label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
+
+                var d = requestConnectionForm();
+                d.appendChild(label);
+                choiceForm.appendChild(d);
+
+
+                // add item of peer available
+                var dc;
+                var decideToConnect = ["YES", "NO"];
+                for (var i = 0; i < decideToConnect.length; i++) {
+                    dc = itemChoiceForm();
+                    choiceForm.appendChild(dc);
+                    addCheckBoxItem(dc, decideToConnect[i], classItemForm, connectionChoice, (value) => connectionChoice = value);
+                }
+
+                // add button to checkbox
+                var buttonChoice = createButton("button", classItemForm, FORM.CHOICE_PEER, data, callbackFormPeerAvailableckConnectionChoice)
+                dc.appendChild(buttonChoice);
+
+                jointoapeer.appendChild(choiceForm);
             }
 
-            // add button to checkbox
-            var buttonChoice = createButton("button", classItemForm, FORM.CHOICE_PEER, data, callbackFormPeerAvailableckConnectionChoice)
-            dc.appendChild(buttonChoice);
+
+
         } else {
 
-            if (data == "INVITATION_ACCEPTED") {
+            if (data == PEER.CONNECTION_ACCEPTED) {
                 // enableGame(); TODO decommentare 
                 var d = chatFormmm();
                 jointoapeer.appendChild(d);
                 chat.sendMessage(d);
                 chat.onclickButton(sendChatMessage);
-            } else {
+            } else if(data == PEER.CONNECTION_REFUSED){
+                peerClient.closeConnection();
+                clearDiv("invitation");
+            }
+            else {
                 P2PMaze.dataReceived = data;
             }
-
         }
-
 
     }
 
@@ -106,6 +125,7 @@ window.onload = function () {
         } else if (connectionChoice == "YES") {
 
             acceptConnection(data);
+
             // TODO questa è una chat provvisoria che deve essere messa a posto
             var d = chatFormmm();
             jointoapeer.appendChild(d);
@@ -114,14 +134,28 @@ window.onload = function () {
 
             deleteCheckboxItem(classItemForm);
 
+            clearDiv("div-choice-form");
+
             // the player accept the connection and then it can see the canvas with multiplayer
             enableGame();
 
         } else if (connectionChoice == "NO") {
 
-            refuseConnection();
+            // clear the div            
+            clearDiv("div-choice-form");
 
-            // TODO Cancellare il form               
+            // refuse Connection
+            refuseConnection(data);
+
+            
+            console.log(peerRequestor);
+            // delete from array the peer 
+            var peerAlredyRequest = peerRequestor.find(o => o.peer === data);
+            var pos = peerRequestor.findIndex(x => x.peer== peerAlredyRequest.peer );        
+            peerRequestor.splice(pos, 1);
+            console.log(peerRequestor);
+
+
         }
     }
 
@@ -129,18 +163,20 @@ window.onload = function () {
     /**
      * This is the second point to open a connection. Who accept the connection is considered 
      * the opponent player
-     * @param {*} peerRequestor 
+     * @param {*} peerR 
      */
-    function acceptConnection(peerRequestor) {
-        peerClient.conn(peerRequestor);
-        peerClient.openConnection("INVITATION_ACCEPTED");
+    function acceptConnection(peerR) {
+        peerClient.conn(peerR);
+        peerClient.openConnection(PEER.CONNECTION_ACCEPTED);
 
     }
 
 
-    function refuseConnection() {
+    function refuseConnection(peerR) {
         // far ritornare la connessione
-        peerClient.closeConnection();
+        // peerClient.closeConnection();
+        peerClient.conn(peerR);
+        peerClient.openConnection(PEER.CONNECTION_REFUSED);
     }
 
 
@@ -160,7 +196,7 @@ window.onload = function () {
     function createPeerClient(data) {
 
         // console.log("STRINGA GENERATA: " + data); // DEBUG
-        var input = document.getElementById("inputid"); 
+        var input = document.getElementById("inputid");
 
         if (input.checkValidity()) {
 
@@ -175,13 +211,13 @@ window.onload = function () {
             // enable reception of data
             peerClient.enableReceptionData(dataReceived);
 
+            // wee see the error of the server
             error = peerClient.seeError(handleServerError);
-            // if (error != undefined) {
-            //     alert(error);
-            // }
 
             // remove div if already exist
+            // clearChildDiv(jointoapeer);
             clearDiv(jointoapeer);
+
 
             // add label of username choice
             var divuser = formUsername(peerClient.getId());
@@ -190,6 +226,8 @@ window.onload = function () {
             // form see peer available
             var formpeer = joinPeerButton(seeAvailablePeer);
             jointoapeer.appendChild(formpeer);
+
+            clearDiv("invitation");
 
         } else {
             alert(FORM.FILL);
@@ -217,6 +255,8 @@ window.onload = function () {
      */
     function returnPeerAvailable(peer_a) {
 
+        clearDiv("invitation");
+
         // console.log("I peer a disposizione sono: " + peer_a); // DEBUG 
         var peer_available = JSON.parse(peer_a);
 
@@ -226,7 +266,6 @@ window.onload = function () {
         // remove from ARRAY the element selected
         for (var i = 0; i < peer_available.length; i++) {
             if (peer_available[i].key == ownPeer.key) {
-                // delete peer_available[i]
                 peer_available.splice(i, 1);
             }
         }
@@ -236,9 +275,11 @@ window.onload = function () {
             jointoapeer.appendChild(d);
             formPeerAvailable(d, peer_available, form_peer_available_class, FORM.CHOICE_PEER, peerSelected);
         } else {
-            var d = document.getElementById("div-choice-peer");
-            clearDiv(d);
+
+            clearDiv("div-choice-peer");
+
             alert(COMMUNICATION.PEER_AVAILABILITY);
+
         }
 
     }
@@ -251,11 +292,14 @@ window.onload = function () {
         if (peerSelected === undefined) {
             alert(COMMUNICATION.PEER_SELECTION);
         } else {
-            var d = document.getElementById("div-choice-peer");
-            clearDiv(d);
 
-            var m = messageInvite(FORM.MESSAGE_SEND + " " + peerSelected);
-            jointoapeer.appendChild(m);
+            clearDiv("div-choice-peer");
+
+            clearDiv("invitation");
+
+
+            var d = messageInvite(FORM.MESSAGE_SEND + " " + peerSelected);
+            jointoapeer.appendChild(d);
 
             requestConnection(peerSelected)
             // send(peerClient.getId()); 
@@ -285,12 +329,12 @@ window.onload = function () {
      * This function handle the error message
      * @param {obj} error 
      */
-    function handleServerError(error){
-        var d = document.getElementById("invitation");
-        if(error==='peer-unavailable'){            
-            clearDiv(d);
+    function handleServerError(error) {
+
+        if (error === 'peer-unavailable') {
+            clearDiv("invitation");
         }
-        
+
     }
 
     /**
