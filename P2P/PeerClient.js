@@ -62,9 +62,10 @@ class PeerClient {
     /**
      * See the error of peer .     * .
      */
-    seeError() {
+    seeError(callback) {
         this._peer.on('error', function (err) {
-            alert(err.message);
+            alert(err.type + " " + err.message);
+            callback(err.type);
         });
     }
 

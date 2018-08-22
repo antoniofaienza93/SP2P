@@ -231,7 +231,7 @@ function joinPeerButton(callback) {
  */
 function choicePeerForm() {
     var div = document.createElement("div");
-    div.setAttribute("id", "choice-peer");
+    div.setAttribute("id", "div-choice-peer");
     div.setAttribute("class", "text-center darken-grey-text mb-4");
 
     var form = document.createElement("form");
@@ -288,6 +288,7 @@ function chatFormmm() {
  */
 function messageInvite(message) {
     var div = document.createElement("div");
+    div.setAttribute("id", "invitation");
     div.setAttribute("class", "text-center darken-grey-text mb-4");
 
     var h4 = document.createElement("h4");

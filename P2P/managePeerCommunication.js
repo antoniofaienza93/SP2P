@@ -160,7 +160,7 @@ window.onload = function () {
     function createPeerClient(data) {
 
         // console.log("STRINGA GENERATA: " + data); // DEBUG
-        var input = document.getElementById("inputid"); // .value()
+        var input = document.getElementById("inputid"); 
 
         if (input.checkValidity()) {
 
@@ -175,11 +175,10 @@ window.onload = function () {
             // enable reception of data
             peerClient.enableReceptionData(dataReceived);
 
-            error = peerClient.seeError();
-            if (error != undefined) {
-                alert(error);
-            }
-
+            error = peerClient.seeError(handleServerError);
+            // if (error != undefined) {
+            //     alert(error);
+            // }
 
             // remove div if already exist
             clearDiv(jointoapeer);
@@ -237,6 +236,8 @@ window.onload = function () {
             jointoapeer.appendChild(d);
             formPeerAvailable(d, peer_available, form_peer_available_class, FORM.CHOICE_PEER, peerSelected);
         } else {
+            var d = document.getElementById("div-choice-peer");
+            clearDiv(d);
             alert(COMMUNICATION.PEER_AVAILABILITY);
         }
 
@@ -250,7 +251,7 @@ window.onload = function () {
         if (peerSelected === undefined) {
             alert(COMMUNICATION.PEER_SELECTION);
         } else {
-            var d = document.getElementById("choice-peer");
+            var d = document.getElementById("div-choice-peer");
             clearDiv(d);
 
             var m = messageInvite(FORM.MESSAGE_SEND + " " + peerSelected);
@@ -277,6 +278,19 @@ window.onload = function () {
     function send(message) {
         peerClient.send(message);
         console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer);
+    }
+
+
+    /**
+     * This function handle the error message
+     * @param {obj} error 
+     */
+    function handleServerError(error){
+        if(error==='peer-unavailable'){
+            var d = document.getElementById("invitation");
+            clearDiv(d);
+        }
+        
     }
 
     /**
