@@ -164,6 +164,9 @@ window.onload = function () {
 
         if (input.checkValidity()) {
 
+            document.getElementById("connect").disabled = true;
+            input.disabled = true;
+
             // delete white space
             input = input.value.replace(/\s/g, '');
 
