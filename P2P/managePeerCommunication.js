@@ -3,7 +3,6 @@
  * File: managePeerCommunication.js 
  * Author: Antonio Faienza
  * This file handle the comunication between two peer
- * TODO When the page would refresh, remember to destrou the comunication
  * ===========================================================================
  */
 window.onload = function () {
@@ -12,13 +11,11 @@ window.onload = function () {
         document.getElementById("connect").onclick = function () { clickConnect() };
     }
 
-
-
-
-
     var peerClient = undefined;
     var connectionChoice = undefined;
-    var peerRequestor = [];
+    var peerRequestor = undefined;
+
+    
 
 
     // name tag for all element of checkbox
@@ -47,155 +44,10 @@ window.onload = function () {
     }
 
     /**
-     * callbackFormPeerAvailableck when receive data
-     * @param {*} data are the data received
-     */
-    function dataReceived(data) {
-
-        if (peerClient.getConnection() == undefined) {
-
-            var peerAlredyRequest = peerRequestor.find(o => o.peer === data);
-            
-            // the form is created or 
-            // if is the first time that arrived the request peer (i.e undefined) or 
-            // if there are other request but non from the same peer
-            if (peerAlredyRequest==undefined || data != peerAlredyRequest.peer) {
-
-                // add histroical peer for avoid to receive the request by the same peer
-                var p = { 'peer': data };
-                peerRequestor.push(p);
-                // console.log(peerRequestor); ripartire da qui
-
-                var choiceForm = divChoiceForm();
-
-                var label = document.createElement('label');
-                label.setAttribute("name", "request_connection_label");
-                // label.htmlFor = "Il peer <strong>" + data + "</strong> want to connect with you";
-                label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
-
-                var d = requestConnectionForm();
-                d.appendChild(label);
-                choiceForm.appendChild(d);
-
-
-                // add item of peer available
-                var dc;
-                var decideToConnect = ["YES", "NO"];
-                for (var i = 0; i < decideToConnect.length; i++) {
-                    dc = itemChoiceForm();
-                    choiceForm.appendChild(dc);
-                    addCheckBoxItem(dc, decideToConnect[i], classItemForm, connectionChoice, (value) => connectionChoice = value);
-                }
-
-                // add button to checkbox
-                var buttonChoice = createButton("button", classItemForm, FORM.CHOICE_PEER, data, callbackFormPeerAvailableckConnectionChoice)
-                dc.appendChild(buttonChoice);
-
-                jointoapeer.appendChild(choiceForm);
-            }
-
-
-
-        } else {
-
-            if (data == PEER.CONNECTION_ACCEPTED) {
-                // enableGame(); TODO decommentare 
-                var d = chatFormmm();
-                jointoapeer.appendChild(d);
-                chat.sendMessage(d);
-                chat.onclickButton(sendChatMessage);
-            } else if(data == PEER.CONNECTION_REFUSED){
-                peerClient.closeConnection();
-                clearDiv("invitation");
-            }
-            else {
-                P2PMaze.dataReceived = data;
-            }
-        }
-
-    }
-
-
-    /**
-     * callbackFormPeerAvailableck of click button
-     */
-    function callbackFormPeerAvailableckConnectionChoice(data) {
-        if (connectionChoice == undefined) {
-            alert(COMMUNICATION.PEER_SELECTED + data);
-        } else if (connectionChoice == "YES") {
-
-            acceptConnection(data);
-
-            // TODO questa è una chat provvisoria che deve essere messa a posto
-            var d = chatFormmm();
-            jointoapeer.appendChild(d);
-            chat.sendMessage(d);
-            chat.onclickButton(sendChatMessage);
-
-            deleteCheckboxItem(classItemForm);
-
-            clearDiv("div-choice-form");
-
-            // the player accept the connection and then it can see the canvas with multiplayer
-            enableGame();
-
-        } else if (connectionChoice == "NO") {
-
-            // clear the div            
-            clearDiv("div-choice-form");
-
-            // refuse Connection
-            refuseConnection(data);
-
-            
-            console.log(peerRequestor);
-            // delete from array the peer 
-            var peerAlredyRequest = peerRequestor.find(o => o.peer === data);
-            var pos = peerRequestor.findIndex(x => x.peer== peerAlredyRequest.peer );        
-            peerRequestor.splice(pos, 1);
-            console.log(peerRequestor);
-
-
-        }
-    }
-
-
-    /**
-     * This is the second point to open a connection. Who accept the connection is considered 
-     * the opponent player
-     * @param {*} peerR 
-     */
-    function acceptConnection(peerR) {
-        peerClient.conn(peerR);
-        peerClient.openConnection(PEER.CONNECTION_ACCEPTED);
-
-    }
-
-
-    function refuseConnection(peerR) {
-        // far ritornare la connessione
-        // peerClient.closeConnection();
-        peerClient.conn(peerR);
-        peerClient.openConnection(PEER.CONNECTION_REFUSED);
-    }
-
-
-    /**
-     * callbackFormPeerAvailableck from onclick button message
-     * @param {*} message message to send
-     */
-    function sendChatMessage(message) {
-        var id = peerClient.getConnection().peer;
-        console.log("MESSAGGIO " + message + " AL PEER " + id);
-        send(message);
-    }
-
-    /**
      * callbackFormPeerAvailableck after creation string by Server
      */
     function createPeerClient(data) {
 
-        // console.log("STRINGA GENERATA: " + data); // DEBUG
         var input = document.getElementById("inputid");
 
         if (input.checkValidity()) {
@@ -235,6 +87,150 @@ window.onload = function () {
     }
 
 
+    
+
+    /**
+     * callbackFormPeerAvailableck when receive data
+     * @param {*} data are the data received
+     */
+    function dataReceived(data) {
+
+        // this is the peer that receive the request. In this case the first time is undefined
+        if (peerClient.getConnection() == undefined) {
+
+            var choiceForm = divChoiceForm();
+
+            if (peerRequestor == undefined || peerRequestor != data) 
+            {
+
+                
+                var label = document.createElement('label');
+                label.setAttribute("name", "request_connection_label");
+                label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
+                peerRequestor = data;
+
+                var d = requestConnectionForm();
+                d.appendChild(label);
+                choiceForm.appendChild(d);
+
+                // add item of peer available
+                var dc;
+                var decideToConnect = ["YES", "NO"];
+                for (var i = 0; i < decideToConnect.length; i++) {
+                    dc = itemChoiceForm();
+                    choiceForm.appendChild(dc);
+                    addCheckBoxItem(dc, decideToConnect[i], classItemForm, connectionChoice, (value) => connectionChoice = value);
+                }
+
+                // add button to checkbox
+                var buttonChoice = createButton("button", classItemForm, FORM.CHOICE_PEER, data, callbackConnectionChoicePeer)
+                dc.appendChild(buttonChoice);
+
+                jointoapeer.appendChild(choiceForm);
+            }
+
+
+        } else {
+            
+            if (data == PEER.CONNECTION_ACCEPTED) {
+                // enableGame(); TODO decommentare
+                var d = chatFormmm();
+                jointoapeer.appendChild(d);
+                chat.sendMessage(d);
+                chat.onclickButton(sendChatMessage);
+            } else if (data == PEER.CONNECTION_REFUSED) {
+                refuseConnection();
+                clearDiv("invitation");
+            }
+            else {
+                P2PMaze.dataReceived = data;
+            }
+        }
+
+    }
+
+
+    /**
+     * callbackConnectionChoicePeer of click button
+     */
+    function callbackConnectionChoicePeer(data) {
+
+        if (connectionChoice == undefined) {
+            alert(COMMUNICATION.PEER_SELECTED + data);
+        } else if (connectionChoice == "YES") {
+
+            peerRequestor = undefined;
+
+            respondConnection(data, PEER.CONNECTION_ACCEPTED); 
+
+            // TODO questa è una chat provvisoria che deve essere messa a posto
+            var d = chatFormmm();
+            jointoapeer.appendChild(d);
+            chat.sendMessage(d);
+            chat.onclickButton(sendChatMessage);
+
+            deleteCheckboxItem(classItemForm);
+
+            clearDiv("div-choice-form");
+
+            // the player accept the connection and then it can see the canvas with multiplayer
+            // enableGame(); TODO decommentare
+
+        } else if (connectionChoice == "NO") {
+
+            peerRequestor = undefined;
+
+            // clear the div            
+            clearDiv("div-choice-form");
+
+            // establish connection for comunicate that the connection is refused
+            respondConnection(data, PEER.CONNECTION_REFUSED); 
+
+            refuseConnection();
+        }
+    }
+
+    /**
+     * This is the firt point that you can establish one connection.
+     * @param {*} peerSelected 
+     */
+    function requestConnection(peerSelected) {
+        peerClient.conn(peerSelected);
+        peerClient.openConnection(peerClient.getId());
+    }
+
+    /**
+     * This is the second point to open a connection. Who accept the connection is considered 
+     * the opponent player
+     * @param {*} peerR 
+     */
+    function respondConnection(peerR, respondMessage) {
+        peerClient.conn(peerR);
+        peerClient.openConnection(respondMessage);
+
+    }
+
+    /**
+     * Establish the connection for comunicate the clousure
+     */
+    function refuseConnection() {
+        peerClient.closeConnection();
+    }
+
+
+    /**
+     * callbackFormPeerAvailableck from onclick button message
+     * @param {*} message message to send
+     */
+    function sendChatMessage(message) {
+        var id = peerClient.getConnection().peer;
+        console.log("MESSAGE " + message + " TO PEER " + id);
+        send(message);
+    }
+
+    
+
+
     /**
      * Function that assign the peer to player
      */
@@ -256,8 +252,7 @@ window.onload = function () {
     function returnPeerAvailable(peer_a) {
 
         clearDiv("invitation");
-
-        // console.log("I peer a disposizione sono: " + peer_a); // DEBUG 
+ 
         var peer_available = JSON.parse(peer_a);
 
 
@@ -297,23 +292,15 @@ window.onload = function () {
 
             clearDiv("invitation");
 
-
             var d = messageInvite(FORM.MESSAGE_SEND + " " + peerSelected);
             jointoapeer.appendChild(d);
 
-            requestConnection(peerSelected)
-            // send(peerClient.getId()); 
+            // open connection and ask to opponent peer to establish the connection
+            requestConnection(peerSelected);
+     
         }
     }
 
-    /**
-     * this is the firt point that you can establish one connection.
-     * @param {*} peerSelected 
-     */
-    function requestConnection(peerSelected) {
-        peerClient.conn(peerSelected);
-        peerClient.openConnection(peerClient.getId());
-    }
 
     /**
      * Send data between peer 

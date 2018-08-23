@@ -9,6 +9,8 @@
  * @param {path} pht the app name of the server. It is useful for establish the connection
  * ===========================================================================
  */
+
+
 class PeerClient {
 
     constructor(id, h, p, pth) {
@@ -55,17 +57,19 @@ class PeerClient {
      * @param {object} conn i
      */
     closeConnection() {
+        var p = this._conn.peer;
         this._conn.close();
-        alert("CONNESSIONE CHIUSA"); // TODO mettere un qualche messaggio        
+        this._conn = undefined;
+        alert("THE CONNECTION WAS NOT ACCEPTED BY THE PEER " + p);    
                        
     }
 
     /**
-     * See the error of peer .     * .
+     * See the error of peer.
      */
     seeError(callback) {
         this._peer.on('error', function (err) {
-            alert(err.type + " " + err.message);
+            alert(err.type + " - " + err.message);
             callback(err.type);
         });
     }
@@ -77,7 +81,6 @@ class PeerClient {
      */
     conn(id_another_peer) {
         this._conn = this._peer.connect(id_another_peer);
-        // this.enableReceptionData();
         return this._conn;
     }
 
@@ -89,8 +92,6 @@ class PeerClient {
     getConnection() {
         return this._conn;
     }
-
-
 
     /**
      * Sharing data among peer. The first param is the value that return from the previusly method (conn)

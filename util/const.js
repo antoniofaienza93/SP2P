@@ -8,12 +8,6 @@
  * ===========================================================================
  */
 
-
- /**
-  * Background color
-  */
-
-
 /**
  * Width and heiht of screen. 
  * This current map has 16x16 - 70 tile x 40 tile = 1120 x 640
@@ -24,9 +18,10 @@ const SCREEN_SIZE = {
     HEIGHT: 640 
 };
 
-// /**
-//  * Constant of the player 
-//  */
+
+/**
+ * Constant of the player
+ */
 const PLAYER = {
 
     GRAVITY_Y: 300,
@@ -61,12 +56,13 @@ const COMMUNICATION = {
    
     PEER_AVAILABILITY: "NO PEER AVAILABLE",
     PEER_SELECTION: "KEEP ATTENTION: NO PEER SELECTED",
-    PEER_SELECTED: "WARNING: Select YES or NO if you want (or not) to connect of peer "
+    PEER_SELECTED: "WARNING: Select YES or NO if you want (or not) to connect to the peer "
 }
 
 const PEER = {
     CONNECTION_ACCEPTED: "CONNECTION_ACCEPTED",
-    CONNECTION_REFUSED: "CONNECTION_REFUSED"
+    CONNECTION_REFUSED: "CONNECTION_REFUSED",
+    CONNECTION_CLOSED: "CONNECTION CLOSED WITH THE PEER"
 }
 
 /**
