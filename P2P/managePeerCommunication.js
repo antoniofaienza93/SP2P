@@ -7,6 +7,8 @@
  */
 window.onload = function () {
 
+    var jointoapeer = mainForm();
+
     if (this.document.getElementById("connect") != undefined) {
         document.getElementById("connect").onclick = function () { clickConnect() };
     }
