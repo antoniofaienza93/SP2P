@@ -9,8 +9,6 @@
 
 var P2PMaze = P2PMaze || {};
 
-
-
 // is the function that is called from state inside main.js
 P2PMaze.Boot = function () {
     console.log("%cStarting Boot State", "color:white; background:red");
@@ -42,15 +40,12 @@ P2PMaze.Boot.prototype = {
 
         // load sound start play
         this.load.audio('startMenu', 'assets/sounds/FX243.mp3');
-        
-
 
     },
     create: function () {
 
-
         // background color 
-        this.game.stage.backgroundColor = GAME.BACKGROUND_COLOR; // 
+        this.game.stage.backgroundColor = GAME.BACKGROUND_COLOR;  
 
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         // this.scale.minWidth = 240;
@@ -60,11 +55,8 @@ P2PMaze.Boot.prototype = {
 
         this.scale.pageAlignHorizontally = true;
 
-
         //have the game centered horizontally
         this.scale.pageAlignHorizontaly = true;
-
-        
 
         this.state.start('Preload');
 

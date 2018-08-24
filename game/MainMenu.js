@@ -67,7 +67,7 @@ P2PMaze.MainMenu.prototype = {
         choiceSelection.play();
 
         // now show again the div for the multiplayer 
-        var multiplayerForm = document.getElementById("multiplayer-section");
+        var multiplayerForm = document.getElementById("multiplayer-form");
         multiplayerForm.style.display = "inline-block";
 
         // hidden the div game

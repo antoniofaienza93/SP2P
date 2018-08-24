@@ -76,7 +76,7 @@ function mainForm() {
     div4.appendChild(br);
     div4.appendChild(maindiv);
 
-    document.getElementById("bodyid").appendChild(div1);
+    document.getElementById("multiplayer-form").appendChild(div1);
 
     var br = document.createElement("br");
 
@@ -112,42 +112,42 @@ function createButton(cls, name, value, data, callback) {
  * @param {*} pathImg - path of image
  * @param {*} itemKey - the item key DECOMMENTARE
  */
-// P2PMaze.itemTaken = function (pathImg, itemKey) {
-//     /* <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div> */
-//     // create div
-//     var div = document.createElement("div");
-//     div.setAttribute("align", "center");
+P2PMaze.itemTaken = function (pathImg, itemKey) {
+    /* <div align="center"><img src="assets/images/estintore_grande.png"/><br><span>Estintore</span></div> */
+    // create div
+    var div = document.createElement("div");
+    div.setAttribute("align", "center");
 
-//     // create image
-//     var img = document.createElement("img");
-//     img.setAttribute("src", pathImg);
+    // create image
+    var img = document.createElement("img");
+    img.setAttribute("src", pathImg);
 
-//     // create br
-//     var br = document.createElement("br")
+    // create br
+    var br = document.createElement("br")
 
-//     // create span
-//     var span = document.createElement("span");
-//     span.setAttribute("style", "color: white");
-//     span.innerHTML = itemKey;
+    // create span
+    var span = document.createElement("span");
+    span.setAttribute("style", "color: white");
+    span.innerHTML = itemKey;
 
 
-//     div.appendChild(img);
-//     div.appendChild(br);
-//     div.appendChild(span);
-//     document.getElementsByClassName("item")[0].appendChild(div);
-// }
+    div.appendChild(img);
+    div.appendChild(br);
+    div.appendChild(span);
+    document.getElementsByClassName("item")[0].appendChild(div);
+}
 
 /**
  * Remove all element inside a specific div when the game ended
  * TODO: TEST DECOMMENTARE
  */
-// P2PMaze.clearItemDiv = function () {
-//     var myNode = document.getElementsByClassName("item")[0]; 
+P2PMaze.clearItemDiv = function () {
+    var myNode = document.getElementsByClassName("item")[0]; 
 
-//     while (myNode.firstChild) {
-//         myNode.removeChild(myNode.firstChild);
-//     }
-// }
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+}
 
 /**
  * Function that create a joinPeerButton
@@ -420,8 +420,8 @@ function alertMessage(message, type) {
     div.setAttribute("role", "alert");
     div.innerHTML = "<strong>" + message + "</strong>";
 
-    document.getElementById("bodyid").appendChild(br); 
-    document.getElementById("bodyid").appendChild(div);  // "join-to-a-peer"
+    document.getElementById("multiplayer-form").appendChild(br); 
+    document.getElementById("multiplayer-form").appendChild(div);  // "join-to-a-peer"
 
     // Auto close alert
     // REF:https://codepen.io/CSWApps/pen/XJoLmN

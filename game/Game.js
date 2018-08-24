@@ -253,9 +253,7 @@ P2PMaze.Game.prototype = {
     },
     collect: function (player, collectable) {
 
-        // TODO aggiungere il suono 
-
-        console.log("PRESO " + collectable.key);
+        console.log("TAKE " + collectable.key);
         P2PMaze.itemTaken(ASSET_PATH.PATH_ITEM_48x48 + collectable.key + ASSET_PATH.ITEM_48x48, collectable.key )
         // remove sprite
         collectable.destroy();

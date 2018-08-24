@@ -1,73 +1,118 @@
 /*
  * ===========================================================================
- * File: GameMultiplayer.js - 4 
+ * File: Game.js - 4 
  * Author: Antonio Faienza
- * Desc: TODO https://github.com/sugendran/webrtc-tanks/blob/master/js/game.js
- * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ PUO ESSERE UTILE 
+ * Desc: QUESTO Eé SOLO PER PRESERVARE LA COPIA DEL FILE
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
 
-/**
- * Global variable
- */
+// global variable 
 var map;
-
 var backgroudLayer;
-
 var blockedLayer;
-
 var player;
-
-var opponentPlayer;
-
-var toOpponentPlayer = [];
-
 var cursor;
-
 var items;
+var lives;
+var stateText;
+var result;
 
-var dataReceived;
+var lastItem;
 
+// sounds
+var itemCorrect;
+var itemWrong;
+var win;
+var lose;
+var wellDone;
+
+// logical order
 var logicalOrder = {};
 
-var playerOrder = 1; // the player starts to 1 for compare the item to take 
+// the player starts to 1 for compare the item to take 
+var playerOrder = 1;
 
 
 
-P2PMaze.send = function (data) {
-    P2PMaze.peer.send(data);
-    console.log("INVIO " + data + " DA " + P2PMaze.peer.getId() + " A " + P2PMaze.peer.getConnection().peer);
-};
-
+// add message box item
+var msgBox;
 
 P2PMaze.GameMultiplayer = function () {
-    console.log("%cStarting GameMultiplayer", "color:black; background:yellow");
+    console.log("%cStarting Game", "color:black; background:yellow");
 };
 
 P2PMaze.GameMultiplayer.prototype = {
     preload: function () {
         // TODO da togliere il preload che qui non dovrebbe servire 
-        this.game.load.tilemap('temp', 'assets/tilemaps/temp.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('tempImage', 'assets/images/tiles.png');
+        // this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
+        // this.game.load.image('tempImage', 'assets/images/tiles.png');
+        // this.game.load.image('heart', 'assets/images/heart.png');
 
-        // TODO CANCELLARE - vedere la grandezza dell'immagine        
-        // 37x45 is the size of each frame
-        //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
-        //  blank frames at the end, so we tell the loader how many to load
-        this.load.spritesheet('player', 'assets/images/dude.png', 32, 48);        // Quello che vorrei usare 
-        // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
-        // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
+        // // TODO CANCELLARE - vedere la grandezza dell'immagine        
+        // // 37x45 is the size of each frame
+        // //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
+        // //  blank frames at the end, so we tell the loader how many to load
+        // this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
+        // // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
+        // // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
-        // TODO carichiamo le immagini
-        this.load.image('redcup', 'assets/images/estintore_grande.png');
-        this.load.image('greycup', 'assets/images/greencup.png');
-        this.load.image('bluecup', 'assets/images/bluecup.png');
+        // // TODO carichiamo le immagini
+        // // this.load.image('redcup', 'assets/images/estintore_piccolo.png');
+        // // this.load.image('greycup', 'assets/images/greencup.png');
+        // // this.load.image('bluecup', 'assets/images/bluecup.png');
+
+        // this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
+
+        // // win particles
+        // this.load.image('blacklight', 'assets/images/particles/blacklight.png');
+        // this.load.image('bluelight', 'assets/images/particles/bluelight.png');
+        // this.load.image('brownlight', 'assets/images/particles/brownlight.png');
+        // this.load.image('greenlight', 'assets/images/particles/greenlight.png');
+        // this.load.image('orangelight', 'assets/images/particles/orangelight.png');
+        // this.load.image('redlight', 'assets/images/particles/redlight.png');
+        // this.load.image('violelight', 'assets/images/particles/violetlight.png');
+        // this.load.image('yellowlight', 'assets/images/particles/yellowlight.png');
+        // this.load.image('star_particle', 'assets/images/particles/star_particle.png');
+
+        // // sound
+        // this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
+        // this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
+        // this.load.audio('win', 'assets/sounds/winSound.wav');
+        // this.load.audio('lose', 'assets/sounds/loseSound.wav');
+        // this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
+
+        // // item
+        // this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_48x48 + 'RifiutiTossici' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Arpa', ASSET_PATH.PATH_ITEM_48x48 + 'Arpa' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_48x48 + 'Cerbero' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_48x48 + 'Cesoie' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Rovi', ASSET_PATH.PATH_ITEM_48x48 + 'Rovi' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Estintore', ASSET_PATH.PATH_ITEM_48x48 + 'Estintore' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_48x48 + 'Fuoco' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_48x48 + 'Cuffie' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Sirena', ASSET_PATH.PATH_ITEM_48x48 + 'Sirena' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_48x48 + 'BandieraRossa' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Toro', ASSET_PATH.PATH_ITEM_48x48 + 'Toro' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Aglio', ASSET_PATH.PATH_ITEM_48x48 + 'Aglio' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_48x48 + 'Vampiro' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Lampada', ASSET_PATH.PATH_ITEM_48x48 + 'Lampada' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Genio', ASSET_PATH.PATH_ITEM_48x48 + 'Genio' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Foglio', ASSET_PATH.PATH_ITEM_48x48 + 'Foglio' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Roccia', ASSET_PATH.PATH_ITEM_48x48 + 'Roccia' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_48x48 + 'Spinaci' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Spada', ASSET_PATH.PATH_ITEM_48x48 + 'Spada' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
+        // this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
+
+        
+
     },
     create: function () {
 
-        //  We're going to be using physics, so enable the Arcade Physics system
-        // TODO - mettere questo nel Boot
         //  We're going to be using physics, so enable the Arcade Physics system
         // TODO - mettere questo nel Boot
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -85,35 +130,33 @@ P2PMaze.GameMultiplayer.prototype = {
         // The number between 1 and 2000 is an index range for the tiles for which we want to enable
         // collision (in this case such a big number should include them all which is what I intended).
         // In order to obtain this number open file.json and in “layers” – “data” of the two layers 
-        // find the largest number you can find, in this case 1896 so I put 2000 just to be sure I didn’t 
+        // find the largest number you can find, in this case 3050 so I put 3500 just to be sure I didn’t 
         // miss a slightly larger number. 
-        map.setCollisionBetween(1, 200, true, 'blockedLayer');
+        map.setCollisionBetween(1, 3500, true, 'blockedLayer');
 
         backgroudLayer.resizeWorld();
 
+        this.createLives();
 
         this.createItems();
 
-        var result = this.findObjectsByType('playerStart', map, 'objectLayer');
+        result = this.findObjectsByType('playerStart', map, 'objectLayer');
 
 
         // create the player 
         player = this.game.add.sprite(result[0].x, result[0].y, 'player');
-        opponentPlayer = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
+        player.scale.setTo(0.65, 0.65);
+
+        // player.tint = 0xff00ff; http://www.html5gamedevs.com/topic/6072-change-sprite-color/ CAMBIARE COLORE
 
         // create the phisics body. Can be a single object (as in this case) or of array of Objects
         this.game.physics.arcade.enable(player);
-        this.game.physics.arcade.enable(opponentPlayer);
 
         //  Player physics properties. Give the little guy a slight bounce.
         player.body.bounce.y = 0.2;
         player.body.gravity.y = PLAYER.GRAVITY_Y;
         player.body.collideWorldBounds = true;
-
-        opponentPlayer.body.bounce.y = 0.2;
-        opponentPlayer.body.gravity.y = PLAYER.GRAVITY_Y;
-        opponentPlayer.body.collideWorldBounds = true;
 
         // see image: 0, 1, 2, 3 is the frame for runring to left 
         // see image: 5, 6, 7, 8 is the frame for running to right 
@@ -122,23 +165,38 @@ P2PMaze.GameMultiplayer.prototype = {
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-        opponentPlayer.animations.add('left', [0, 1, 2, 3], 10, true);
-        opponentPlayer.animations.add('right', [5, 6, 7, 8], 10, true);
+        // TODO deve esse qualcosa nell'update
 
         //the camera will follow the player in the world
-        this.game.camera.follow(player);
+        this.game.camera.follow(player); // TODO forse questo non serve
 
-        // move player with cursor key
+
+        // move player with cursor key 
         cursor = this.game.input.keyboard.createCursorKeys();
+
+        //  Text
+        stateText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, ' ', { font: '30px Arial', fill: '#fff' });
+        stateText.anchor.setTo(0.5, 0.5);
+        stateText.visible = false;
+
+        itemCorrect = this.game.add.audio('itemCorrect');
+        itemWrong = this.game.add.audio('itemWrong');
+        lose = this.game.add.audio('lose');
+        win = this.game.add.audio('win');
+        wellDone = this.game.add.audio('wellDone'); 
+
+
+
     },
     update: function () {
 
-        P2PMaze.peer.enableReceptionData((value) => dataReceived = value);
+        //  Collide the player and the stars with the platforms
 
-        // collisio to do https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
+
+
+        // collisio to do 
+        // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
         var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
-
-        var hitPlatformO = this.game.physics.arcade.collide(opponentPlayer, blockedLayer);
 
 
         // player movement   
@@ -146,42 +204,23 @@ P2PMaze.GameMultiplayer.prototype = {
         // player.body.velocity.y = 0; // the player cab be jump and for this have to not "resize" to 0 the position
         player.body.velocity.x = PLAYER.VELOCITY_X_START;
 
-        opponentPlayer.body.velocity.x = PLAYER.VELOCITY_X_START;
-
-
         if (this.game.input.activePointer.justPressed()) {
             // move on the direction of the input 
             this.game.physics.arcade.moveToPointer(player, 150);
+            // player.animations.play('left');
         }
 
-
+        // if(cursor.up.isDown) {
+        //     player.body.velocity.y = -50;            
+        // }else if(cursor.down.isDown){
+        //     player.body.velocity.y = +50;
+        // }else
         if (cursor.left.isDown) {
             player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;
             player.animations.play('left');
-
-            // send to opponent player the left position of player
-            var updatePos = [];
-            var keyupdating = { "key": "left" };
-            var updateX = { "updatePosx": player.x };
-            var updateY = { "updatePosy": player.y }; // TODO secondo me questo può essere tolto e posto solo in altezza 
-            updatePos.push(keyupdating);
-            updatePos.push(updateX);
-            updatePos.push(updateY);
-            P2PMaze.send(updatePos);
-
         } else if (cursor.right.isDown) {
             player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
             player.animations.play('right');
-
-            // send to opponent player the right position of player
-            var updatePos = [];
-            var keyupdating = { "key": "right" };
-            var updateX = { "updatePosx": player.x };
-            var updateY = { "updatePosy": player.y };
-            updatePos.push(keyupdating);
-            updatePos.push(updateX);
-            updatePos.push(updateY);
-            P2PMaze.send(updatePos);
         }
         else {
             //  Stand still
@@ -189,75 +228,11 @@ P2PMaze.GameMultiplayer.prototype = {
             player.frame = 4;
         }
 
+        // if(cursor.up.isDown && player.body.touching.down){
         if (cursor.up.isDown && hitPlatform) {
-            // If you want increase the height you can see the example index9.html
-            player.body.velocity.y = -250;
-
-            // send to opponent player the height position of player
-            var updatePos = [];
-            var keyupdating = { "key": "height" };
-            var updateX = { "updatePosx": player.position.x };
-            var updateY = { "updatePosy": player.position.y };
-            updatePos.push(keyupdating);
-            updatePos.push(updateX);
-            updatePos.push(updateY);
-            P2PMaze.send(updatePos);
-        }
-
-
-
-
-        // move the opponent player to specific RIGHT position
-        if (P2PMaze.dataReceived != undefined) {
-            if (P2PMaze.dataReceived[0].key == "left") {
-                var posx = P2PMaze.dataReceived[1].updatePosx;
-                var posy = P2PMaze.dataReceived[2].updatePosy;
-
-                // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
-                if (Math.floor(opponentPlayer.x) === Math.floor(posx) ||
-                    Math.floor(opponentPlayer.x) === (Math.floor(posx) + 1) ||
-                    Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
-                    opponentPlayer.animations.stop();
-                    opponentPlayer.frame = 4;
-                } else {
-                    this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy));
-                    opponentPlayer.animations.play('left');
-                }
-            }
-            else if (P2PMaze.dataReceived[0].key == "right") {
-                var posx = P2PMaze.dataReceived[1].updatePosx;
-                var posy = P2PMaze.dataReceived[2].updatePosy;
-
-                if (Math.floor(opponentPlayer.x) === Math.floor(posx) ||
-                    Math.floor(opponentPlayer.x) === (Math.floor(posx) + 1) ||
-                    Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
-
-                    opponentPlayer.animations.stop();
-                    opponentPlayer.frame = 4;
-                } else {
-                    this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy));
-                    opponentPlayer.animations.play('right');
-                }
-            } else {
-
-                var posx = P2PMaze.dataReceived[1].updatePosx;
-                var posy = P2PMaze.dataReceived[2].updatePosy;
-
-                // when the opponent player came to specific position + or - 1 (for avoid loop), stop the animation and set the frame to 4
-                if (Math.floor(opponentPlayer.x) === Math.floor(posx) ||
-                    Math.floor(opponentPlayer.x) === (Math.floor(posx) + 1) ||
-                    Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
-                    opponentPlayer.animations.stop();
-                    opponentPlayer.frame = 4;
-                } else {
-                    opponentPlayer.body.velocity.y = -250;
-                    this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy));
-                }
-            }
-
+            player.body.velocity.y = -250;  // TODO se si vuole aumentare l'altezza vedere esempio index9.html         
 
         }
-
 
         // Checks for overlaps between two game objects.
         // - The first object or array of objects to check. 
@@ -269,22 +244,39 @@ P2PMaze.GameMultiplayer.prototype = {
         //     they overlap. If this is set then overlapCallback will only be called if 
         //     this callback returns true
         // - The context in which to run the callbacks.
+        // DECOMMENTARE 
+        // check overlapping between players and items. If the callback from the fourth param is true then, it will call the thirth param 
         this.game.physics.arcade.overlap(player, items, this.collect, this.choiceItems, this);
-        this.game.physics.arcade.overlap(opponentPlayer, items, this.collect, this.choiceItems, this);
+
+
 
     },
     collect: function (player, collectable) {
 
-        // TODO aggiungere il suono 
-        console.log("PRESO " + collectable.key);
-
+        console.log("TAKE " + collectable.key);
+        P2PMaze.itemTaken(ASSET_PATH.PATH_ITEM_48x48 + collectable.key + ASSET_PATH.ITEM_48x48, collectable.key )
         // remove sprite
         collectable.destroy();
+        // if size of objects are 0 then all items are keep
+        if (Object.keys(logicalOrder).length === 0) {
+            player.kill();
+            win.play();
+            wellDone.play();
+            this.winParticle();
+            stateText.text = GAME.GAMEWIN;
+            stateText.visible = true;
+            
+            
+
+            //the "click to restart" handler
+            this.game.input.onTap.addOnce(this.restart, this);
+        }
 
     },
+    // logic game
     choiceItems: function (player, item) {
 
-
+        // TODO delete
         // BODY ENABLE https://phaser.io/examples/v2/arcade-physics/body-enable
         // console.log(" ORDINE DEL GIOCATORE " + playerOrder);
         // console.log(" liSTA ");
@@ -293,11 +285,13 @@ P2PMaze.GameMultiplayer.prototype = {
         // if exist inside the hashmap a key with the same name of the sprite
         // and the value is equal of playerOrder then return true
         if ((item.key in logicalOrder) && logicalOrder[item.key] === playerOrder) {
+            itemCorrect.play();
             playerOrder++;                  // icrease the order of player 
             delete logicalOrder[item.key];  // delete key-value            
             return true;
         } else {
             this.game.physics.arcade.collide(player, items);
+            this.decreaseLive();
             return false;
         }
 
@@ -322,7 +316,21 @@ P2PMaze.GameMultiplayer.prototype = {
 
         return result;
     },
+    // createItems: function(){
+    //     // create items
+    //     this.items = this.game.add.group();
 
+    //     // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
+    //     this.items.enableBody = true;
+    //     var item; 
+    //     result = this.findObjectsByType('item', map, 'objectLayer');
+
+    //     // result = take all element from tileset with specific proprieties
+    //     //    |--> element = take a specific result with proprieties etc
+    //     result.forEach(function(element){            
+    //         this.createFromTiledObject(element, this.items);
+    //       }, this);
+    // },
     createItems: function () {
 
         // create items
@@ -335,7 +343,6 @@ P2PMaze.GameMultiplayer.prototype = {
         // result = take all element from tileset with 'item' proprieties
         var resultItem = this.findObjectsByType('item', map, 'objectLayer');
 
-
         // element = take a specific result with proprieties etc
         resultItem.forEach(function (element) {
 
@@ -345,28 +352,58 @@ P2PMaze.GameMultiplayer.prototype = {
             // It must matching from proprieties in Tiled and the name of sprite i.e redcup
             var spriteObject = items.create(element.x, element.y, element.properties.sprite);
 
+            spriteObject.scale.setTo(0.5);
             // enable for all sprites of object a physical properties
             this.game.physics.arcade.enable(spriteObject);
+
+            // we increase the dimesion of sprite.
+            // REF: http://www.html5gamedevs.com/topic/5171-checking-if-mouse-is-over-a-sprite-hover/
+            spriteObject.inputEnabled = true;
+            spriteObject.events.onInputOver.add(this.over, this);
+            spriteObject.events.onInputOut.add(this.out, this);
 
             // default = each objects are immovable
             spriteObject.body.immovable = true;
 
+
+
             // DEBUG
             //  console.log(element.properties.order + " " + element.properties.sprite);
 
-            // fill the HashMap for the logic of game
-            // key = sprite name
-            // value = order  
+            
+            /*
+             * fill the HashMap for the logic of game
+             * key = sprite name
+             * value = order
+            */  
             logicalOrder[element.properties.sprite] = element.properties.order;
+
+
 
             //this.createFromTiledObject(element, items);
         }, this);
+
+    },
+    createLives: function () {
+
+        // Lives
+        lives = this.game.add.group(); 
+        this.game.add.text(this.game.world.width - 220, 5, GAME.LIVES, { font: '34px Arial', fill: '#fff' });
+
+        // creation Life
+        for (var i = 0; i < 3; i++) {
+            var heart = lives.create(this.game.world.width - 100 + (40 * i), 25, 'heart');
+            heart.anchor.setTo(0.5, 0.5);
+            // heart.angle = 90;
+            // heart.alpha = 0.4;
+        }
+
     },
     render: function () {
 
         // ===== DEBUG PLAYER 
-        this.game.debug.body(player);
-        this.game.debug.spriteInfo(player, 32, 32);
+        // this.game.debug.body(player);
+        // this.game.debug.spriteInfo(player, 32, 32);
 
         // ===== DEBUG ITEMS
         // this.game.debug.physicsGroup(items);
@@ -379,5 +416,127 @@ P2PMaze.GameMultiplayer.prototype = {
         this.game.debug.body(member);
         this.game.debug.spriteInfo(member, 32, number);
         space = number + 130;
+    },
+    decreaseLive: function () {
+        live = lives.getFirstAlive();
+
+        if (live) {
+            live.kill();
+            this.explodePlayer();
+            player.kill();
+        }
+
+        // when the player dies
+        if (lives.countLiving() < 1) {
+            player.kill();
+
+            lose.play();
+            stateText.text = GAME.GAMEOVER;
+            stateText.visible = true;
+    
+            //the "click to restart" handler
+            this.game.input.onTap.addOnce(this.restart, this);
+        } else {
+            itemWrong.play();
+            player.reset(result[0].x, result[0].y);
+        }
+    },
+    restart: function () {
+        // A new level starts
+
+        // reset the life count 
+        // lives.callAll('revive');
+        // this.createItems();
+
+        // //revives the player
+        // player.revive();
+        playerOrder = 1;
+        P2PMaze.clearItemDiv();
+        
+        this.state.start('MainMenu');
+
+        //hides the text
+        stateText.visible = false;
+
+    },
+    explodePlayer: function () {
+        //make the player explode
+        var emitter = this.game.add.emitter(player.x, player.y, 100);
+        emitter.makeParticles('playerParticle');
+        emitter.minParticleSpeed.setTo(-200, -200);
+        emitter.maxParticleSpeed.setTo(200, 200);
+        emitter.gravity = 0;
+        emitter.start(true, 1000, null, 100);
+    },
+    winParticle: function () {
+        // https://phaser.io/examples/v2/particles/random-sprite
+        var emitter = this.game.add.emitter(this.game.world.centerX, 400, 200);
+
+        //  Here we're passing an array of image keys. It will pick one at random when emitting a new particle.
+        emitter.makeParticles(['blacklight', 'bluelight', 'brownlight',
+                                'greenlight', 'orangelight', 'redlight',
+                                'violelight', 'yellowlight', 'star_particle']);
+
+        emitter.start(false, 5000, 20);
+    },
+    over: function (item) {
+        item.scale.setTo(1.9);
+        msgBox = this.showMessageBox(item.position.x, item.position.y, item.key);
+    },
+    out: function (item) {
+        item.scale.setTo(0.5);
+        if(msgBox!=undefined){
+            this.hideBox(msgBox);
+        }
+        
+    },
+    /**
+     * 
+     * @param {*} x initial pos x 
+     * @param {*} y initial pos ys
+     * @param {*} text 
+     * @param {*} w default value of with
+     * @param {*} h default value of height
+     */
+    showMessageBox(x,y, text, w = 50, h = 20) {
+    	//just in case the message box already exists destroy it
+        if (this.msgBox) {
+            this.msgBox.destroy();
+        }
+        //make a group to hold all the elements
+        var msgBox = this.game.add.group();
+        
+        // add style 
+        var style = { font: "15px Arial", fill: '#ffffff', backgroundColor: 'rgba(205, 166, 10, 0.92)' };
+        //make a text field
+        var text1 = this.game.add.text(x+10, y-20, text, style);
+
+        //set the textfeild to wrap if the text is too long
+        text1.wordWrap = true;
+       
+        msgBox.add(text1);
+        
+        //make a state reference to the messsage box
+        this.msgBox = msgBox;
+
+        return this.msgBox;
+    },
+    hideBox(msgBox) {
+    	//destroy the box when the button is pressed
+        msgBox.destroy();
     }
+    // createFromTiledObject: function(element, group) {
+
+    //     // Creates a new Phaser.Sprite object and adds it to the top of this group.
+    //     // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
+    //     // This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache Image entry, or other. See documentation for more detail.        
+    //     var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+    //     // TODO - Capire perchè stava messo sto codice
+    //     //copy all properties to the sprite
+    //     // Object.keys(element.properties).forEach(function(key){
+    //     //     sprite[key] = element.properties[key];
+    //     //     // console.log(" --------------> " + sprite[key]);
+    //     // });
+    // }
 };

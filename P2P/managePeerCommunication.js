@@ -135,7 +135,7 @@ window.onload = function () {
         } else {
             
             if (data == PEER.CONNECTION_ACCEPTED) {
-                // enableGame(); TODO decommentare
+                enableGame(); 
                 var d = chatFormmm();
                 jointoapeer.appendChild(d);
                 chat.sendMessage(d);
@@ -150,7 +150,6 @@ window.onload = function () {
         }
 
     }
-
 
     /**
      * callbackConnectionChoicePeer of click button
@@ -176,7 +175,7 @@ window.onload = function () {
             clearDiv("div-choice-form");
 
             // the player accept the connection and then it can see the canvas with multiplayer
-            // enableGame(); TODO decommentare
+            enableGame(); 
 
         } else if (connectionChoice == "NO") {
 
@@ -239,14 +238,21 @@ window.onload = function () {
 
 
     /**
-     * Function that assign the peer to player
+     * Function that assign the peer to player.
+     * the player has accepted the comuniation and for this the div is again visible
      */
     function enableGame() {
-        // the player has accepted the comuniation and for this the div is again visible
+        // Assignment
         P2PMaze.peer = peerClient;
+
+        // start the multiplayer game
         P2PMaze.game.state.start("GameMultiplayer");
         var divGame = document.getElementById("P2PMaze");
         divGame.style.display = "block";
+
+        // hidden the div form
+        var multiplayerForm = document.getElementById("multiplayer-form");
+        multiplayerForm.style.display = "none";
 
     }
 

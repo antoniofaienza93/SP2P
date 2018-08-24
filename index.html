@@ -1,102 +1,136 @@
-<!doctype html>
-<html lang="en">
+    <!doctype html>
+    <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Language" content="en-us">        
 
-    <script type="text/javascript" src="lib/phaser.js"></script>
-    <script type="text/javascript" src="game/Boot.js"></script>
-    <script type="text/javascript" src="game/Preload.js"></script>
-    <script type="text/javascript" src="game/MainMenu.js"></script>
-    <script type="text/javascript" src="game/Game.js"></script>
-    <script type="text/javascript" src="game/GameMultiplayer.js"></script>
-    <script type="text/javascript" src="util/const.js"></script>
+        <!-- PeerJS -->
+        <script type="text/javascript" src="lib/peer.js"></script>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-    <title>P2P-Maze</title>
-    <style>
-        .vertical-center {
-            min-height: 100%;
+        <!-- Game State -->
+        <script type="text/javascript" src="game/Boot.js"></script>
+        <script type="text/javascript" src="game/Preload.js"></script>
+        <script type="text/javascript" src="game/MainMenu.js"></script>
+        <script type="text/javascript" src="game/Game.js"></script>
+        <script type="text/javascript" src="game/GameMultiplayer.js"></script>
+
+        <!-- P2P -->
+        <script type="text/javascript" src="P2P/managePeerCommunication.js"></script>
+        <script type="text/javascript" src="P2P/PeerClient.js"></script>
+
+        <!-- Util -->
+        <script type="text/javascript" src="util/const.js"></script>
+        <script type="text/javascript" src="util/utilForm.js"></script>
+
+        <!-- Chat -->
+        <script type="text/javascript" src="chat/Chat.js"></script>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!-- JQuery -->
+        <script src="lib/jquery-1.11.1.min.js"></script>
+
+        <!-- Bootstrap -->
+        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- CSS Form -->
+        <link rel="stylesheet" href="css/form.css">
+
+        <!-- Phaser Lib -->
+        <script type="text/javascript" src="lib/phaser.js"></script>
+
+        
+
+        <title>P2P-Maze</title>
+        <style>
+            /* .vertical-center {
+                min-height: 100%; */
+
             /* Fallback for browsers do NOT support vh unit */
-            min-height: 100vh;
+
+            /* min-height: 100vh; */
+
             /* These two lines are counted as one :-)       */
-            display: flex;
-            align-items: center;
-        }
 
-        .col-centered {
-            float: none;
-            margin: 0 auto;
-        }
+            /* display: flex;
+                align-items: center;
+            } */
 
-        div {
-            /* width: 1100px;
-            height: 700px;
-            display: block; */
-            margin: auto;
-            width: 77%;
-        }
+            /* .col-centered {
+                float: none;
+                margin: 0 auto;
+            } */
 
-        .item {
-            margin-top: 10px;
-            background-color: rgb(0, 0, 0);
-        }
 
-        .item div {
-            width: 100px;
-            display: inline-block;
-            padding-top: 5px;
-        }
-    </style>
-</head>
+            #multiplayer-form {
+                width: 100%;
+            }
 
-<body>
-        <!-- https://bootsnipp.com/snippets/M5OE9 -->
-    <div id="multiplayer-section" style="display: none;">
-        Connect to a peer:
-        <input type="text" id="username-choice" placeholder="Enter id">
-        <input class="button" type="button" value="Connect - Subscrive" id="connect">
-        <br>
-        <br> Join to a peer:
-        <input class="button" type="button" value="See Peer Available" id="join">
-        <br>
-        <br>
-        <div>
-            <div id="info"></div>
-            <form id="choice-peer" action=""></form>
+            .div-game {
+                /* width: 1100px;
+                height: 700px;
+                display: block; */
+                margin: auto;
+                width: 77%;
+            }
+
+            .item {
+                margin-top: 10px;
+                background-color: rgb(0, 0, 0);
+            }
+
+            .item div {
+                width: 100px;
+                display: inline-block;
+                padding-top: 5px;
+            }
+        </style>
+    </head>
+
+    <body class="hm-gradient">
+
+        <!-- id="multiplayer-form" style="display: none;" -->
+        <div class="hm-gradient" id="multiplayer-form" style="display: none;">
+            <hr class="my-4">     
         </div>
-        <br>
-        <div id="request_connection"></div>
-        <form id="connection_choice_form" action=""></form>
-        <div id="chat"></div>
-        <!-- <div id="seeChatMessage"></div> -->
-        <!-- Qui bisogna fare un form per quello che invia e uno per quello che riceve -->
 
-        <!-- Send: <input type="text" id="sendMessage" placeholder="Send message"><input class="button" type="button" value="Send" id="send"><br><br> -->
-    </div>
-
-    <div id="P2PMaze"></div>
-    <div class="item"></div>
+        <div class="div-game" id="P2PMaze"></div>
+        <div class="div-game item"></div>
+    </body>
 
     <script type="text/javascript" src="game/main.js"></script>
-    <script type="text/javascript" src="lib/peer.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/mdb.min.js"></script>
+    <script type="text/javascript" src="lib/popper.min.js"></script>
+    
 
+   
 
-    <script type="text/javascript" src="P2P/managePeerCommunication.js"></script>
-    <script type="text/javascript" src="util/utilForm.js"></script>
-    <script type="text/javascript" src="chat/Chat.js"></script>
-    <script type="text/javascript" src="P2P/PeerClient.js"></script>
+    </html>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="lib/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="lib/popper.min.js" crossorigin="anonymous"></script>
-    <script src="lib/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
+    <!-- https://bootsnipp.com/snippets/M5OE9 -->
+    <!-- <div id="multiplayer-form" style="display: none;">
+            Connect to a peer:
+            <input type="text" id="username-choice" placeholder="Enter id">
+            <input class="button" type="button" value="Connect - Subscrive" id="connect">
+            <br>
+            <br> Join to a peer:
+            <input class="button" type="button" value="See Peer Available" id="join">
+            <br>
+            <br>
+            <div>
+                <div id="info"></div>
+                <form id="choice-peer" action=""></form>
+            </div>
+            <br>
+            <div id="request_connection"></div>
+            <form id="connection_choice_form" action=""></form>
+            <div id="chat"></div>
+            <div id="seeChatMessage"></div> 
+            Qui bisogna fare un form per quello che invia e uno per quello che riceve 
+            Send: <input type="text" id="sendMessage" placeholder="Send message"><input class="button" type="button" value="Send" id="send"><br><br>
+        </div> -->
