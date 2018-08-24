@@ -3,11 +3,14 @@
  * File: utiljoinPeerButton.js 
  * Author: Antonio Faienza
  * This file is create for create all html fields and recall inside index.js
- * TODO: 
  * ===========================================================================
  */
 
- function mainForm() {
+/**
+ * This is the main form that appear when the item "multiplayer"
+ * is selected
+ */
+function mainForm() {
     var div1 = document.createElement("div");
     div1.setAttribute("class", "container mt-4");
 
@@ -22,7 +25,7 @@
 
     var div5 = document.createElement("div");
     div5.setAttribute("class", "needs-validation");
-    div5.setAttribute("id", "needs-validation-id");
+    div5.setAttribute("id", "needs-validation-id"); "join-to-a-peer"
 
     var br = document.createElement("br");
 
@@ -78,7 +81,7 @@
     var br = document.createElement("br");
 
     return maindiv;
- }
+}
 
 /**
  * This function create the button and return the callback of click choice
@@ -400,4 +403,35 @@ function messageInvite(message) {
     return div;
 }
 
+
+/**
+ * This function create an Alert Bootsrap
+ * @param {*} message the message that appear
+ * @param {*} type there are different type of alert:
+ *                  @danger
+ *                  @warning
+ *                  @info
+ *                  and other: https://getbootstrap.com/docs/4.0/components/alerts/
+ */
+function alertMessage(message, type) {
+    var br = document.createElement("br");
+    var div = document.createElement("div");
+    div.setAttribute("class", "alert alert-"+type+" text-center");
+    div.setAttribute("role", "alert");
+    div.innerHTML = "<strong>" + message + "</strong>";
+
+    document.getElementById("bodyid").appendChild(br); 
+    document.getElementById("bodyid").appendChild(div);  // "join-to-a-peer"
+
+    // Auto close alert
+    // REF:https://codepen.io/CSWApps/pen/XJoLmN
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+
+    br.remove();
+
+}
 

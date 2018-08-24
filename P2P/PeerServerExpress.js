@@ -75,36 +75,6 @@ app.get('/available-peer', function (req, res, next) {
 
 });
 
-
-app.get('/manual-disconnection', function (req, res, next) {
-
-    
-    var id = req.query.key;
-
-    //Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    res.setHeader('Content-Type', 'application/json');
-
-
-    decreasePlayer(id)
-
-    // console.log(peer_available.toString()); // DEBUG
-    res.send(JSON.stringify(peer_available));
-    // Pass to next layer of middleware
-    next();
-});
-
 /**
  * Callback that increase the array of object
  * @param {*} id 

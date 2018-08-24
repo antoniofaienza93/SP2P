@@ -56,12 +56,11 @@ class PeerClient {
      * REF:https://stackoverflow.com/questions/25797345/peerjs-manually-close-the-connection-between-peers 
      * @param {object} conn i
      */
-    closeConnection() {
+    closeConnection(callback) {
         var p = this._conn.peer;
         this._conn.close();
         this._conn = undefined;
-        alert("THE CONNECTION WAS NOT ACCEPTED BY THE PEER " + p);    
-                       
+        callback(p);
     }
 
     /**
@@ -69,8 +68,9 @@ class PeerClient {
      */
     seeError(callback) {
         this._peer.on('error', function (err) {
-            alert(err.type + " - " + err.message);
-            callback(err.type);
+            // alert(err.type + ": " + err.message);
+            var m = err.type + ": " + err.message;
+            callback(m);
         });
     }
 

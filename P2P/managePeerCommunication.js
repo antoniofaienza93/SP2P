@@ -66,7 +66,7 @@ window.onload = function () {
             peerClient.enableReceptionData(dataReceived);
 
             // wee see the error of the server
-            error = peerClient.seeError(handleServerError);
+            peerClient.seeError(handleServerError);
 
             // remove div if already exist
             // clearChildDiv(jointoapeer);
@@ -84,7 +84,7 @@ window.onload = function () {
             clearDiv("invitation");
 
         } else {
-            alert(FORM.FILL);
+            alertMessage(FORM.FILL, "warning"); 
         }
     }
 
@@ -158,7 +158,7 @@ window.onload = function () {
     function callbackConnectionChoicePeer(data) {
 
         if (connectionChoice == undefined) {
-            alert(COMMUNICATION.PEER_SELECTED + data);
+            alertMessage(COMMUNICATION.PEER_SELECTED + data, "info");
         } else if (connectionChoice == "YES") {
 
             peerRequestor = undefined;
@@ -216,9 +216,14 @@ window.onload = function () {
      * Establish the connection for comunicate the clousure
      */
     function refuseConnection() {
-        peerClient.closeConnection();
+        peerClient.closeConnection(callbackClosing);
     }
 
+
+    function callbackClosing(p){
+
+        alertMessage(PEER.CONNECTION_CLOSED+ " " + p, "warning");
+    }
 
     /**
      * callbackFormPeerAvailableck from onclick button message
@@ -275,7 +280,7 @@ window.onload = function () {
 
             clearDiv("div-choice-peer");
 
-            alert(COMMUNICATION.PEER_AVAILABILITY);
+            alertMessage(COMMUNICATION.PEER_AVAILABILITY, "warning");
 
         }
 
@@ -287,7 +292,7 @@ window.onload = function () {
      */
     function peerSelected(peerSelected) {
         if (peerSelected === undefined) {
-            alert(COMMUNICATION.PEER_SELECTION);
+            alertMessage(COMMUNICATION.PEER_SELECTION, "info");
         } else {
 
             clearDiv("div-choice-peer");
@@ -320,7 +325,9 @@ window.onload = function () {
      */
     function handleServerError(error) {
 
-        if (error === 'peer-unavailable') {
+        alertMessage(error, "danger");
+        
+        if (error == 'peer-unavailable') {
             clearDiv("invitation");
         }
 
