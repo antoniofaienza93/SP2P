@@ -420,8 +420,8 @@ function alertMessage(message, type) {
     div.setAttribute("role", "alert");
     div.innerHTML = "<strong>" + message + "</strong>";
 
-    document.getElementById("multiplayer-form").appendChild(br); 
-    document.getElementById("multiplayer-form").appendChild(div);  // "join-to-a-peer"
+    document.body.appendChild(br);
+    document.body.appendChild(div);
 
     // Auto close alert
     // REF:https://codepen.io/CSWApps/pen/XJoLmN

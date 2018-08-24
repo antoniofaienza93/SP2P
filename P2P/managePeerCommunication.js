@@ -234,9 +234,6 @@ window.onload = function () {
         send(message);
     }
 
-    
-
-
     /**
      * Function that assign the peer to player.
      * the player has accepted the comuniation and for this the div is again visible
