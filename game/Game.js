@@ -2,7 +2,6 @@
  * ===========================================================================
  * File: Game.js - 4 
  * Author: Antonio Faienza
- * Desc: QUESTO Eé SOLO PER PRESERVARE LA COPIA DEL FILE
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
@@ -43,89 +42,18 @@ P2PMaze.Game = function () {
 };
 
 P2PMaze.Game.prototype = {
-    preload: function () {
-        // TODO da togliere il preload che qui non dovrebbe servire 
-        // this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
-        // this.game.load.image('tempImage', 'assets/images/tiles.png');
-        // this.game.load.image('heart', 'assets/images/heart.png');
-
-        // // TODO CANCELLARE - vedere la grandezza dell'immagine        
-        // // 37x45 is the size of each frame
-        // //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
-        // //  blank frames at the end, so we tell the loader how many to load
-        // this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
-        // // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
-        // // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
-
-        // // TODO carichiamo le immagini
-        // // this.load.image('redcup', 'assets/images/estintore_piccolo.png');
-        // // this.load.image('greycup', 'assets/images/greencup.png');
-        // // this.load.image('bluecup', 'assets/images/bluecup.png');
-
-        // this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
-
-        // // win particles
-        // this.load.image('blacklight', 'assets/images/particles/blacklight.png');
-        // this.load.image('bluelight', 'assets/images/particles/bluelight.png');
-        // this.load.image('brownlight', 'assets/images/particles/brownlight.png');
-        // this.load.image('greenlight', 'assets/images/particles/greenlight.png');
-        // this.load.image('orangelight', 'assets/images/particles/orangelight.png');
-        // this.load.image('redlight', 'assets/images/particles/redlight.png');
-        // this.load.image('violelight', 'assets/images/particles/violetlight.png');
-        // this.load.image('yellowlight', 'assets/images/particles/yellowlight.png');
-        // this.load.image('star_particle', 'assets/images/particles/star_particle.png');
-
-        // // sound
-        // this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
-        // this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
-        // this.load.audio('win', 'assets/sounds/winSound.wav');
-        // this.load.audio('lose', 'assets/sounds/loseSound.wav');
-        // this.load.audio('wellDone', 'assets/sounds/wellDone.ogg');
-
-        // // item
-        // this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('RifiutiTossici', ASSET_PATH.PATH_ITEM_48x48 + 'RifiutiTossici' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Arpa', ASSET_PATH.PATH_ITEM_48x48 + 'Arpa' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Cerbero', ASSET_PATH.PATH_ITEM_48x48 + 'Cerbero' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Cesoie', ASSET_PATH.PATH_ITEM_48x48 + 'Cesoie' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Rovi', ASSET_PATH.PATH_ITEM_48x48 + 'Rovi' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Estintore', ASSET_PATH.PATH_ITEM_48x48 + 'Estintore' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Fuoco', ASSET_PATH.PATH_ITEM_48x48 + 'Fuoco' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Cuffie', ASSET_PATH.PATH_ITEM_48x48 + 'Cuffie' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Sirena', ASSET_PATH.PATH_ITEM_48x48 + 'Sirena' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('BandieraRossa', ASSET_PATH.PATH_ITEM_48x48 + 'BandieraRossa' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Toro', ASSET_PATH.PATH_ITEM_48x48 + 'Toro' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Aglio', ASSET_PATH.PATH_ITEM_48x48 + 'Aglio' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Vampiro', ASSET_PATH.PATH_ITEM_48x48 + 'Vampiro' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Lampada', ASSET_PATH.PATH_ITEM_48x48 + 'Lampada' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Genio', ASSET_PATH.PATH_ITEM_48x48 + 'Genio' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Foglio', ASSET_PATH.PATH_ITEM_48x48 + 'Foglio' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Roccia', ASSET_PATH.PATH_ITEM_48x48 + 'Roccia' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Spinaci', ASSET_PATH.PATH_ITEM_48x48 + 'Spinaci' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Spada', ASSET_PATH.PATH_ITEM_48x48 + 'Spada' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Drago', ASSET_PATH.PATH_ITEM_48x48 + 'Drago' + ASSET_PATH.ITEM_48x48);
-        // this.load.image('Tesoro', ASSET_PATH.PATH_ITEM_48x48 + 'Tesoro' + ASSET_PATH.ITEM_48x48);
-
-        
-
-    },
     create: function () {
 
         //  We're going to be using physics, so enable the Arcade Physics system
-        // TODO - mettere questo nel Boot
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        map = this.game.add.tilemap('temp');
+        map = this.game.add.tilemap('maze');
 
-        map.addTilesetImage('tiles', 'tempImage');
+        map.addTilesetImage('tiles', 'mazeImage');
 
         // create the layer 
         backgroudLayer = map.createLayer('backgroudLayer');
         blockedLayer = map.createLayer('blockedLayer');
-
-        // TODO verificare per la nuova mappa che ciò avvenga
 
         // The number between 1 and 2000 is an index range for the tiles for which we want to enable
         // collision (in this case such a big number should include them all which is what I intended).
@@ -165,11 +93,8 @@ P2PMaze.Game.prototype = {
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-        // TODO deve esse qualcosa nell'update
-
         //the camera will follow the player in the world
-        this.game.camera.follow(player); // TODO forse questo non serve
-
+        this.game.camera.follow(player); 
 
         // move player with cursor key 
         cursor = this.game.input.keyboard.createCursorKeys();
@@ -185,14 +110,8 @@ P2PMaze.Game.prototype = {
         win = this.game.add.audio('win');
         wellDone = this.game.add.audio('wellDone'); 
 
-
-
     },
     update: function () {
-
-        //  Collide the player and the stars with the platforms
-
-
 
         // collisio to do 
         // https://phaser.io/docs/2.4.4/Phaser.Physics.Arcade.html#collide
@@ -230,7 +149,7 @@ P2PMaze.Game.prototype = {
 
         // if(cursor.up.isDown && player.body.touching.down){
         if (cursor.up.isDown && hitPlatform) {
-            player.body.velocity.y = -250;  // TODO se si vuole aumentare l'altezza vedere esempio index9.html         
+            player.body.velocity.y = -250;         
 
         }
 
@@ -265,8 +184,6 @@ P2PMaze.Game.prototype = {
             this.winParticle();
             stateText.text = GAME.GAMEWIN;
             stateText.visible = true;
-            
-            
 
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
@@ -276,11 +193,11 @@ P2PMaze.Game.prototype = {
     // logic game
     choiceItems: function (player, item) {
 
-        // TODO delete
-        // BODY ENABLE https://phaser.io/examples/v2/arcade-physics/body-enable
+        // ======================== DEBUG ===============================
         // console.log(" ORDINE DEL GIOCATORE " + playerOrder);
         // console.log(" liSTA ");
         // console.log(logicalOrder);
+        // ==============================================================
 
         // if exist inside the hashmap a key with the same name of the sprite
         // and the value is equal of playerOrder then return true
@@ -299,9 +216,10 @@ P2PMaze.Game.prototype = {
     },
     findObjectsByType: function (type, map, layer) {
 
-        // DEBUG
+        // ======================== DEBUG ===============================
         // console.log(map);
         // console.log(map.objects);
+        // ==============================================================
 
         var result = new Array();
         map.objects[layer].forEach(function (element) {
@@ -316,21 +234,6 @@ P2PMaze.Game.prototype = {
 
         return result;
     },
-    // createItems: function(){
-    //     // create items
-    //     this.items = this.game.add.group();
-
-    //     // If true all Sprites created with #create or #createMulitple will have a physics body created on them.
-    //     this.items.enableBody = true;
-    //     var item; 
-    //     result = this.findObjectsByType('item', map, 'objectLayer');
-
-    //     // result = take all element from tileset with specific proprieties
-    //     //    |--> element = take a specific result with proprieties etc
-    //     result.forEach(function(element){            
-    //         this.createFromTiledObject(element, this.items);
-    //       }, this);
-    // },
     createItems: function () {
 
         // create items
@@ -365,11 +268,7 @@ P2PMaze.Game.prototype = {
             // default = each objects are immovable
             spriteObject.body.immovable = true;
 
-
-
-            // DEBUG
             //  console.log(element.properties.order + " " + element.properties.sprite);
-
             
             /*
              * fill the HashMap for the logic of game
@@ -378,9 +277,6 @@ P2PMaze.Game.prototype = {
             */  
             logicalOrder[element.properties.sprite] = element.properties.order;
 
-
-
-            //this.createFromTiledObject(element, items);
         }, this);
 
     },
@@ -401,14 +297,16 @@ P2PMaze.Game.prototype = {
     },
     render: function () {
 
-        // ===== DEBUG PLAYER 
+        // ================== DEBUG PLAYER ==================
         // this.game.debug.body(player);
         // this.game.debug.spriteInfo(player, 32, 32);
+        // ==================================================
 
-        // ===== DEBUG ITEMS
+        // ================== DEBUG ITEMS ==================
         // this.game.debug.physicsGroup(items);
         // space = 130; 
-        // items.forEachAlive(this.renderGroup, this, space);       
+        // items.forEachAlive(this.renderGroup, this, space);
+        // ==================================================       
 
     },
     renderGroup: function (member, number) {
@@ -442,14 +340,6 @@ P2PMaze.Game.prototype = {
         }
     },
     restart: function () {
-        // A new level starts
-
-        // reset the life count 
-        // lives.callAll('revive');
-        // this.createItems();
-
-        // //revives the player
-        // player.revive();
         playerOrder = 1;
         P2PMaze.clearItemDiv();
         
@@ -525,18 +415,4 @@ P2PMaze.Game.prototype = {
     	//destroy the box when the button is pressed
         msgBox.destroy();
     }
-    // createFromTiledObject: function(element, group) {
-
-    //     // Creates a new Phaser.Sprite object and adds it to the top of this group.
-    //     // 'x' and 'y' are the coordinates that display the newly created Sprite at.The value is in relation to the group.x/group.y point
-    //     // This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache Image entry, or other. See documentation for more detail.        
-    //     var sprite = group.create(element.x, element.y, element.properties.sprite);
-
-    //     // TODO - Capire perchè stava messo sto codice
-    //     //copy all properties to the sprite
-    //     // Object.keys(element.properties).forEach(function(key){
-    //     //     sprite[key] = element.properties[key];
-    //     //     // console.log(" --------------> " + sprite[key]);
-    //     // });
-    // }
 };
