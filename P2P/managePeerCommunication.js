@@ -7,6 +7,9 @@
  */
 window.onload = function () {
 
+    // initial call, or just call refresh directly
+    setTimeout(refresh, 5000);
+
     var jointoapeer = mainForm();
 
     if (this.document.getElementById("connect") != undefined) {
@@ -17,7 +20,7 @@ window.onload = function () {
     var connectionChoice = undefined;
     var peerRequestor = undefined;
 
-    
+
 
 
     // name tag for all element of checkbox
@@ -84,12 +87,12 @@ window.onload = function () {
             clearDiv("invitation");
 
         } else {
-            alertMessage(FORM.FILL, "warning"); 
+            alertMessage(FORM.FILL, "warning");
         }
     }
 
 
-    
+
 
     /**
      * callbackFormPeerAvailableck when receive data
@@ -102,10 +105,9 @@ window.onload = function () {
 
             var choiceForm = divChoiceForm();
 
-            if (peerRequestor == undefined || peerRequestor != data) 
-            {
+            if (peerRequestor == undefined || peerRequestor != data) {
 
-                
+
                 var label = document.createElement('label');
                 label.setAttribute("name", "request_connection_label");
                 label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
@@ -133,9 +135,9 @@ window.onload = function () {
 
 
         } else {
-            
+
             if (data == PEER.CONNECTION_ACCEPTED) {
-                enableGame(); 
+                enableGame();
                 var d = chatFormmm();
                 jointoapeer.appendChild(d);
                 chat.sendMessage(d);
@@ -162,7 +164,7 @@ window.onload = function () {
 
             peerRequestor = undefined;
 
-            respondConnection(data, PEER.CONNECTION_ACCEPTED); 
+            respondConnection(data, PEER.CONNECTION_ACCEPTED);
 
             // TODO questa è una chat provvisoria che deve essere messa a posto
             var d = chatFormmm();
@@ -175,7 +177,7 @@ window.onload = function () {
             clearDiv("div-choice-form");
 
             // the player accept the connection and then it can see the canvas with multiplayer
-            enableGame(); 
+            enableGame();
 
         } else if (connectionChoice == "NO") {
 
@@ -185,7 +187,7 @@ window.onload = function () {
             clearDiv("div-choice-form");
 
             // establish connection for comunicate that the connection is refused
-            respondConnection(data, PEER.CONNECTION_REFUSED); 
+            respondConnection(data, PEER.CONNECTION_REFUSED);
 
             refuseConnection();
         }
@@ -219,9 +221,12 @@ window.onload = function () {
     }
 
 
-    function callbackClosing(p){
-
-        alertMessage(PEER.CONNECTION_CLOSED+ " " + p, "warning");
+    /**
+     * Callback that appear when the connection is closed
+     * @param {*} p 
+     */
+    function callbackClosing(p) {
+        alertMessage(PEER.CONNECTION_CLOSED + " " + p, "warning");
     }
 
     /**
@@ -262,7 +267,7 @@ window.onload = function () {
     function returnPeerAvailable(peer_a) {
 
         clearDiv("invitation");
- 
+
         var peer_available = JSON.parse(peer_a);
 
 
@@ -307,7 +312,7 @@ window.onload = function () {
 
             // open connection and ask to opponent peer to establish the connection
             requestConnection(peerSelected);
-     
+
         }
     }
 
@@ -329,7 +334,7 @@ window.onload = function () {
     function handleServerError(error) {
 
         alertMessage(error, "danger");
-        
+
         if (error == 'peer-unavailable') {
             clearDiv("invitation");
         }
@@ -337,7 +342,27 @@ window.onload = function () {
     }
 
     /**
+     * Searches the Group for the first instance of a child with the `key`
+     * property matching the given argument. Should more than one child have
+     * the same name only the first instance is returned.
+     * 
+     * @method Phaser.Group#getByKey
+     * @param {string} key - The key to search for.
+     * @return {any} The first child with a matching name, or null if none were found.
+     */
+    P2PMaze.getBykey = function (items, key) {
+        for (var i = 0; i < items.children.length; i++) {
+            if (items.children[i].key === key) {
+                return items.children[i];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * GET REQUEST SERVER
+     * @method httpGetAsync
      * @param {*} theUrl the url passed to method
      * @param {*} callbackFormPeerAvailableck the result of request
      */
@@ -351,6 +376,33 @@ window.onload = function () {
         xmlHttp.send(null);
         // console.log(xmlHttp.responseText)
     }
+
+    
+    /**
+     * POLLING
+     * REF - https://hpbn.co/xmlhttprequest/
+     * This function make a server request for the peer disconnected.
+     * When the result is available, send message and interrupt the game
+     * 
+     * @param {string} url - the url of server
+     */
+    function pollingLostId(url) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open('GET', url);
+        xmlHttp.onload = function() { 
+            console.log(xmlHttp.responseText);
+         }; 
+        xmlHttp.send(null);
+      }
+    
+
+    /**
+     * Set the timer of callback
+     */
+    function refresh() {
+        setTimeout(refresh, 3000);
+        pollingLostId(PEER_SERVER.POLLING);
+    }  
 
 };
 
