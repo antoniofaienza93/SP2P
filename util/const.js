@@ -36,7 +36,8 @@ const PLAYER = {
  */
 const PEER_SERVER = {
     ENROLLMENT: "http://localhost:9000",
-    PEER_AVAILABLES: "http://localhost:9000/available-peer/"
+    PEER_AVAILABLES: "http://localhost:9000/available-peer/",
+    POLLING: "http://localhost:9000/updates/"
     
 }
 
