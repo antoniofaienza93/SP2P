@@ -95,8 +95,8 @@ const ASSET_PATH = {
  * Form field
  */
 const FORM = {
-    CHOICE_PEER: "Choice Peer to Connect",
-    FILL: "Please, insert ID",
-    MESSAGE_SEND: "We send a message to",
-    SEE_PEER_AVAILABLE: "See Peer Available"
+    CHOICE_PEER: "CHOICE PEER TO CONNECT",
+    FILL: "PLEASE, INSERT ID",
+    MESSAGE_SEND: "WE SEND MESSAGE TO",
+    SEE_PEER_AVAILABLE: "SEE PEER AVAILABLE"
 }
