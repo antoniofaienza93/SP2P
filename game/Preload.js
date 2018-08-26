@@ -44,10 +44,10 @@ P2PMaze.Preload.prototype = {
         loadText = this.game.add.text(this.game.world.centerX - 95, 400, '', { font: '30px Arial', fill: '#fff' });
 
         // map
-        this.game.load.tilemap('temp', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('maze', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
 
         // tile
-        this.game.load.image('tempImage', 'assets/images/tiles.png');
+        this.game.load.image('mazeImage', 'assets/images/tiles.png');
 
         // life
         this.game.load.image('heart', 'assets/images/heart.png');
@@ -56,7 +56,8 @@ P2PMaze.Preload.prototype = {
         // 37x45 is the size of each frame
         //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
         //  blank frames at the end, so we tell the loader how many to load
-        this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        // Quello che vorrei usare 
+        this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        
+        this.load.spritesheet('opponentPlayer', 'assets/images/player/opponentdude.png', 32, 48); 
         // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
         // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
 
