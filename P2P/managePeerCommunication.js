@@ -100,9 +100,6 @@ window.onload = function () {
      */
     function dataReceived(data) {
 
-        if(peerClient.getConnection()!=undefined){
-            console.log(peerClient.getId());
-        }
         // this is the peer that receive the request. In this case the first time is undefined
         if (peerClient.getConnection() == undefined) {
 
@@ -110,7 +107,7 @@ window.onload = function () {
 
             if (peerRequestor == undefined || peerRequestor != data) {
 
-                console.log(data);
+        
                 var label = document.createElement('label');
                 label.setAttribute("name", "request_connection_label");
                 label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
@@ -224,7 +221,6 @@ window.onload = function () {
     function refuseConnection() {
         peerClient.closeConnection(callbackClosing);
     }
-
 
     /**
      * Callback that appear when the connection is closed
