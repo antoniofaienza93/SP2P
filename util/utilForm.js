@@ -141,8 +141,8 @@ P2PMaze.itemTaken = function (pathImg, itemKey) {
  * Remove all element inside a specific div when the game ended
  * TODO: TEST DECOMMENTARE
  */
-P2PMaze.clearItemDiv = function () { 
-    var myNode = document.getElementsByClassName("item")[0]; 
+P2PMaze.clearItemDiv = function () {
+    var myNode = document.getElementsByClassName("item")[0];
 
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
@@ -395,7 +395,7 @@ function chatFormmm() {
 function alertMessage(message, type) {
     var br = document.createElement("br");
     var div = document.createElement("div");
-    div.setAttribute("class", "alert alert-"+type+" text-center");
+    div.setAttribute("class", "alert alert-" + type + " text-center");
     div.setAttribute("role", "alert");
     div.innerHTML = "<strong>" + message + "</strong>";
 

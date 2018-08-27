@@ -7,30 +7,22 @@
  */
 var P2PMaze = P2PMaze || {};
 var multiplayer;
-var button2;
 var selectMenu;
-var choiceSelection; 
+var choiceSelection;
+
 
 P2PMaze.MainMenu = function () {
     console.log("%cStarting MainMenu", "color:white; background:grey");
 };
 
 P2PMaze.MainMenu.prototype = {
-    preload: function () {
-        // Provare a caricare Texture Atlas
-
-    },
     create: function () {
-
-        // TITLE 
-        // name_project = this.add.bitmapText(this.game.world.centerX, this.game.world.centerY-300, 'desyrel', GAME.TITLE, 64); // default 400  - 270
-        // name_project.anchor.x = 0.5;
 
         // https://phaser.io/examples/v2/text/text-events
         var style = { font: "65px Arial", fill: "#ffff", align: "center" };
 
         // Single player
-        var textSinglePlayer = this.game.add.text(this.game.world.centerX, this.game.world.centerY-100, GAME.PLAY, style);
+        var textSinglePlayer = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 100, GAME.PLAY, style);
         textSinglePlayer.anchor.set(0.5);
         textSinglePlayer.inputEnabled = true;
         textSinglePlayer.events.onInputOver.add(this.over, this);
@@ -39,7 +31,7 @@ P2PMaze.MainMenu.prototype = {
 
 
         // MULTIPLAYER
-        var textMultiplayer = this.add.text(this.game.world.centerX, this.world.centerY , GAME.MULTIPLAYER, style);
+        var textMultiplayer = this.add.text(this.game.world.centerX, this.world.centerY, GAME.MULTIPLAYER, style);
         textMultiplayer.anchor.set(0.5);
         textMultiplayer.inputEnabled = true;
         textMultiplayer.events.onInputOver.add(this.over, this);
@@ -55,8 +47,8 @@ P2PMaze.MainMenu.prototype = {
         setting.events.onInputOut.add(this.out, this);
         setting.events.onInputDown.add(this.setting, this);
 
-        selectMenu = this.game.add.audio('selectMenu'); 
-        choiceSelection = this.game.add.audio('choiceSelection'); 
+        selectMenu = this.game.add.audio('selectMenu');
+        choiceSelection = this.game.add.audio('choiceSelection');
     },
     singleplayer: function () {
         choiceSelection.play();
@@ -77,8 +69,27 @@ P2PMaze.MainMenu.prototype = {
     },
     setting: function () {
         choiceSelection.play();
-        console.log("Adesso spieghimao come si gioca");
-        // https://phasergames.com/adding-message-box-phaser-games/
+        
+        var modal = document.getElementById('myModal');
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal 
+        modal.style.display = "block";
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
     },
     over: function (item) {
         selectMenu.play();
@@ -86,6 +97,6 @@ P2PMaze.MainMenu.prototype = {
     },
     out: function (item) {
         item.scale.setTo(1);
-        
+
     },
 };
