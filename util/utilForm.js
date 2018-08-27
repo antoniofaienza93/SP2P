@@ -141,7 +141,7 @@ P2PMaze.itemTaken = function (pathImg, itemKey) {
  * Remove all element inside a specific div when the game ended
  * TODO: TEST DECOMMENTARE
  */
-P2PMaze.clearItemDiv = function () {
+P2PMaze.clearItemDiv = function () { 
     var myNode = document.getElementsByClassName("item")[0]; 
 
     while (myNode.firstChild) {
@@ -378,27 +378,6 @@ function chatFormmm() {
     var div = document.createElement("div");
     div.setAttribute("class", "text-center darken-grey-text mb-4");
     div.setAttribute("id", "chat");
-
-    return div;
-}
-
-
-/**
- * this method create a label. It used for explain of the user that the message is sent to other peer
- * @param {*} message 
- */
-function messageInvite(message) {
-    var div = document.createElement("div");
-    div.setAttribute("id", "invitation");
-    div.setAttribute("class", "text-center darken-grey-text mb-4");
-
-    var h4 = document.createElement("h4");
-    h4.setAttribute("class", "font-bold mb-3");
-    h4.innerHTML = message;
-
-
-
-    div.appendChild(h4);
 
     return div;
 }
