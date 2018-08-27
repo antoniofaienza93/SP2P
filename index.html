@@ -1,89 +1,122 @@
-    <!doctype html>
-    <html lang="en">
+<!doctype html>
+<html lang="en">
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="Content-Language" content="en-us">        
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="en-us">
 
-        <!-- PeerJS -->
-        <script type="text/javascript" src="lib/peer.js"></script>
+    <!-- PeerJS -->
+    <script type="text/javascript" src="lib/peer.js"></script>
 
-        <!-- Game State -->
-        <script type="text/javascript" src="game/Boot.js"></script>
-        <script type="text/javascript" src="game/Preload.js"></script>
-        <script type="text/javascript" src="game/MainMenu.js"></script>
-        <script type="text/javascript" src="game/Game.js"></script>
-        <script type="text/javascript" src="game/GameMultiplayer.js"></script>
+    <!-- Game State -->
+    <script type="text/javascript" src="game/Boot.js"></script>
+    <script type="text/javascript" src="game/Preload.js"></script>
+    <script type="text/javascript" src="game/MainMenu.js"></script>
+    <script type="text/javascript" src="game/Game.js"></script>
+    <script type="text/javascript" src="game/GameMultiplayer.js"></script>
 
-        <!-- P2P -->
-        <script type="text/javascript" src="P2P/managePeerCommunication.js"></script>
-        <script type="text/javascript" src="P2P/PeerClient.js"></script>
+    <!-- P2P -->
+    <script type="text/javascript" src="P2P/managePeerCommunication.js"></script>
+    <script type="text/javascript" src="P2P/PeerClient.js"></script>
 
-        <!-- Util -->
-        <script type="text/javascript" src="util/const.js"></script>
-        <script type="text/javascript" src="util/utilForm.js"></script>
+    <!-- Util -->
+    <script type="text/javascript" src="util/const.js"></script>
+    <script type="text/javascript" src="util/utilForm.js"></script>
 
-        <!-- Chat -->
-        <script type="text/javascript" src="chat/Chat.js"></script>
+    <!-- Chat -->
+    <script type="text/javascript" src="chat/Chat.js"></script>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <!-- JQuery -->
-        <script src="lib/jquery-1.11.1.min.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- JQuery -->
+    <script src="lib/jquery-1.11.1.min.js"></script>
 
-        <!-- Bootstrap -->
-        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
-        <!-- CSS Form -->
-        <link rel="stylesheet" href="css/form.css">
+    <!-- CSS Form -->
+    <link rel="stylesheet" href="css/form.css">
 
-        <!-- Phaser Lib -->
-        <script type="text/javascript" src="lib/phaser.js"></script>
+    <!-- CSS Modal -->
+    <link rel="stylesheet" href="css/modal.css">
 
-        
+    <!-- Phaser Lib -->
+    <script type="text/javascript" src="lib/phaser.js"></script>
 
-        <title>P2P-Maze</title>
-        <style>
-            #multiplayer-form {
-                width: 100%;
-            }
 
-            .div-game {
-                /* width: 1100px;
+
+    <title>P2P-Maze</title>
+    <style>
+        #multiplayer-form {
+            width: 100%;
+        }
+
+        .div-game {
+            /* width: 1100px;
                 height: 700px;
                 display: block; */
-                margin: auto;
-                width: 77%;
-            }
+            margin: auto;
+            width: 77%;
+        }
 
-            .item {
-                margin-top: 10px;
-                background-color: rgb(0, 0, 0);
-            }
+        .item {
+            margin-top: 10px;
+            background-color: rgb(0, 0, 0);
+        }
 
-            .item div {
-                width: 100px;
-                display: inline-block;
-                padding-top: 5px;
-            }
-        </style>
-    </head>
+        .item div {
+            width: 100px;
+            display: inline-block;
+            padding-top: 5px;
+        }
 
-    <body class="hm-gradient">
-        <div class="hm-gradient" id="multiplayer-form" style="display: none;">
-            <hr class="my-4">     
+    </style>
+</head>
+
+<body class="hm-gradient">
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-modal" style="text-align:center;">GAME INSTRUCTION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Qui scriveremo le istruzioni</p>
+            </div>
+            <div class="modal-footer" style="text-align: right;">
+                Author: Antonio Faienza
+                <br>
+                Course: Peer-to-Peer System
+                <br>
+                University of Bologna - Alma Mater Studiorum 
+                
+            </div>
         </div>
+    </div>
 
-        <div class="div-game" id="P2PMaze"></div>
-        <div class="div-game item"></div>
-    </body>
+    <!-- Form Multiplayer -->
+    <div class="hm-gradient" id="multiplayer-form" style="display: none;">
+        <hr class="my-4">
+    </div>
 
-    <script type="text/javascript" src="game/main.js"></script>
-    <script type="text/javascript" src="lib/bootstrap/js/mdb.min.js"></script>
-    <script type="text/javascript" src="lib/popper.min.js"></script>
+    <!-- Div Game -->
+    <div class="div-game" id="P2PMaze"></div>
 
-    </html>
+    <!-- Div Item Take -->
+    <div class="div-game item"></div>
+</body>
+
+<script type="text/javascript" src="game/main.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/mdb.min.js"></script>
+<script type="text/javascript" src="lib/popper.min.js"></script>
+
+</html>
