@@ -23,6 +23,7 @@ var result;
 var lastItem;
 var dataReceived;
 var resultItem;
+var movementPlayer = true;
 
 // sounds
 var itemCorrect;
@@ -147,6 +148,7 @@ P2PMaze.GameMultiplayer.prototype = {
         var hitPlatform = this.game.physics.arcade.collide(player, blockedLayer);
         this.game.physics.arcade.collide(opponentPlayer, blockedLayer);
 
+
         // player movement   
         // NB: comment these to gain less control over the sprite      
         // the player cab be jump and for this have to not "resize" to 0 the position
@@ -160,7 +162,7 @@ P2PMaze.GameMultiplayer.prototype = {
         }
 
 
-        if (cursor.left.isDown) {
+        if (cursor.left.isDown && movementPlayer) {
             player.body.velocity.x = PLAYER.VELOCITY_X_LEFT;
             player.animations.play('left');
 
@@ -168,13 +170,15 @@ P2PMaze.GameMultiplayer.prototype = {
             var updatePos = [];
             var keyupdating = { "key": "left" };
             var updateX = { "updatePosx": player.x };
-            var updateY = { "updatePosy": player.y }; // TODO secondo me questo può essere tolto e posto solo in altezza 
+            var updateY = { "updatePosy": player.y };
             updatePos.push(keyupdating);
             updatePos.push(updateX);
             updatePos.push(updateY);
             P2PMaze.send(updatePos);
 
-        } else if (cursor.right.isDown) {
+
+
+        } else if (cursor.right.isDown && movementPlayer) {
             player.body.velocity.x = PLAYER.VELOCITY_X_RIGHT;
             player.animations.play('right');
 
@@ -187,6 +191,8 @@ P2PMaze.GameMultiplayer.prototype = {
             updatePos.push(updateX);
             updatePos.push(updateY);
             P2PMaze.send(updatePos);
+
+
         }
         else {
             player.animations.stop();
@@ -267,15 +273,19 @@ P2PMaze.GameMultiplayer.prototype = {
 
         // information life
         if (P2PMaze.dataReceived != undefined && P2PMaze.dataReceived[0].key == "DECREASE_LIFE") {
-            this.explodePlayer(opponentPlayer);
+            // this.explodePlayer(opponentPlayer);
+            console.log("decrease life");
             live = lives.getFirstAlive();
             live.kill();
             opponentPlayer.kill();
             opponentPlayer.reset(result[0].x + 20, result[0].y);
             P2PMaze.dataReceived = undefined;
+
+
         }
         // died game
         if (P2PMaze.dataReceived != undefined && P2PMaze.dataReceived[0].key == "GAME_OVER") {
+            console.log("GameOver");
             live = lives.getFirstAlive();
             live.kill();
             opponentPlayer.kill()
@@ -287,41 +297,37 @@ P2PMaze.GameMultiplayer.prototype = {
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
             P2PMaze.dataReceived = undefined;
+
+
         }
 
         // information items
         if (P2PMaze.dataReceived != undefined && P2PMaze.dataReceived[0].key == "ITEM_TAKEN") {
             var colKey = P2PMaze.dataReceived[1].item;
-            var o =  P2PMaze.dataReceived[2].order;
-            var log =  P2PMaze.dataReceived[3].logicalOrder;
-            // var px = P2PMaze.dataReceived[4].posx;
-            // var py = P2PMaze.dataReceived[5].posy;
+            var o = P2PMaze.dataReceived[2].order;
+            var log = P2PMaze.dataReceived[3].logicalOrder;
 
             P2PMaze.itemTaken(ASSET_PATH.PATH_ITEM_48x48 + colKey + ASSET_PATH.ITEM_48x48, colKey);
             var cToDelete = this.findCollectableToDelete(colKey);
-           
+
             // set the player Order and logicalOrder
-            playerOrder = o;        
+            playerOrder = o;
             logicalOrder = log;
 
             if (cToDelete != null) {
                 cToDelete.destroy();
             }
 
-            // if(px-10 < opponentPlayer.x && opponentPlayer.x < py+10) 
-            // {
-            //     opponentPlayer.reset(px, py);
-            //     opponentPlayer.frame = 4;
-            // }
-           
             P2PMaze.dataReceived = undefined;
 
+
         }
-        // TODO 
+
+        // when one of two player win
         if (P2PMaze.dataReceived != undefined && P2PMaze.dataReceived[0].key == "WIN_GAME") {
             player.kill();
             opponentPlayer.kill();
-            
+
             win.play();
             wellDone.play();
             this.winParticle();
@@ -366,7 +372,7 @@ P2PMaze.GameMultiplayer.prototype = {
     collect: function (player, collectable) {
 
         console.log("TAKE " + collectable.key);
-        
+
         P2PMaze.itemTaken(ASSET_PATH.PATH_ITEM_48x48 + collectable.key + ASSET_PATH.ITEM_48x48, collectable.key);
 
         // remove sprite
@@ -378,15 +384,18 @@ P2PMaze.GameMultiplayer.prototype = {
         var i = { "item": collectable.key };
         var o = { "order": playerOrder };
         var l = { "logicalOrder": logicalOrder };
-        // var posx = {"posx": collectable.position.x};
-        // var posy = {"posy": collectable.position.y}; TODO remove
         iTaken.push(keyupdating);
         iTaken.push(i);
         iTaken.push(o);
         iTaken.push(l);
-        // iTaken.push(posx);
-        // iTaken.push(posy);
         P2PMaze.send(iTaken);
+
+        // we don't want move the player for avoid bug for 1 seconds
+        movementPlayer = false;
+        this.game.time.events.add(1500, function () {
+            console.log("START MOVEMENT NOW");               
+            movementPlayer = true;
+        }, this);
 
         // if size of objects are 0 then all items are keep
         if (Object.keys(logicalOrder).length === 0) {
@@ -407,6 +416,9 @@ P2PMaze.GameMultiplayer.prototype = {
             var keyupdating = { "key": "WIN_GAME" };
             iTaken.push(keyupdating);
             P2PMaze.send(iTaken);
+            
+            // we don't want move the player for avoid bug for 1 seconds
+            movementPlayer = false;
         }
 
     },
@@ -542,11 +554,6 @@ P2PMaze.GameMultiplayer.prototype = {
             live.kill();
             this.explodePlayer(player);
             player.kill();
-            // communicate to opponent player the died of player
-            var died = [];
-            var key = { "key": "DECREASE_LIFE" };
-            died.push(key);
-            P2PMaze.send(died);
         }
 
         // when the player dies
@@ -565,19 +572,38 @@ P2PMaze.GameMultiplayer.prototype = {
             var key = { "key": "GAME_OVER" };
             died.push(key);
             P2PMaze.send(died);
+
+            movementPlayer = false;
+
         } else {
             itemWrong.play();
             player.reset(result[0].x, result[0].y);
+
+            // communicate to opponent player the died of player
+            var died = [];
+            var key = { "key": "DECREASE_LIFE" };
+            died.push(key);
+            P2PMaze.send(died);
+
+            // we don't want move the player for avoid bug for 1 seconds
+            movementPlayer = false;
+            this.game.time.events.add(1500, function () {
+                console.log("START MOVEMENT NOW");               
+                movementPlayer = true;
+            }, this);
+
+
         }
     },
     restart: function () {
         playerOrder = 1;
         P2PMaze.clearItemDiv();
 
-        this.state.start('MainMenu');
-
         //hides the text
         stateText.visible = false;
+
+        // refresh
+        location.reload();
 
     },
     explodePlayer: function (player) {
