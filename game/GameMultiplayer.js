@@ -208,6 +208,8 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.send(jump);
         }
 
+       
+
         if (P2PMaze.dataReceived != undefined) {
             if (P2PMaze.dataReceived[0].key == "right") {
                 var posx = P2PMaze.dataReceived[1].updatePosx;

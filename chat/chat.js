@@ -13,11 +13,15 @@
 class Chat {
 
 
-    constructor() {
+    constructor() { }
 
-    }
-
-    createChat() {
+    /**
+     * Create the chat and append it's content to body
+     * 
+     * @method receiveMessage
+     * @param {string} chat - the name of the opponent player whic we chat.
+     */
+    createChat(chat = "User") {
 
         var div = document.createElement("div");
         div.setAttribute("class", "container pull-right");
@@ -39,19 +43,19 @@ class Chat {
         var div5_1 = document.createElement("div");
         div5_1.setAttribute("class", "col-md-8 col-xs-8");
 
-        
+
         var h6 = document.createElement("h6");
         h6.setAttribute("class", "panel-title");
-      
+
 
         var span = document.createElement("span");
-        span.setAttribute("class", "oi oi-comment-square"); 
+        span.setAttribute("class", "oi oi-comment-square");
         span.setAttribute("title", "comment square");
         span.setAttribute("aria-hidden", "true");
 
         var span_text_h6 = document.createElement("span");
-        span_text_h6.innerHTML = " Chat - Rajesh M";
-        
+        span_text_h6.innerHTML = "• " + chat + " •";
+
 
         h6.appendChild(span);
         h6.appendChild(span_text_h6);
@@ -65,7 +69,7 @@ class Chat {
         var a_1 = document.createElement("a");
         a_1.setAttribute("href", "#");
 
-      
+
         var span_1 = document.createElement("span");
         span_1.setAttribute("class", "oi oi-minus icon_minim"); // glyphicon glyphicon-minus icon_minim
         span_1.setAttribute("title", "minus");
@@ -75,7 +79,7 @@ class Chat {
         a_1.appendChild(span_1);
         // ==============================
 
-       
+
         // ====== CLOSE CHAT WINDOW ======
         // var a_2 = document.createElement("a");
         // a_2.setAttribute("href", "#");
@@ -162,13 +166,20 @@ class Chat {
 
         document.body.appendChild(div);
     }
-    
 
-    receiveMessage() {
+
+    /**
+     * Create the received mexage and append it in chatBox
+     * 
+     * @method receiveMessage
+     * @param {string} user - the name of the user that write the message 
+     * @param {string} mex  - the mexage to send
+     */
+    receiveMessage(user = "User", mex) {
 
         var dt = new Date();
         var t = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-      
+
         var divR = document.createElement("div");
         divR.setAttribute("class", "row msg_container base_receive");
 
@@ -179,31 +190,58 @@ class Chat {
         divR_2.setAttribute("class", "messages msg_receive");
 
         var p = document.createElement("p");
-        p.innerHTML = "Hi sir";
+        p.innerHTML = mex;
 
         var time = document.createElement("time");
         time.setAttribute("datatime", "2009-11-13T20:00");
-        time.innerHTML = "Rajesh M • " + t;
+        time.innerHTML = user + " • Today " + t;
 
-       
-       
+
+
         divR.appendChild(divR_1);
         divR_1.appendChild(divR_2);
         divR_2.appendChild(p);
         divR_2.appendChild(time);
         document.getElementById("messagebody").appendChild(divR);
 
-        
+
     }
 
 
-    // onclickButton(callback) {
-    //     this._buttonSend.onclick = function () {
-    //         var input = document.getElementById("sendMessageInput").value;
-    //         callback(input);
-    //     };
-    // }
+    /**
+     * Retrieve the button chat and send the value to callback
+     * 
+     * @method onclickSendChatButton
+     * @param {*} callback 
+     */
+    onclickSendChatButton(callback) {
+        document.getElementById("btn-chat").onclick = function () {
+            var input = document.getElementById("btn-input").value;
+            callback(input);
+        };
+    }
+
+    /**
+     * Retrieve the input keypress and send the value to callback
+     * 
+     * @method onclicKeyboard
+     * @param {*} callback 
+     */
+    onclicKeyboard(callback) {
+        var input = document.getElementById("btn-input");
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keypress", function (event) {
+
+            // Cancel the default action, if needed
+            // event.preventDefault();
+
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {                
+                callback(this.value);
+            }
+        });
+    }
 
 
-
+    
 }

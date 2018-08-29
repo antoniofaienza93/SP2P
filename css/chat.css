@@ -169,7 +169,7 @@ input-sm, .form-group-sm .form-control {
 
 .panel-footer {
     padding: 10px 15px;
-    background-color: #ccace0;
+    background-color: #ec407a; /* #ccace0; */
     border-top: 1px solid #ddd;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;

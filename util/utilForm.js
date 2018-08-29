@@ -374,14 +374,6 @@ function divChoiceForm() {
     return div;
 }
 
-function chatFormmm() {
-    var div = document.createElement("div");
-    div.setAttribute("class", "text-center darken-grey-text mb-4");
-    div.setAttribute("id", "chat");
-
-    return div;
-}
-
 
 /**
  * This function create an Alert Bootsrap

@@ -7,21 +7,15 @@
  */
 window.onload = function () {
 
-    // initial call, or just call refresh directly
-    // setTimeout(refresh, 5000);
 
-    var jointoapeer = mainForm();
-
-    if (this.document.getElementById("connect") != undefined) {
-        document.getElementById("connect").onclick = function () { clickConnect() };
-    }
 
     var peerClient = undefined;
+
     var connectionChoice = undefined;
+
     var peerRequestor = undefined;
 
-
-
+    var chat;
 
     // name tag for all element of checkbox
     var form_peer_available_class = "peer";
@@ -31,7 +25,17 @@ window.onload = function () {
 
     var connectionChoice = undefined;
 
-    var chat = new Chat();
+    // initial call, or just call refresh directly
+    // setTimeout(refresh, 5000);
+
+    var jointoapeer = mainForm();
+
+    if (this.document.getElementById("connect") != undefined) {
+        document.getElementById("connect").onclick = function () { clickConnect() };
+    }
+
+
+
 
     /**
      * Server get-request for generate the random String. When finish it call a callbackFormPeerAvailableck that create a new Peer 
@@ -107,7 +111,7 @@ window.onload = function () {
 
             if (peerRequestor == undefined || peerRequestor != data) {
 
-        
+
                 var label = document.createElement('label');
                 label.setAttribute("name", "request_connection_label");
                 label.appendChild(document.createTextNode("Il peer " + data + " want to connect with you"));
@@ -137,17 +141,22 @@ window.onload = function () {
         } else {
 
             if (data == PEER.CONNECTION_ACCEPTED) {
-                enableGame(); 
-                var d = chatFormmm();
-                jointoapeer.appendChild(d);
-                chat.sendMessage(d);
-                chat.onclickButton(sendChatMessage);
+                enableGame();
             } else if (data == PEER.CONNECTION_REFUSED) {
                 refuseConnection();
             }
-            else {
-                P2PMaze.dataReceived = data; 
-               
+            else {                
+                if (data[0].key == "CHAT_MESSAGE") {
+                    var m = data[1].message;
+                    chat.receiveMessage(peerClient.getId(), m);
+                } 
+                else {
+                    P2PMaze.dataReceived = data;
+                }
+
+                
+
+
             }
         }
 
@@ -166,15 +175,9 @@ window.onload = function () {
 
             respondConnection(retChoice, PEER.CONNECTION_ACCEPTED);
 
-            // TODO questa è una chat provvisoria che deve essere messa a posto
-            var d = chatFormmm();
-            jointoapeer.appendChild(d);
-            chat.sendMessage(d);
-            chat.onclickButton(sendChatMessage);
-
             deleteCheckboxItem(classItemForm);
 
-            clearDiv("div-choice-form");            
+            clearDiv("div-choice-form");
 
             // the player accept the connection and then it can see the canvas with multiplayer
             enableGame();
@@ -237,9 +240,24 @@ window.onload = function () {
      * @param {*} message message to send
      */
     function sendChatMessage(message) {
-        var id = peerClient.getConnection().peer;
-        console.log("MESSAGE " + message + " TO PEER " + id);
-        send(message);
+
+
+        if (message != "") 
+        {
+            
+            var id = peerClient.getConnection().peer;
+            console.log("mexage chat [" + message + "] to peer " + id);
+
+            var chat_mex = [];
+            var keyupdating = { "key": "CHAT_MESSAGE" };
+            var mex = { "message": message };
+            chat_mex.push(keyupdating);
+            chat_mex.push(mex);
+            P2PMaze.send(chat_mex);
+
+            // send(message);
+        }
+
     }
 
     /**
@@ -247,6 +265,15 @@ window.onload = function () {
      * the player has accepted the comuniation and for this the div is again visible
      */
     function enableGame() {
+
+        var id_connected_peer = peerClient.getConnection().peer;
+
+        // create Chat 
+        chat = new Chat();
+        chat.createChat(id_connected_peer);
+        chat.onclickSendChatButton(sendChatMessage);
+        chat.onclicKeyboard(sendChatMessage);
+
         // Assignment
         P2PMaze.peer = peerClient;
 
@@ -319,10 +346,10 @@ window.onload = function () {
      * Send data between peer 
      * @param {data} message the message that will be exchange
      */
-    function send(message) {
-        peerClient.send(message);
-        console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer);
-    }
+    // function send(message) {
+    //     peerClient.send(message);
+    //     console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer);
+    // }
 
 
     /**
@@ -344,7 +371,7 @@ window.onload = function () {
      * @param {string} key - The key to search for.
      * @return {any} The first child with a matching name, or null if none were found.
      */
-    P2PMaze.getBykey = function (items, key) { 
+    P2PMaze.getBykey = function (items, key) {
         for (var i = 0; i < items.children.length; i++) {
             if (items.children[i].key === key) {
                 return items.children[i];
