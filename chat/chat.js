@@ -147,9 +147,6 @@ class Chat {
 
         div5_2.appendChild(a_1);
         // div5_2.appendChild(a_2);
-        
-        
-
 
         div.appendChild(div2);
         div2.appendChild(div3);
@@ -163,15 +160,14 @@ class Chat {
         div4.appendChild(divBody);
         div3.appendChild(divFooter);
 
-    
-        // document.getElementById("messagebody").appendChild(divReceive);
-        
-        // return div;
         document.body.appendChild(div);
     }
     
 
     receiveMessage() {
+
+        var dt = new Date();
+        var t = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
       
         var divR = document.createElement("div");
         divR.setAttribute("class", "row msg_container base_receive");
@@ -187,7 +183,7 @@ class Chat {
 
         var time = document.createElement("time");
         time.setAttribute("datatime", "2009-11-13T20:00");
-        time.innerHTML = "Rajesh M • Yesterday 10:05:28";
+        time.innerHTML = "Rajesh M • " + t;
 
        
        
