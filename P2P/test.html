@@ -10,22 +10,35 @@
     <script type="text/javascript" src="../lib/peer.js"></script>
     <script type="text/javascript" src="managePeerCommunication.js"></script>
     <script type="text/javascript" src="../util/utilForm.js"></script>
-    <script type="text/javascript" src="../chat/Chat.js"></script>
+
     <script type="text/javascript" src="PeerClient.js"></script>
     <script type="text/javascript" src="../util/const.js"></script>
 
     <script src="../lib/jquery-1.11.1.min.js"></script>
     <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="../lib/bootstrap/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/form.css">
+
+    <script type="text/javascript" src="../chat/chat.js"></script>    
+    <script type="text/javascript" src="../lib/chatJs.js"></script>
+    <link href="../css/chat.css" rel="stylesheet">
+    
+
+
     <!------ Include the above in your HEAD tag ---------->
-    <title>Peer to Peer Comunication Test</title>
+    <title>Form test - Peer to Peer Comunication Test</title>
 
     <body class="hm-gradient">
 
         <div class="hm-gradient" id="multiplayer-form">
             <hr class="my-4">     
         </div>
+
+        <script>
+            var c = new Chat();
+            document.body.appendChild(c);
+        </script>
 
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
