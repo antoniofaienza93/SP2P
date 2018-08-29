@@ -15,6 +15,10 @@ class Chat {
 
     constructor() {
 
+    }
+
+    createChat() {
+
         var div = document.createElement("div");
         div.setAttribute("class", "container pull-right");
         div.setAttribute("id", "chatbox");
@@ -90,27 +94,27 @@ class Chat {
         divBody.setAttribute("id", "messagebody");
         divBody.setAttribute("class", "panel-body msg_container_base");
 
-        var divReceive = document.createElement("div");
-        divReceive.setAttribute("class", "row msg_container base_receive");
+        // var divReceive = document.createElement("div");
+        // divReceive.setAttribute("class", "row msg_container base_receive");
 
-        var divReceive_1 = document.createElement("div");
-        divReceive_1.setAttribute("class", "col-md-10 col-xs-10");
+        // var divReceive_1 = document.createElement("div");
+        // divReceive_1.setAttribute("class", "col-md-10 col-xs-10");
 
-        var divReceive_2 = document.createElement("div");
-        divReceive_2.setAttribute("class", "messages msg_receive");
+        // var divReceive_2 = document.createElement("div");
+        // divReceive_2.setAttribute("class", "messages msg_receive");
 
-        var p = document.createElement("p");
-        p.innerHTML = "Hi sir";
+        // var p = document.createElement("p");
+        // p.innerHTML = "Hi sir";
 
-        var time = document.createElement("time");
-        time.setAttribute("datatime", "2009-11-13T20:00");
-        time.innerHTML = "Rajesh M • Yesterday 10:05:28";
+        // var time = document.createElement("time");
+        // time.setAttribute("datatime", "2009-11-13T20:00");
+        // time.innerHTML = "Rajesh M • Yesterday 10:05:28";
 
-        divBody.appendChild(divReceive);
-        divReceive.appendChild(divReceive_1);
-        divReceive_1.appendChild(divReceive_2);
-        divReceive_2.appendChild(p);
-        divReceive_2.appendChild(time);
+        // divBody.appendChild(divReceive);
+        // divReceive.appendChild(divReceive_1);
+        // divReceive_1.appendChild(divReceive_2);
+        // divReceive_2.appendChild(p);
+        // divReceive_2.appendChild(time);
         // ================================
 
         // ============= FOOTER =============
@@ -160,68 +164,49 @@ class Chat {
         div3.appendChild(divFooter);
 
     
-        return div;
+        // document.getElementById("messagebody").appendChild(divReceive);
+        
+        // return div;
+        document.body.appendChild(div);
+    }
+    
 
+    receiveMessage() {
+      
+        var divR = document.createElement("div");
+        divR.setAttribute("class", "row msg_container base_receive");
+
+        var divR_1 = document.createElement("div");
+        divR_1.setAttribute("class", "col-md-10 col-xs-10");
+
+        var divR_2 = document.createElement("div");
+        divR_2.setAttribute("class", "messages msg_receive");
+
+        var p = document.createElement("p");
+        p.innerHTML = "Hi sir";
+
+        var time = document.createElement("time");
+        time.setAttribute("datatime", "2009-11-13T20:00");
+        time.innerHTML = "Rajesh M • Yesterday 10:05:28";
+
+       
+       
+        divR.appendChild(divR_1);
+        divR_1.appendChild(divR_2);
+        divR_2.appendChild(p);
+        divR_2.appendChild(time);
+        document.getElementById("messagebody").appendChild(divR);
+
+        
     }
 
-    sendMessage(div) {
 
-        // It has at least one
-        if (!(div.hasChildNodes())) {
-            this._div = div;
-
-            this._input = document.createElement("input");
-            this._input.setAttribute("type", "text");
-            this._input.setAttribute("id", "sendMessageInput");
-            this._input.setAttribute("placeholder", "Send message");
-
-
-            this._buttonSend = document.createElement("input");
-            this._buttonSend.setAttribute("type", "button");
-            this._buttonSend.setAttribute("class", "button");
-            this._buttonSend.setAttribute("id", "send");
-            // sendMessage.setAttribute("name", connection_choice_form_class);       
-            this._buttonSend.setAttribute("value", "Send");
-
-
-            this._br = document.createElement("br")
-            // br.setAttribute("name", name_checkbox);
-
-
-            this._br2 = document.createElement("br")
-            // br.setAttribute("name", name_checkbox);
-
-            this._div.appendChild(this._input);
-            this._div.appendChild(this._buttonSend);
-            this._div.appendChild(this._br);
-            this._div.appendChild(this._br2);
-        }
-
-    }
-
-    receiveMessage(div, data) {
-        this._div_req = div;
-        this.received_label = document.createElement('label');
-        this.received_label.setAttribute("name", "see-message");
-        this.received_label.htmlFor = data;
-        this.received_label.appendChild(document.createTextNode(data));
-
-        this._div_req.appendChild(label);
-    }
-
-    // onclickButton(callback, id_peer) {
-    //     this._buttonSend.onclick = function (data) {
-    //         var input = document.getElementById("sendMessageInput").value;     
-    //         callback(input, id_peer);
+    // onclickButton(callback) {
+    //     this._buttonSend.onclick = function () {
+    //         var input = document.getElementById("sendMessageInput").value;
+    //         callback(input);
     //     };
     // }
-
-    onclickButton(callback) {
-        this._buttonSend.onclick = function () {
-            var input = document.getElementById("sendMessageInput").value;
-            callback(input);
-        };
-    }
 
 
 

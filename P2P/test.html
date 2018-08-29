@@ -20,10 +20,10 @@
     <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/form.css">
 
-    <script type="text/javascript" src="../chat/chat.js"></script>    
+    <script type="text/javascript" src="../chat/chat.js"></script>
     <script type="text/javascript" src="../lib/chatJs.js"></script>
     <link href="../css/chat.css" rel="stylesheet">
-    
+
 
 
     <!------ Include the above in your HEAD tag ---------->
@@ -32,16 +32,18 @@
     <body class="hm-gradient">
 
         <div class="hm-gradient" id="multiplayer-form">
-            <hr class="my-4">     
+            <hr class="my-4">
         </div>
 
         <script>
             var c = new Chat();
-            document.body.appendChild(c);
+            c.createChat();
+            c.receiveMessage();
         </script>
 
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="../lib/bootstrap/js/mdb.min.js"></script>
         <script type="text/javascript" src="../lib/popper.min.js"></script>
     </body>
+
 </html>
