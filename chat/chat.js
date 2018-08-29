@@ -175,7 +175,7 @@ class Chat {
      * @param {string} user - the name of the user that write the message 
      * @param {string} mex  - the mexage to send
      */
-    receiveMessage(user = "User", mex) {
+    receiveMessage(user = "User", mex = "Hi") {
 
         var dt = new Date();
         var t = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
