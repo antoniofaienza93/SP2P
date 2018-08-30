@@ -25,8 +25,13 @@ window.onload = function () {
 
     var connectionChoice = undefined;
 
+    // global variable
+    P2PMaze.playerDisconnected = undefined;
+
+   
+
     // initial call, or just call refresh directly
-    // setTimeout(refresh, 5000);
+    setTimeout(refresh, 5000);
 
     var jointoapeer = mainForm();
 
@@ -91,7 +96,7 @@ window.onload = function () {
 
 
         } else {
-            alertMessage(FORM.FILL, "warning");
+            P2PMaze.alertMessage(FORM.FILL, "warning");
         }
     }
 
@@ -168,7 +173,7 @@ window.onload = function () {
     function callbackConnectionChoicePeer(retChoice) {
 
         if (connectionChoice == undefined) {
-            alertMessage(COMMUNICATION.PEER_SELECTED + retChoice, "info");
+            P2PMaze.alertMessage(COMMUNICATION.PEER_SELECTED + retChoice, "info");
         } else if (connectionChoice == "YES") {
 
             peerRequestor = undefined;
@@ -232,7 +237,7 @@ window.onload = function () {
      * @param {string} p 
      */
     function callbackClosing(p) {
-        alertMessage(PEER.CONNECTION_CLOSED + " " + p, "warning");
+        P2PMaze.alertMessage(PEER.CONNECTION_CLOSED + " " + p, "warning");
     }
 
     /**
@@ -316,7 +321,7 @@ window.onload = function () {
 
             clearDiv("div-choice-peer");
 
-            alertMessage(COMMUNICATION.PEER_AVAILABILITY, "warning");
+            P2PMaze.alertMessage(COMMUNICATION.PEER_AVAILABILITY, "warning");
 
         }
 
@@ -328,29 +333,18 @@ window.onload = function () {
      */
     function peerSelected(peerSelected) {
         if (peerSelected === undefined) {
-            alertMessage(COMMUNICATION.PEER_SELECTION, "info");
+            P2PMaze.alertMessage(COMMUNICATION.PEER_SELECTION, "info");
         } else {
 
             clearDiv("div-choice-peer");
 
-            alertMessage(FORM.MESSAGE_SEND + " " + peerSelected, "primary");
+            P2PMaze.alertMessage(FORM.MESSAGE_SEND + " " + peerSelected, "primary");
 
             // open connection and ask to opponent peer to establish the connection
             requestConnection(peerSelected);
 
         }
     }
-
-
-    /**
-     * Send data between peer 
-     * @param {data} message the message that will be exchange
-     */
-    // function send(message) {
-    //     peerClient.send(message);
-    //     console.log("Il peer " + peerClient.getId() + " sta inviando al peer " + peerClient.getConnection().peer);
-    // }
-
 
     /**
      * This function handle the error message
@@ -359,7 +353,7 @@ window.onload = function () {
      * @param {obj} error 
      */
     function handleServerError(error) {
-        alertMessage(error, "danger");
+        P2PMaze.alertMessage(error, "danger");
     }
 
     /**
@@ -383,6 +377,8 @@ window.onload = function () {
 
     /**
      * GET REQUEST SERVER
+     * 
+     * 
      * @method httpGetAsync
      * @param {*} theUrl the url passed to method
      * @param {*} callbackFormPeerAvailableck the result of request
@@ -405,25 +401,28 @@ window.onload = function () {
      * This function make a server request for the peer disconnected.
      * When the result is available, send message and interrupt the game
      * 
+     * @param pollingLostId 
      * @param {string} url - the url of server
      */
-    // function pollingLostId(url) {
-    //     var xmlHttp = new XMLHttpRequest();
-    //     xmlHttp.open('GET', url);
-    //     xmlHttp.onload = function () {
-    //         console.log(xmlHttp.responseText);
-    //     };
-    //     xmlHttp.send(null);
-    // }
+    function pollingLostId(url) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open('GET', url);
+        xmlHttp.onload = function () {
+            // console.log(xmlHttp.responseText)
+            P2PMaze.playerDisconnected = xmlHttp.responseText;
+
+        };
+        xmlHttp.send(null);
+    }
 
 
     /**
      * Set the timer of callback
      */
-    // function refresh() {
-    //     setTimeout(refresh, 3000);
-    //     pollingLostId(PEER_SERVER.POLLING);
-    // }  
+    function refresh() {
+        setTimeout(refresh, 3000);
+        pollingLostId(PEER_SERVER.POLLING);
+    }  
 
 };
 
