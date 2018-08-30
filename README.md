@@ -12,19 +12,24 @@ If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
 ## Running the Game
 * Clone project 
+
 `git clone https://github.com/antoniofaienza93/SP2P.git`
 `cd SP2P`
 
 * Install npm 
+
 `npm install`
 
 * Install Peer Server 
+
 `npm install express --save`
 
 * Install Peer Server 
+
 `npm install peer`
 
 * Install Random String
+
 `npm install randomstring`
 
 
