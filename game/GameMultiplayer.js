@@ -3,7 +3,7 @@
  * File: GameMultiplayer.js - 4 
  * Author: Antonio Faienza
  * Desc: TODO https://github.com/sugendran/webrtc-tanks/blob/master/js/game.js
- * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ PUO ESSERE UTILE 
+ * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ 
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};

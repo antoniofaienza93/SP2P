@@ -2,7 +2,7 @@
  * ===========================================================================
  * File: MainMenu.js - 3 
  * Author: Antonio Faienza
- * Desc: TODO 
+ * Desc: It display the main menu 
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
@@ -47,6 +47,8 @@ P2PMaze.MainMenu.prototype = {
         setting.events.onInputOut.add(this.out, this);
         setting.events.onInputDown.add(this.setting, this);
 
+
+        // AUDIO
         selectMenu = this.game.add.audio('selectMenu');
         choiceSelection = this.game.add.audio('choiceSelection');
     },

@@ -84,8 +84,6 @@ class PeerClient {
         return this._conn;
     }
 
-
-
     /**
      * return the connection
      */

@@ -60,6 +60,9 @@ const COMMUNICATION = {
     PEER_SELECTED: "WARNING: Select YES or NO if you want (or not) to connect to the peer "
 }
 
+/**
+ * Message connection
+ */
 const PEER = {
     CONNECTION_ACCEPTED: "CONNECTION_ACCEPTED",
     CONNECTION_REFUSED: "CONNECTION_REFUSED",
@@ -80,6 +83,9 @@ const GAME = {
     GAMEWIN: 'CONGRATULATIONS, \n YOU HAVE WON'  
 }
 
+/**
+ * Path images
+ */
 const ASSET_PATH = {
     PATH_ITEM_16x16: 'assets/images/item_16x16/',
     ITEM_16x16: '_16x16.png',

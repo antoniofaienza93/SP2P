@@ -10,9 +10,9 @@
 
 
 var config = {
-    type: Phaser.AUTO,  // rendering. Automatic choise between PHASER.WEBGL or PHASER.CANVAS
+    type: Phaser.AUTO,               // rendering. Automatic choise between PHASER.WEBGL or PHASER.CANVAS
     width: SCREEN_SIZE.WIDTH,        // View Pixel Tile Map i.e. if width is 20 cells x 16 pixel = 704. IT'S CONTAINED INSIDE GAME CONTAINER 
-    height: SCREEN_SIZE.HEIGHT,         // as width 
+    height: SCREEN_SIZE.HEIGHT,      // as width 
     // the other @param are optional - https://phaser.io/docs/2.4.4/Phaser.Game.html
     parent: 'P2PMaze'
 

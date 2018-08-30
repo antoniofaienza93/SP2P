@@ -2,7 +2,8 @@
  * ===========================================================================
  * File: Preaload.js - 2 
  * Author: Antonio Faienza
- * Desc: TODO  
+ * Desc: It load the entire assets
+ * REF: https://phaser.io/examples/v2/loader/load-events  
  * ===========================================================================
  */
 
@@ -11,8 +12,6 @@ var P2PMaze = P2PMaze || {};
 var button;
 var logo;
 var loadText;
-
-// sounds
 var startMenu;
 
 P2PMaze.Preload = function (game) {
@@ -23,52 +22,35 @@ P2PMaze.Preload = function (game) {
 
 
 P2PMaze.Preload.prototype = {
-    // in this function we can load all the asset for the game. 
-    preload: function () {
-
-        // TODO - spostare tutto nel Preload 
-
-
-        
-    },
     create: function () {
 
 
         //	You can listen for each of these events from Phaser.Loader
-        // REF: https://phaser.io/examples/v2/loader/load-events
         this.game.load.onLoadStart.add(this.loadStart, this);
         this.game.load.onFileComplete.add(this.fileComplete, this);
         this.game.load.onLoadComplete.add(this.loadComplete, this);
 
-        // text = this.game.add.text(32, 32, 'Click to start load', { fill: '#ffffff' });
+        
         loadText = this.game.add.text(this.game.world.centerX - 95, 400, '', { font: '30px Arial', fill: '#fff' });
 
-        // map
+        // MAP
         this.game.load.tilemap('maze', 'assets/tilemaps/maze_level1.json', null, Phaser.Tilemap.TILED_JSON);
 
-        // tile
+        // TILE
         this.game.load.image('mazeImage', 'assets/images/tiles.png');
 
-        // life
+        // LIFE
         this.game.load.image('heart', 'assets/images/heart.png');
 
-        // TODO CANCELLARE - vedere la grandezza dell'immagine        
-        // 37x45 is the size of each frame
-        //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
-        //  blank frames at the end, so we tell the loader how many to load
+        // PLAYERS
         this.load.spritesheet('player', 'assets/images/player/dude.png', 32, 48);        
         this.load.spritesheet('opponentPlayer', 'assets/images/player/opponentdude.png', 32, 48); 
-        // this.load.image('player', 'assets/images/player.png'); // Personaggio singolo importato da Tiled
-        // this.load.image('player', 'assets/images/phaser-dude.png'); // Personaggio singolo 
+        
 
-        // TODO carichiamo le immagini
-        // this.load.image('redcup', 'assets/images/estintore_piccolo.png');
-        // this.load.image('greycup', 'assets/images/greencup.png');
-        // this.load.image('bluecup', 'assets/images/bluecup.png');
-
+        // WHEN THE PLAYER DIED
         this.load.image('playerParticle', 'assets/images/particles/player-particle.png');
 
-        // win particles
+        // WIN PARTICLES
         this.load.image('blacklight', 'assets/images/particles/blacklight.png');
         this.load.image('bluelight', 'assets/images/particles/bluelight.png');
         this.load.image('brownlight', 'assets/images/particles/brownlight.png');
@@ -79,7 +61,7 @@ P2PMaze.Preload.prototype = {
         this.load.image('yellowlight', 'assets/images/particles/yellowlight.png');
         this.load.image('star_particle', 'assets/images/particles/star_particle.png');
 
-        // sound
+        // SOUNDS
         this.load.audio('itemWrong', 'assets/sounds/itemWrong.wav');
         this.load.audio('itemCorrect', 'assets/sounds/itemCorrect.mp3');
         this.load.audio('win', 'assets/sounds/winSound.wav');
@@ -89,7 +71,7 @@ P2PMaze.Preload.prototype = {
         this.load.audio('choiceSelection', 'assets/sounds/FX241.mp3');
 
 
-        // item
+        // ITEM
         this.load.image('Banana', ASSET_PATH.PATH_ITEM_48x48 + 'Banana' + ASSET_PATH.ITEM_48x48);
         this.load.image('Gorilla', ASSET_PATH.PATH_ITEM_48x48 + 'Gorilla' + ASSET_PATH.ITEM_48x48);
         this.load.image('Maschera', ASSET_PATH.PATH_ITEM_48x48 + 'Maschera' + ASSET_PATH.ITEM_48x48);
@@ -132,6 +114,7 @@ P2PMaze.Preload.prototype = {
         startMenu = this.game.add.audio('startMenu'); 
         
 
+        // STARTING THE LOADING SCREEN
         this.game.load.start();
 
     },

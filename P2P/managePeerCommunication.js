@@ -10,11 +10,8 @@ window.onload = function () {
 
 
     var peerClient = undefined;
-
     var connectionChoice = undefined;
-
     var peerRequestor = undefined;
-
     var chat;
 
     // name tag for all element of checkbox
@@ -23,27 +20,26 @@ window.onload = function () {
     // form that decide if woy want connect or not with peer
     var classItemForm = "accept-connection";
 
-    var connectionChoice = undefined;
-
     // global variable
-    P2PMaze.playerDisconnected = undefined;
-
-   
+    P2PMaze.playerDisconnected = undefined;   
 
     // initial call, or just call refresh directly
     setTimeout(refresh, 5000);
 
+    // create the form
     var jointoapeer = mainForm();
 
+    // this is the first button to play for start the game
     if (this.document.getElementById("connect") != undefined) {
         document.getElementById("connect").onclick = function () { clickConnect() };
     }
 
 
-
-
     /**
-     * Server get-request for generate the random String. When finish it call a callbackFormPeerAvailableck that create a new Peer 
+     * Server get-request for generate the random String. When finish it call a callbackFormPeerAvailableck
+     * that create a new Peer 
+     * 
+     * @method clickConnect
      */
     function clickConnect() {
         httpGetAsync(PEER_SERVER.ENROLLMENT, createPeerClient);
@@ -52,6 +48,8 @@ window.onload = function () {
     /**
      * when click on the button i request all peer subscribed. When finisch it call a callbackFormPeerAvailableck that display 
      * in a form all peer end exclude my personal peer 
+     * 
+     *  @method seeAvailablePeer
      */
     function seeAvailablePeer() {
         httpGetAsync(PEER_SERVER.PEER_AVAILABLES, returnPeerAvailable);
@@ -59,6 +57,9 @@ window.onload = function () {
 
     /**
      * callbackFormPeerAvailableck after creation string by Server
+     * 
+     * @method createPeerClient
+     * @param {Object} data - this is the callback data received
      */
     function createPeerClient(data) {
 
@@ -93,8 +94,6 @@ window.onload = function () {
             var formpeer = joinPeerButton(seeAvailablePeer);
             jointoapeer.appendChild(formpeer);
 
-
-
         } else {
             P2PMaze.alertMessage(FORM.FILL, "warning");
         }
@@ -104,12 +103,16 @@ window.onload = function () {
 
 
     /**
-     * callbackFormPeerAvailableck when receive data
+     * callbackFormPeerAvailableck when receive data. In this method
+     * we handle the data received.
+     * 
+     * @method dataReceived
      * @param {*} data are the data received
      */
     function dataReceived(data) {
 
-        // this is the peer that receive the request. In this case the first time is undefined
+        // For the first time, the connection is undefined. For this reason,
+        // it's created a form for send the request of connection
         if (peerClient.getConnection() == undefined) {
 
             var choiceForm = divChoiceForm();
@@ -126,6 +129,7 @@ window.onload = function () {
                 d.appendChild(label);
                 choiceForm.appendChild(d);
 
+                // Creation form
                 // add item of peer available
                 var dc;
                 var decideToConnect = ["YES", "NO"];
@@ -142,7 +146,12 @@ window.onload = function () {
                 jointoapeer.appendChild(choiceForm);
             }
 
-
+        // in other cases, when the connection is establish, then:
+        // - can be accepted
+        // - can be refused
+        // - it's a normal data. In this case:
+        //      - can be the data of the multiplayer game
+        //      - can be a chat message
         } else {
 
             if (data == PEER.CONNECTION_ACCEPTED) {
@@ -169,6 +178,9 @@ window.onload = function () {
 
     /**
      * callbackConnectionChoicePeer of click button
+     * 
+     * @method callbackConnectionChoicePeer
+     * @param {String} data - is the response of choice to accept or refiused the connection
      */
     function callbackConnectionChoicePeer(retChoice) {
 
@@ -203,7 +215,9 @@ window.onload = function () {
 
     /**
      * This is the firt point that you can establish one connection.
-     * @param {*} peerSelected 
+     * 
+     * @method requestConnection
+     * @param {string} peerSelected is the peer selected 
      */
     function requestConnection(peerSelected) {
         peerClient.conn(peerSelected);
@@ -213,7 +227,10 @@ window.onload = function () {
     /**
      * This is the second point to open a connection. Who accept the connection is considered 
      * the opponent player
-     * @param {*} peerR 
+     * 
+     * @method respondConnection
+     * @param {string} peerR is the which you want establish the connection
+     * @param {string} respondMessage is the message to send
      */
     function respondConnection(peerR, respondMessage) {
         peerClient.conn(peerR);
@@ -242,13 +259,12 @@ window.onload = function () {
 
     /**
      * callbackFormPeerAvailableck from onclick button message
+     * 
+     * @method sendChatMessage
      * @param {*} message message to send
      */
     function sendChatMessage(message) {
-
-
-        if (message != "") 
-        {
+        if (message != "") {
             
             var id = peerClient.getConnection().peer;
             console.log("mexage chat [" + message + "] to peer " + id);
@@ -259,15 +275,15 @@ window.onload = function () {
             chat_mex.push(keyupdating);
             chat_mex.push(mex);
             P2PMaze.send(chat_mex);
-
-            // send(message);
         }
 
     }
 
     /**
      * Function that assign the peer to player.
-     * the player has accepted the comuniation and for this the div is again visible
+     * The player has accepted the comuniation and for this the div is again visible.
+     * 
+     * @method enableGame
      */
     function enableGame() {
 
@@ -296,13 +312,14 @@ window.onload = function () {
 
 
     /**
-     * Function that require peer available 
+     * Function that display peer available.
+     * 
+     * @method returnPeerAvailable
      * @param {*} peer_a peer available 
      */
     function returnPeerAvailable(peer_a) {
 
         var peer_available = JSON.parse(peer_a);
-
 
         var ownPeer = peer_available.find(o => o.key === peerClient.getId());
 
@@ -328,7 +345,9 @@ window.onload = function () {
     }
 
     /**
-     * This callbackFormPeerAvailableck return the choise by user when select the peer to connect
+     * This callbackFormPeerAvailableck return the choise by user when select the peer to connect.
+     * 
+     * @method peerSelected
      * @param {*} peerSelected 
      */
     function peerSelected(peerSelected) {
@@ -397,6 +416,7 @@ window.onload = function () {
 
     /**
      * POLLING
+     * 
      * REF - https://hpbn.co/xmlhttprequest/
      * This function make a server request for the peer disconnected.
      * When the result is available, send message and interrupt the game
@@ -417,7 +437,9 @@ window.onload = function () {
 
 
     /**
-     * Set the timer of callback
+     * Set the timer of callback.
+     * 
+     * @method refresh
      */
     function refresh() {
         setTimeout(refresh, 3000);
