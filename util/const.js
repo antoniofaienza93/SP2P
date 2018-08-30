@@ -44,10 +44,15 @@ const PEER_SERVER = {
 
 /**
  * Global variable for client
+ * 
+ * Local: 
+ *      HOST: "localhost",
+ *      PORT: 9000,
+ *      PATH: "/peerjs"
  */
 const PEER_CLIENT = {
-    HOST: "localhost",
-    PORT: 9000,
+    HOST: location.hostname,
+    PORT: location.port || (location.protocol === 'https:' ? 443 : 80),
     PATH: "/peerjs"
 }
 
