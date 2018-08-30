@@ -268,6 +268,7 @@ P2PMaze.GameMultiplayer.prototype = {
 
             this.game.time.events.add(4000, function () {
                 if (opponentPlayer.animations.currentAnim.isPlaying === true) {
+                    console.log(dataReceived)
                     var posx = P2PMaze.dataReceived[1].updatePosx;
                     var posy = P2PMaze.dataReceived[2].updatePosy;
                     opponentPlayer.kill();
