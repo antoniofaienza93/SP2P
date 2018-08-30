@@ -66,6 +66,7 @@ window.onload = function () {
         var input = document.getElementById("inputid");
 
         if (input.checkValidity()) {
+            console.log(data);
 
             document.getElementById("connect").disabled = true;
             input.disabled = true;
