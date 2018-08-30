@@ -131,7 +131,7 @@ class Chat {
         var inputFooter = document.createElement("input");
         inputFooter.setAttribute("id", "btn-input");
         inputFooter.setAttribute("type", "text");
-        inputFooter.setAttribute("placeholder", "Write your message here...");
+        inputFooter.setAttribute("placeholder", "Type here...");
         inputFooter.setAttribute("class", "form-control input-sm chat_input");
         inputFooter.setAttribute("required", "required");
 
