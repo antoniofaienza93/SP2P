@@ -264,10 +264,11 @@ P2PMaze.GameMultiplayer.prototype = {
         }
 
         // this if is used for correct the precion error of movement of opponent player
-        if (P2PMaze.dataReceived != undefined) {
+        // if () 
+        {
 
             this.game.time.events.add(4000, function () {
-                if (opponentPlayer.animations.currentAnim.isPlaying === true) {
+                if (P2PMaze.dataReceived != undefined && opponentPlayer.animations.currentAnim.isPlaying === true) {
                     console.log(dataReceived)
                     var posx = P2PMaze.dataReceived[1].updatePosx;
                     var posy = P2PMaze.dataReceived[2].updatePosy;
