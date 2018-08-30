@@ -208,7 +208,14 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.send(jump);
         }
 
-       
+        // We check if the opponent player is disconnected
+        if(P2PMaze.playerDisconnected != "" && P2PMaze.playerDisconnected==P2PMaze.peer._conn.peer) {
+            console.log("Player disconnected: " + P2PMaze.playerDisconnected + " " + P2PMaze.peer._conn.peer);
+            opponentPlayer.kill();
+            document.getElementById("chatbox").style.display = "none";
+            P2PMaze.alertMessage("THE PLAYER " + P2PMaze.peer._conn.peer + " HAS DISCONNECTED...", "warning")
+            P2PMaze.playerDisconnected = "";
+        }
 
         if (P2PMaze.dataReceived != undefined) {
             if (P2PMaze.dataReceived[0].key == "right") {
