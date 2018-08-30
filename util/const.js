@@ -36,7 +36,7 @@ const PLAYER = {
  * LOCALHOST: http://localhost:9000
  */
 const PEER_SERVER = {
-    ENROLLMENT: "https://project-p2p.herokuapp.com",
+    ENROLLMENT: "https://project-p2p.herokuapp.com/",
     PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/",
     POLLING: "https://project-p2p.herokuapp.com/updates/"
     
