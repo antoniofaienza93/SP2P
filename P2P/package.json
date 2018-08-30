@@ -11,8 +11,16 @@
     "node": "v8.10.0" ,
     "npm": "3.5.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoniofaienza93/SP2P.git"
+  },
   "author": "Antonio Faienza",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antoniofaienza93/SP2P/issues"
+  },
+  "homepage": "https://github.com/antoniofaienza93/SP2P#readme",
   "dependencies": {
     "express": "^4.16.3",
     "peer": "^0.2.10",
