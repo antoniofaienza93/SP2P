@@ -22,11 +22,14 @@
 
 - vedere GRUNT 
 
-# Install Peer Server 
-npm install peer
+# Install npm 
+npm install
 
 # Install Peer Server 
 npm install express --save
+
+# Install Peer Server 
+npm install peer
 
 # Install Random String
 npm install randomstring
