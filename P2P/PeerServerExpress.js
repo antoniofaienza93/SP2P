@@ -141,7 +141,8 @@ function decreasePlayer(id) {
 app.use('/peerjs', peerserver);
 
 server.listen(PORT, function () {
-    console.log("Example app listening on port 9000");
+    // console.log("Example app listening on port 9000");
+    console.log("Listening at PORT: " +PORT);
 });
 
 
