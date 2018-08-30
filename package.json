@@ -4,7 +4,7 @@
   "description": "Project Peer to Peer",
   "main": "P2P/PeerServerExpress.js",
   "scripts": {
-    "start": "node PeerServerExpress.js",
+    "start": "node P2P/PeerServerExpress.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
