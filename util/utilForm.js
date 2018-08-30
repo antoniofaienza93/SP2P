@@ -109,6 +109,8 @@ function createButton(cls, name, value, data, callback) {
 
 /**
  * Define the element taken
+ * 
+ * @method P2PMaze#itemTaken
  * @param {*} pathImg - path of image
  * @param {*} itemKey - the item key DECOMMENTARE
  */
@@ -138,8 +140,10 @@ P2PMaze.itemTaken = function (pathImg, itemKey) {
 }
 
 /**
- * Remove all element inside a specific div when the game ended
- * TODO: TEST DECOMMENTARE
+ * Remove all element inside a specific div when
+ * the game ended
+ * 
+ * @method P2PMaze#itemTaken
  */
 P2PMaze.clearItemDiv = function () {
     var myNode = document.getElementsByClassName("item")[0];
@@ -151,6 +155,8 @@ P2PMaze.clearItemDiv = function () {
 
 /**
  * Function that create a joinPeerButton
+ * 
+ * @method formPeerAvailable
  * @param {*} form is the name of the joinPeerButton
  * @param {*} array is the array that contains all item 
  * @param {*} attributeNameItem is the name of all item of joinPeerButton
@@ -184,7 +190,9 @@ function formPeerAvailable(form, array, attributeNameItem, value, callbackChoice
 
 /**
  * Check if elem checkbox already exist passing the attribute "name". 
- * In this case you clear at the first and then recreate checkbox
+ * In this case you clear at the first and then recreate checkbox.
+ * 
+ * @method formPeerAvailable
  * @param {*} attributeNameItem is attribute name
  */
 function deleteCheckboxItem(attributeNameItem) {
@@ -198,6 +206,8 @@ function deleteCheckboxItem(attributeNameItem) {
 }
 /**
 * Add checkbox specifing the sequent param: 
+*
+* @method addCheckBoxItem
 * @param {*} joinPeerButton 
 * @param {*} value 
 * @param {*} nameItemCheckbox 
@@ -248,6 +258,8 @@ function addCheckBoxItem(joinPeerButton, value, nameItemCheckbox, returnChoice, 
 
 /**
  * Remove the existing div if exist
+ * 
+ * @method clearChildDiv
  * @param {*} div - the div to remove
  */
 function clearChildDiv(div) {
@@ -317,7 +329,7 @@ function joinPeerButton(callback) {
 
 
 /**
- * function that create the form that create the checkbox item
+ * Function that create the form that create the checkbox item
  */
 function choicePeerForm() {
     var div = document.createElement("div");
@@ -377,6 +389,8 @@ function divChoiceForm() {
 
 /**
  * This function create an Alert Bootsrap
+ * 
+ * @method P2PMaze#alertMessage
  * @param {*} message the message that appear
  * @param {*} type there are different type of alert:
  *                  @danger
@@ -384,7 +398,7 @@ function divChoiceForm() {
  *                  @info
  *                  and other: https://getbootstrap.com/docs/4.0/components/alerts/
  */
-function alertMessage(message, type) {
+P2PMaze.alertMessage = function (message, type) {
     var br = document.createElement("br");
     var div = document.createElement("div");
     div.setAttribute("class", "alert alert-" + type + " text-center");
@@ -403,6 +417,5 @@ function alertMessage(message, type) {
     }, 4000);
 
     br.remove();
-
 }
 
