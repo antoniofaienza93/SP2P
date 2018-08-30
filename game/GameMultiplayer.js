@@ -227,7 +227,7 @@ P2PMaze.GameMultiplayer.prototype = {
                     Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
                     opponentPlayer.animations.stop();
                     opponentPlayer.frame = 4;
-                    // P2PMaze.dataReceived = undefined;
+                    P2PMaze.dataReceived = undefined;
                 }
                 else {
                     this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy), 100);
@@ -247,7 +247,7 @@ P2PMaze.GameMultiplayer.prototype = {
                     Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
                     opponentPlayer.animations.stop();
                     opponentPlayer.frame = 4;
-                    // P2PMaze.dataReceived = undefined;
+                    P2PMaze.dataReceived = undefined;
                 }
                 else {
                     this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy), 100);
@@ -268,7 +268,10 @@ P2PMaze.GameMultiplayer.prototype = {
         {
 
             this.game.time.events.add(4000, function () {
-                if (P2PMaze.dataReceived != undefined && opponentPlayer.animations.currentAnim.isPlaying === true) {
+                if (P2PMaze.dataReceived != undefined &&
+                    ( P2PMaze.dataReceived[0].key == "left"|| P2PMaze.dataReceived[0].key == "right")
+                    &&
+                    opponentPlayer.animations.currentAnim.isPlaying === true) {
                     console.log(dataReceived)
                     var posx = P2PMaze.dataReceived[1].updatePosx;
                     var posy = P2PMaze.dataReceived[2].updatePosy;
