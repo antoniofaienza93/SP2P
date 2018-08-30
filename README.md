@@ -26,10 +26,10 @@ If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
 * Install Peer Server 
 
-`npm install peer`
+`npm install peer --save`
 
 * Install Random String
 
-`npm install randomstring`
+`npm install randomstring --save`
 
 
