@@ -1,37 +1,40 @@
-# SP2P
+# Peer-To-Peer System
+## SECOND CYCLE DEGREE IN COMPUTER SCIENCE
+## University of Bologna - Alma Mater Studiorum <br> A.A. 2017/2018
+Antonio Faienza | 
+------------ | 
+0000798822 | 
+antonio.faienza@studio.unibo.it | 
 
-# Per vedere la pagina WEB : https://antoniofaienza93.github.io/SP2P/ 
+## Objectives
+The aim of the project is to test the peer to peer functionalities offerted by PeerJs Library. PeerJS wraps the browser's WebRTC implementation to provide a complete, configurable, and easy-to-use peer-to-peer connection API. 
+For this, I have created a new Game. In particular the focus of analysis is the Multiplayer section that use and tests the PeerJs functionality.
+If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
-# TODO 
-
-- VEDERE LA GRANDEZZA DEI PERSONAGGI 
-- Fare il personaggio che salta
-- Eliminare phaser in js 
-- Cambiare Font
-
-- Fare Progress Bar usare https://phaser.io/examples/v2/loader/load-events e index2.html
-- cambiare il preload e mettere tutto nel file Preload.js
-- Aggiugere schermata hai vinto 
-- Aggiungere schermata hai perso
-- Mettere le vite / tempo 
-- Fare il peer to peer - https://www.toptal.com/webrtc/taming-webrtc-with-peerjs
-- Implementare la chat con il Peer to Peer
-
-- Vedere il progetto di SuperMario l'index con l'ottimizzazione dell'interfaccia. Aggiungere un proprio DIV 
-- https://github.com/adelciotto/multiplayer-mario
-
-- vedere GRUNT 
-
-# Install npm 
+## Running the Game
+* Clone project 
+```console
+git clone https://github.com/antoniofaienza93/SP2P.git
+cd SP2P
+```
+* Install npm 
+```console
 npm install
-
-# Install Peer Server 
+```
+* Install Peer Server 
+```console
 npm install express --save
+```
 
-# Install Peer Server 
+* Install Peer Server 
+```console
 npm install peer
+```
 
-# Install Random String
+* Install Random String
+
+```console
 npm install randomstring
+```
 
 
