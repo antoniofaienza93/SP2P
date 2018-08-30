@@ -4,7 +4,12 @@
   "description": "Project Peer to Peer",
   "main": "P2P/PeerServerExpress.js",
   "scripts": {
+    "start": "node PeerServerExpress.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines":{
+    "node": "v8.10.0" ,
+    "npm": "3.5.2"
   },
   "repository": {
     "type": "git",
