@@ -32,12 +32,13 @@ const PLAYER = {
 };
 
 /**
- * Global variable for server
+ * Global variable for server. 
+ * LOCALHOST: http://localhost:9000
  */
 const PEER_SERVER = {
-    ENROLLMENT: "http://localhost:9000",
-    PEER_AVAILABLES: "http://localhost:9000/available-peer/",
-    POLLING: "http://localhost:9000/updates/"
+    ENROLLMENT: "https://project-p2p.herokuapp.com",
+    PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/",
+    POLLING: "https://project-p2p.herokuapp.com/updates/"
     
 }
 
