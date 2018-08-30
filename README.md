@@ -1,6 +1,5 @@
 # Peer-To-Peer System
-## SECOND CYCLE DEGREE IN COMPUTER SCIENCE
-## University of Bologna - Alma Mater Studiorum <br> A.A. 2017/2018
+## Second cycle degree in Computer Science <br> University of Bologna - Alma Mater Studiorum <br> A.A. 2017/2018
 Antonio Faienza | 
 ------------ | 
 0000798822 | 
@@ -13,28 +12,19 @@ If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
 ## Running the Game
 * Clone project 
-```console
-git clone https://github.com/antoniofaienza93/SP2P.git
-cd SP2P
-```
+`git clone https://github.com/antoniofaienza93/SP2P.git`
+`cd SP2P`
+
 * Install npm 
-```console
-npm install
-```
-* Install Peer Server 
-```console
-npm install express --save
-```
+`npm install`
 
 * Install Peer Server 
-```console
-npm install peer
-```
+`npm install express --save`
+
+* Install Peer Server 
+`npm install peer`
 
 * Install Random String
-
-```console
-npm install randomstring
-```
+`npm install randomstring`
 
 
