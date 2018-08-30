@@ -9,7 +9,8 @@
 var express = require('express');
 var app = express();
 var ExpressPeerServer = require('peer').ExpressPeerServer;
-var randomstring = require("randomstring")
+var randomstring = require("randomstring");
+const PORT = process.env.PORT; // localhost: 9000
 
 var options = {
     debug: true
@@ -139,7 +140,7 @@ function decreasePlayer(id) {
 
 app.use('/peerjs', peerserver);
 
-server.listen(9000, function () {
+server.listen(PORT, function () {
     console.log("Example app listening on port 9000");
 });
 

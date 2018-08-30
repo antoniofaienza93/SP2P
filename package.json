@@ -2,15 +2,20 @@
   "name": "p2p",
   "version": "1.0.0",
   "description": "# Per vedere la pagina WEB : https://antoniofaienza93.github.io/SP2P/",
-  "main": "index.js",
+  "main": "PeerServerExpress.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node PeerServerExpress.js"
+  },
+  "engines":{
+    "node": "v8.10.0" ,
+    "npm": "3.5.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antoniofaienza93/SP2P.git"
   },
-  "author": "",
+  "author": "Antonio Faienza",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/antoniofaienza93/SP2P/issues"
