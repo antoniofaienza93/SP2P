@@ -24,7 +24,7 @@ window.onload = function () {
     P2PMaze.playerDisconnected = undefined;   
 
     // initial call, or just call refresh directly
-    setTimeout(refresh, 3000);
+    setTimeout(refresh, 4000);
 
     // create the form
     var jointoapeer = mainForm();
@@ -442,7 +442,7 @@ window.onload = function () {
      * @method refresh
      */
     function refresh() {
-        setTimeout(refresh, 3000);
+        setTimeout(refresh, 4000);
         pollingLostId(PEER_SERVER.POLLING);
     }  
 
