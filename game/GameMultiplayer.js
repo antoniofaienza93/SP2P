@@ -3,7 +3,7 @@
  * File: GameMultiplayer.js - 4 
  * Author: Antonio Faienza
  * Desc: TODO https://github.com/sugendran/webrtc-tanks/blob/master/js/game.js
- * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ 
+ * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ PUO ESSERE UTILE 
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
@@ -208,14 +208,7 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.send(jump);
         }
 
-        // We check if the opponent player is disconnected
-        if(P2PMaze.playerDisconnected != "" && P2PMaze.playerDisconnected==P2PMaze.peer._conn.peer) {
-            console.log("Player disconnected: " + P2PMaze.playerDisconnected + " " + P2PMaze.peer._conn.peer);
-            opponentPlayer.kill();
-            document.getElementById("chatbox").style.display = "none";
-            P2PMaze.alertMessage("THE PLAYER " + P2PMaze.peer._conn.peer + " HAS DISCONNECTED...", "warning")
-            P2PMaze.playerDisconnected = "";
-        }
+       
 
         if (P2PMaze.dataReceived != undefined) {
             if (P2PMaze.dataReceived[0].key == "right") {
@@ -227,7 +220,7 @@ P2PMaze.GameMultiplayer.prototype = {
                     Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
                     opponentPlayer.animations.stop();
                     opponentPlayer.frame = 4;
-                    P2PMaze.dataReceived = undefined;
+                    // P2PMaze.dataReceived = undefined;
                 }
                 else {
                     this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy), 100);
@@ -247,7 +240,7 @@ P2PMaze.GameMultiplayer.prototype = {
                     Math.floor(opponentPlayer.x) === (Math.floor(posx) - 1)) {
                     opponentPlayer.animations.stop();
                     opponentPlayer.frame = 4;
-                    P2PMaze.dataReceived = undefined;
+                    // P2PMaze.dataReceived = undefined;
                 }
                 else {
                     this.game.physics.arcade.moveToXY(opponentPlayer, Math.floor(posx), Math.floor(posy), 100);
@@ -264,15 +257,11 @@ P2PMaze.GameMultiplayer.prototype = {
         }
 
         // this if is used for correct the precion error of movement of opponent player
-        // if () 
-        {
+        if (P2PMaze.dataReceived != undefined) {
 
             this.game.time.events.add(4000, function () {
-                if (P2PMaze.dataReceived != undefined &&
-                    ( P2PMaze.dataReceived[0].key == "left"|| P2PMaze.dataReceived[0].key == "right")
-                    &&
-                    opponentPlayer.animations.currentAnim.isPlaying === true) {
-                    console.log(dataReceived)
+                if (opponentPlayer.animations.currentAnim.isPlaying === true &&
+                   ( P2PMaze.dataReceived[0].key == "left" || P2PMaze.dataReceived[0].key == "right" )) {
                     var posx = P2PMaze.dataReceived[1].updatePosx;
                     var posy = P2PMaze.dataReceived[2].updatePosy;
                     opponentPlayer.kill();
