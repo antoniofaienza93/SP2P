@@ -340,6 +340,17 @@ P2PMaze.GameMultiplayer.prototype = {
         }
 
 
+        if(P2PMaze.playerDisconnected != "null" && P2PMaze.playerDisconnected == P2PMaze.peer._conn.peer){
+            P2PMaze.dataReceived = undefined;
+            opponentPlayer.kill();
+            var ch = document.getElementById("chatbox");
+            ch.style.display = "none";
+            
+            P2PMaze.alertMessage("THE PEER " + P2PMaze.peer._conn.peer + " HAS DISCONNECTED", "warning");
+
+        }
+
+
 
         // Checks for overlaps between two game objects.
         // - The first object or array of objects to check. 
