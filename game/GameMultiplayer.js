@@ -260,7 +260,8 @@ P2PMaze.GameMultiplayer.prototype = {
         if (P2PMaze.dataReceived != undefined) {
 
             this.game.time.events.add(4000, function () {
-                if (opponentPlayer.animations.currentAnim.isPlaying === true &&
+                if (P2PMaze.dataReceived != undefined &&
+                    opponentPlayer.animations.currentAnim.isPlaying === true &&
                     (P2PMaze.dataReceived[0].key == "left" || P2PMaze.dataReceived[0].key == "right")) {
                     var posx = P2PMaze.dataReceived[1].updatePosx;
                     var posy = P2PMaze.dataReceived[2].updatePosy;
