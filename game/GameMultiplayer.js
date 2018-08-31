@@ -341,6 +341,7 @@ P2PMaze.GameMultiplayer.prototype = {
         }
 
 
+        console.log(playerDisconnected);
         if(P2PMaze.playerDisconnected != "null" && P2PMaze.playerDisconnected == P2PMaze.peer._conn.peer){
             P2PMaze.dataReceived = undefined;
             opponentPlayer.kill();
