@@ -3,7 +3,7 @@
  * File: GameMultiplayer.js - 4 
  * Author: Antonio Faienza
  * Desc: TODO https://github.com/sugendran/webrtc-tanks/blob/master/js/game.js
- * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/ PUO ESSERE UTILE 
+ * http://www.html5gamedevs.com/topic/24887-sprite-moving-using-input-coordinates/  
  * ===========================================================================
  */
 var P2PMaze = P2PMaze || {};
@@ -208,7 +208,7 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.send(jump);
         }
 
-       
+
 
         if (P2PMaze.dataReceived != undefined) {
             if (P2PMaze.dataReceived[0].key == "right") {
@@ -261,7 +261,7 @@ P2PMaze.GameMultiplayer.prototype = {
 
             this.game.time.events.add(4000, function () {
                 if (opponentPlayer.animations.currentAnim.isPlaying === true &&
-                   ( P2PMaze.dataReceived[0].key == "left" || P2PMaze.dataReceived[0].key == "right" )) {
+                    (P2PMaze.dataReceived[0].key == "left" || P2PMaze.dataReceived[0].key == "right")) {
                     var posx = P2PMaze.dataReceived[1].updatePosx;
                     var posy = P2PMaze.dataReceived[2].updatePosy;
                     opponentPlayer.kill();
@@ -300,8 +300,6 @@ P2PMaze.GameMultiplayer.prototype = {
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
             P2PMaze.dataReceived = undefined;
-
-
         }
 
         // information items
@@ -336,11 +334,9 @@ P2PMaze.GameMultiplayer.prototype = {
             this.winParticle();
             stateText.text = GAME.GAMEWIN;
             stateText.visible = true;
-
             //the "click to restart" handler
             this.game.input.onTap.addOnce(this.restart, this);
             P2PMaze.dataReceived = undefined;
-
         }
 
 
@@ -396,7 +392,7 @@ P2PMaze.GameMultiplayer.prototype = {
         // we don't want move the player for avoid bug for 1 seconds
         movementPlayer = false;
         this.game.time.events.add(1500, function () {
-            console.log("START MOVEMENT NOW");               
+            console.log("START MOVEMENT NOW");
             movementPlayer = true;
         }, this);
 
@@ -419,7 +415,7 @@ P2PMaze.GameMultiplayer.prototype = {
             var keyupdating = { "key": "WIN_GAME" };
             iTaken.push(keyupdating);
             P2PMaze.send(iTaken);
-            
+
             // we don't want move the player for avoid bug for 1 seconds
             movementPlayer = false;
         }
@@ -591,7 +587,7 @@ P2PMaze.GameMultiplayer.prototype = {
             // we don't want move the player for avoid bug for 1 seconds
             movementPlayer = false;
             this.game.time.events.add(1500, function () {
-                console.log("START MOVEMENT NOW");               
+                console.log("START MOVEMENT NOW");
                 movementPlayer = true;
             }, this);
 
