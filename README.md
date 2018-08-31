@@ -10,10 +10,12 @@ The aim of the project is to test the peer to peer functionalities offerted by P
 For this, I have created a new Game. In particular the focus of analysis is the Multiplayer section that use and tests the PeerJs functionality.
 If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
-## Running the Game
+## Run in localhost 
+### SetUp
 * Clone project 
 
 `git clone https://github.com/antoniofaienza93/SP2P.git`
+
 `cd SP2P`
 
 * Install npm 
@@ -32,4 +34,50 @@ If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
 `npm install randomstring --save`
 
+## Change the file
+
+Change this
+```javascript
+// P2P/PeerServerExpress.js
+const PORT = process.env.PORT;
+
+// util/const.js
+const PEER_SERVER = {
+    ENROLLMENT: "https://project-p2p.herokuapp.com/",
+    PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/",
+    POLLING: "https://project-p2p.herokuapp.com/updates/"
+    
+}
+
+const PEER_CLIENT = {
+    HOST: "project-p2p.herokuapp.com",
+    PORT: 443,
+    PATH: "/peerjs"
+}
+```
+with this:
+```javascript
+// P2P/PeerServerExpress.js
+const PORT = 9000;
+
+// util/const.js
+const PEER_SERVER = {
+    ENROLLMENT: "http://localhost:9000",
+    PEER_AVAILABLES: "http://localhost:9000/available-peer/",
+    POLLING: "http://localhost:9000/updates/"
+    
+}
+
+
+const PEER_CLIENT = {
+    HOST: "localhost",
+    PORT: 9000,
+    PATH: "/peerjs"
+}
+```
+
+## Run the Local Server
+`cd P2P`
+
+`node PeerServerExpress.js`
 
