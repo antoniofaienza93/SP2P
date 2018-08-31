@@ -24,7 +24,7 @@ window.onload = function () {
     P2PMaze.playerDisconnected = undefined;   
 
     // initial call, or just call refresh directly
-    setTimeout(refresh, 5000);
+    setTimeout(refresh, 3000);
 
     // create the form
     var jointoapeer = mainForm();

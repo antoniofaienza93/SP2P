@@ -108,7 +108,7 @@ app.get('/updates', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
 
     res.send(idLost);
-    idLost = undefined;
+    // idLost = undefined;
     // Pass to next layer of middleware
     next();
 
