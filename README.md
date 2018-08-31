@@ -77,7 +77,7 @@ const PEER_CLIENT = {
 ```
 
 ## Run the Local Server
-`cd P2P`
+* `cd P2P`
 
-`node PeerServerExpress.js`
+* `node PeerServerExpress.js`
 
