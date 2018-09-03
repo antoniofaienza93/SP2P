@@ -2,7 +2,7 @@
  * ===========================================================================
  * File: main.js - 0 
  * Author: Antonio Faienza
- * Desc: TODO - https://phaser.io/examples/v2/p2-physics/state-reset
+ * REF: https://phaser.io/examples/v2/p2-physics/state-reset
  * ===========================================================================
  */
 
