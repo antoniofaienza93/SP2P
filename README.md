@@ -22,7 +22,7 @@ If you want try the game [PLAY NOW](https://antoniofaienza93.github.io/SP2P/).
 
 `npm install`
 
-* Install Peer Server 
+* Install Express 
 
 `npm install express --save`
 
