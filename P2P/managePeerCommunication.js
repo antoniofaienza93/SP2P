@@ -289,14 +289,14 @@ window.onload = function () {
 
         var id_connected_peer = peerClient.getConnection().peer;
 
+        // Assignment
+        P2PMaze.peer = peerClient;
+
         // create Chat 
         chat = new Chat();
         chat.createChat(id_connected_peer);
         chat.onclickSendChatButton(sendChatMessage);
         chat.onclicKeyboard(sendChatMessage);
-
-        // Assignment
-        P2PMaze.peer = peerClient;
 
         // start the multiplayer game
         P2PMaze.game.state.start("GameMultiplayer");
