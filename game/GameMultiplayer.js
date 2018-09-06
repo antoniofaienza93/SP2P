@@ -343,12 +343,12 @@ P2PMaze.GameMultiplayer.prototype = {
 
         
         if(P2PMaze.playerDisconnected != "" && P2PMaze.playerDisconnected == P2PMaze.peer._conn.peer){
-            P2PMaze.dataReceived = undefined;
+            console.log(P2PMaze.playerDisconnected + " " + P2PMaze.peer._conn.peer);
             opponentPlayer.kill();
             var ch = document.getElementById("chatbox");
-            ch.style.display = "none";
-            
+            ch.style.display = "none";            
             P2PMaze.alertMessage("THE PEER " + P2PMaze.peer._conn.peer + " HAS DISCONNECTED", "warning");
+            P2PMaze.dataReceived = undefined;
 
         }
 
