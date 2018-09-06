@@ -322,7 +322,8 @@ window.onload = function () {
         var peer_available = JSON.parse(peer_a);
 
         var ownPeer = peer_available.find(o => o.key === peerClient.getId());
-
+        console.log("RITORNO PEER DISPONIBILI");
+        console.log(ownPeer);
         // remove from ARRAY the element selected
         for (var i = 0; i < peer_available.length; i++) {
             if (peer_available[i].key == ownPeer.key) {
