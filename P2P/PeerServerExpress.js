@@ -4,6 +4,7 @@
  * Author: Antonio Faienza
  * TODO: make deploy: https://zeit.co/now or Heroku 
  * ERROR: https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
+ * DEBUG, FROM CONSOLE RUN:  heroku logs -t
  * ===========================================================================
  */
 var express = require('express');
