@@ -343,6 +343,7 @@ window.onload = function () {
             document.getElementById("inputid").disabled = false;            
             clearDiv("label-username");
             clearDiv("formpeeravailable");
+            clearDiv("div-choice-peer");
             
         }
 
