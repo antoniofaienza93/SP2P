@@ -340,7 +340,7 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.dataReceived = undefined;
         }
 
-        if(connectionLost == false && P2PMaze.peer._peer.disconnected==true)
+        if(connectionLost == false && P2PMaze.peer._conn.open==false)
         {
             opponentPlayer.kill();
             var ch = document.getElementById("chatbox");
