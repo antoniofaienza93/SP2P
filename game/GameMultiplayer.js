@@ -340,15 +340,6 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.dataReceived = undefined;
         }
 
-        if(connectionLost == false && P2PMaze.peer._conn.open==false)
-        {
-            opponentPlayer.kill();
-            var ch = document.getElementById("chatbox");
-            ch.style.display = "none";            
-            P2PMaze.alertMessage("THE PEER " + P2PMaze.peer._conn.peer + " HAS DISCONNECTED", "warning");
-            connectionLost = true;
-        }
-
 
 
         // Checks for overlaps between two game objects.
