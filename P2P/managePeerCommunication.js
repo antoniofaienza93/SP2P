@@ -347,7 +347,7 @@ window.onload = function () {
         }else {
             document.getElementById("connect").disabled = false;
             document.getElementById("inputid").disabled = false;
-            clearDiv("join-to-a-peer");
+            clearDiv(jointoapeer);
             
         }
 

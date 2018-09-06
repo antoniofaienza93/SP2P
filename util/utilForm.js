@@ -25,7 +25,7 @@ function mainForm() {
 
     var div5 = document.createElement("div");
     div5.setAttribute("class", "needs-validation");
-    div5.setAttribute("id", "needs-validation-id"); "join-to-a-peer"
+    div5.setAttribute("id", "needs-validation-id"); 
 
     var br = document.createElement("br");
 
@@ -79,7 +79,7 @@ function mainForm() {
     document.getElementById("multiplayer-form").appendChild(div1);
 
     var br = document.createElement("br");
-
+    document.body.appendChild(maindiv);
     return maindiv;
 }
 
