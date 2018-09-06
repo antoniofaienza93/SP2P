@@ -433,10 +433,8 @@ window.onload = function () {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open('GET', url);
         xmlHttp.onload = function () {
-            // console.log(xmlHttp.responseText)
-            console.log(P2PMaze.playerDisconnected);
-            P2PMaze.playerDisconnected = xmlHttp.responseText;
-            console.log(P2PMaze.playerDisconnected);
+            // console.log(xmlHttp.responseText)            
+            P2PMaze.playerDisconnected = xmlHttp.responseText;           
 
         };
         xmlHttp.send(null);
