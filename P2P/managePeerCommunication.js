@@ -322,9 +322,6 @@ window.onload = function () {
         var peer_available = JSON.parse(peer_a);
 
         var ownPeer = peer_available.find(o => o.key === peerClient.getId());
-        console.log("RITORNO PEER DISPONIBILI");
-        console.log(ownPeer);
-        console.log(peer_available);
 
         // if the connection to server is not lost
         if (ownPeer != undefined) {
