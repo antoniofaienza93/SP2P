@@ -20,9 +20,6 @@ window.onload = function () {
     // form that decide if woy want connect or not with peer
     var classItemForm = "accept-connection";
 
-    // global variable
-    P2PMaze.playerDisconnected = undefined;
-
     // initial call, or just call refresh directly
     setTimeout(refresh, 4000);
 
@@ -437,7 +434,9 @@ window.onload = function () {
         xmlHttp.open('GET', url);
         xmlHttp.onload = function () {
             // console.log(xmlHttp.responseText)
+            console.log(P2PMaze.playerDisconnected);
             P2PMaze.playerDisconnected = xmlHttp.responseText;
+            console.log(P2PMaze.playerDisconnected);
 
         };
         xmlHttp.send(null);
