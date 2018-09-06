@@ -79,7 +79,7 @@ function mainForm() {
     document.getElementById("multiplayer-form").appendChild(div1);
 
     var br = document.createElement("br");
-    document.body.appendChild(maindiv);
+   
     return maindiv;
 }
 
