@@ -25,8 +25,8 @@ class PeerClient {
             port: this._port, //  9000,
             path: this._path, // '/peerjs'
             config: {'iceServers': [
-                { url: 'stun:stun.yourdomain:3478' },
-                { url: 'turn:username@yourdomain:3478', credential: 'username' }
+                { url: 'stun:project-p2p.herokuapp.com/:3478' },
+                { url: 'turn:username@project-p2p.herokuapp.com:3478', credential: 'password' }
               ]} /* Sample servers, please use appropriate ones */
         });
 
