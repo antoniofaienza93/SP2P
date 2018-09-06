@@ -25,7 +25,7 @@ class PeerClient {
             port: this._port, //  9000,
             path: this._path, // '/peerjs'
             config: {'iceServers': [
-                { url: 'stun:stun.l.google.com:19302' }
+                { url: 'stun.hosteurope.de:3478' }
               ]} /* Sample servers, please use appropriate ones */
         });
 
