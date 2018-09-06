@@ -291,10 +291,11 @@ function clearDiv(cl) {
 function formUsername(user) {
     var div = document.createElement("div");
     div.setAttribute("class", "text-center darken-grey-text mb-4");
+    div.setAttribute("id", "label-username");
 
     var h4 = document.createElement("h4");
     h4.setAttribute("class", "font-bold mb-2");
-    h4.innerHTML = "USERNAME: " + user; // TODO da cambiare
+    h4.innerHTML = "USERNAME: " + user; 
 
     div.appendChild(h4);
     return div;
@@ -307,6 +308,7 @@ function joinPeerButton(callback) {
 
     var div = document.createElement("div");
     div.setAttribute("class", "text-center darken-grey-text mb-4");
+    div.setAttribute("id", "formpeeravailable");
 
     var h3 = document.createElement("h3");
     h3.setAttribute("class", "font-bold mb-3");

@@ -346,8 +346,9 @@ window.onload = function () {
 
         }else {
             document.getElementById("connect").disabled = false;
-            document.getElementById("inputid").disabled = false;
-            clearDiv(jointoapeer);
+            document.getElementById("inputid").disabled = false;            
+            clearDiv("label-username");
+            clearDiv("formpeeravailable");
             
         }
 
