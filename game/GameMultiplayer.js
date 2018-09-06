@@ -344,7 +344,7 @@ P2PMaze.GameMultiplayer.prototype = {
         console.log(P2PMaze.peer);
         // console.log("");
         // if(P2PMaze.playerDisconnected != undefined && P2PMaze.playerDisconnected == P2PMaze.peer._conn.peer)
-        if(connectionLost == false && P2PMaze.peer._peer.disconnected==true)
+        if(connectionLost == false && P2PMaze.peer._conn.open==false)
         {
             // console.log(P2PMaze.peer);
             opponentPlayer.kill();
