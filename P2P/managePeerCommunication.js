@@ -21,7 +21,7 @@ window.onload = function () {
     var classItemForm = "accept-connection";
 
     // global variable
-    P2PMaze.playerDisconnected = undefined;   
+    P2PMaze.playerDisconnected = undefined;
 
     // initial call, or just call refresh directly
     setTimeout(refresh, 4000);
@@ -146,12 +146,12 @@ window.onload = function () {
                 jointoapeer.appendChild(choiceForm);
             }
 
-        // in other cases, when the connection is establish, then:
-        // - can be accepted
-        // - can be refused
-        // - it's a normal data. In this case:
-        //      - can be the data of the multiplayer game
-        //      - can be a chat message
+            // in other cases, when the connection is establish, then:
+            // - can be accepted
+            // - can be refused
+            // - it's a normal data. In this case:
+            //      - can be the data of the multiplayer game
+            //      - can be a chat message
         } else {
 
             if (data == PEER.CONNECTION_ACCEPTED) {
@@ -159,16 +159,16 @@ window.onload = function () {
             } else if (data == PEER.CONNECTION_REFUSED) {
                 refuseConnection();
             }
-            else {                
+            else {
                 if (data[0].key == "CHAT_MESSAGE") {
                     var m = data[1].message;
                     chat.receiveMessage(peerClient.getId(), m);
-                } 
+                }
                 else {
                     P2PMaze.dataReceived = data;
                 }
 
-                
+
 
 
             }
@@ -265,7 +265,7 @@ window.onload = function () {
      */
     function sendChatMessage(message) {
         if (message != "") {
-            
+
             var id = peerClient.getConnection().peer;
             console.log("mexage chat [" + message + "] to peer " + id);
 
@@ -325,24 +325,31 @@ window.onload = function () {
         console.log("RITORNO PEER DISPONIBILI");
         console.log(ownPeer);
         console.log(peer_available);
-        // remove from ARRAY the element selected
-        for (var i = 0; i < peer_available.length; i++) {
-            if (peer_available[i].key == ownPeer.key) {
-                peer_available.splice(i, 1);
+
+        // if the connection to server is not lost
+        if (ownPeer != undefined) {
+            // remove from ARRAY the element selected
+            for (var i = 0; i < peer_available.length; i++) {
+                if (peer_available[i].key == ownPeer.key) {
+                    peer_available.splice(i, 1);
+                }
             }
+
+            if (peer_available.length > 0) {
+                var d = choicePeerForm();
+                jointoapeer.appendChild(d);
+                formPeerAvailable(d, peer_available, form_peer_available_class, FORM.CHOICE_PEER, peerSelected);
+            } else {
+                clearDiv("div-choice-peer");
+                P2PMaze.alertMessage(COMMUNICATION.PEER_AVAILABILITY, "warning");
+            }
+
+        }else {
+            document.getElementById("connect").disabled = false;
+            document.getElementById("inputid").disabled = false;
+            clickConnect();
         }
 
-        if (peer_available.length > 0) {
-            var d = choicePeerForm();
-            jointoapeer.appendChild(d);
-            formPeerAvailable(d, peer_available, form_peer_available_class, FORM.CHOICE_PEER, peerSelected);
-        } else {
-
-            clearDiv("div-choice-peer");
-
-            P2PMaze.alertMessage(COMMUNICATION.PEER_AVAILABILITY, "warning");
-
-        }
 
     }
 
@@ -446,7 +453,7 @@ window.onload = function () {
     function refresh() {
         setTimeout(refresh, 4000);
         pollingLostId(PEER_SERVER.POLLING);
-    }  
+    }
 
 };
 
