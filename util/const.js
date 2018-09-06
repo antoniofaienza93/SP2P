@@ -37,9 +37,7 @@ const PLAYER = {
  */
 const PEER_SERVER = {
     ENROLLMENT: "https://project-p2p.herokuapp.com/",
-    PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/",
-    POLLING: "https://project-p2p.herokuapp.com/updates/"
-    
+    PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/"    
 }
 
 /**

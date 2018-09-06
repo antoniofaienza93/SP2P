@@ -340,13 +340,8 @@ P2PMaze.GameMultiplayer.prototype = {
             P2PMaze.dataReceived = undefined;
         }
 
-
-        console.log(P2PMaze.peer);
-        // console.log("");
-        // if(P2PMaze.playerDisconnected != undefined && P2PMaze.playerDisconnected == P2PMaze.peer._conn.peer)
-        if(connectionLost == false && P2PMaze.peer._conn.open==false)
+        if(connectionLost == false && P2PMaze.peer._peer.disconnected==true)
         {
-            // console.log(P2PMaze.peer);
             opponentPlayer.kill();
             var ch = document.getElementById("chatbox");
             ch.style.display = "none";            

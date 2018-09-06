@@ -23,7 +23,7 @@ var peerserver = ExpressPeerServer(server, options);
 // At first the peer are @undefined 
 var peer_available = [];
 
-var idLost;
+
 // ========================================
 // Create Random String and send to client
 // ========================================
@@ -89,34 +89,6 @@ function increasePlayer(id) {
 
 
 /**
- * Polling for check if one peer is disconnected
- */
-app.get('/updates', function (req, res, next) {
-
-    //Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    res.setHeader('Content-Type', 'application/json');
-
-    res.send(idLost);
-    // idLost = undefined;
-    // Pass to next layer of middleware
-    next();
-
-});
-
-
-/**
  * Callback that decrease the array of object
  * @param {*} id 
  */
@@ -169,8 +141,6 @@ function disconnectPeer(callback) {
     // The 'disconnect' event is emitted when a peer disconnects from the server or when the peer can no longer be reached.
     peerserver.on('disconnect', function (id) {
         console.log("Disconnessione utente " + id);
-        // determinate the peer disconnected
-        idLost = id;
         callback(id);
     });
 }

@@ -20,9 +20,6 @@ window.onload = function () {
     // form that decide if woy want connect or not with peer
     var classItemForm = "accept-connection";
 
-    // initial call, or just call refresh directly
-    setTimeout(refresh, 4000);
-
     // create the form
     var jointoapeer = mainForm();
 
@@ -417,39 +414,6 @@ window.onload = function () {
         xmlHttp.open("GET", theUrl, true); // true for asynchronous 
         xmlHttp.send(null);
         // console.log(xmlHttp.responseText)
-    }
-
-
-    /**
-     * POLLING
-     * 
-     * REF - https://hpbn.co/xmlhttprequest/
-     * This function make a server request for the peer disconnected.
-     * When the result is available, send message and interrupt the game
-     * 
-     * @param pollingLostId 
-     * @param {string} url - the url of server
-     */
-    function pollingLostId(url) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open('GET', url);
-        xmlHttp.onload = function () {
-            // console.log(xmlHttp.responseText)            
-            P2PMaze.playerDisconnected = xmlHttp.responseText;
-
-        };
-        xmlHttp.send(null);
-    }
-
-
-    /**
-     * Set the timer of callback.
-     * 
-     * @method refresh
-     */
-    function refresh() {
-        setTimeout(refresh, 4000);
-        pollingLostId(PEER_SERVER.POLLING);
     }
 
 };
