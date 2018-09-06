@@ -344,14 +344,14 @@ P2PMaze.GameMultiplayer.prototype = {
         console.log(P2PMaze.peer);
         console.log("");
         // if(P2PMaze.playerDisconnected != undefined && P2PMaze.playerDisconnected == P2PMaze.peer._conn.peer)
-        if(P2PMaze.peer._peer.disconnected==true)
+        if(P2PMaze.dataReceived != undefined && P2PMaze.peer._peer.disconnected==true)
         {
             // console.log(P2PMaze.peer);
             opponentPlayer.kill();
             var ch = document.getElementById("chatbox");
             ch.style.display = "none";            
             P2PMaze.alertMessage("THE PEER " + P2PMaze.peer._conn.peer + " HAS DISCONNECTED", "warning");
-            P2PMaze.playerDisconnected = undefined;
+            P2PMaze.dataReceived = undefined;
 
         }
 
