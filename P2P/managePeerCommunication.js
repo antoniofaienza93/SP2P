@@ -434,7 +434,8 @@ window.onload = function () {
         xmlHttp.open('GET', url);
         xmlHttp.onload = function () {
             // console.log(xmlHttp.responseText)            
-            P2PMaze.playerDisconnected = xmlHttp.responseText;           
+            P2PMaze.playerDisconnected = xmlHttp.responseText;
+            console.log(P2PMaze.playerDisconnected);
 
         };
         xmlHttp.send(null);
