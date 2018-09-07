@@ -23,12 +23,7 @@ class PeerClient {
         this._peer = new Peer(this._id, {
             host: this._host, // 'localhost',
             port: this._port, //  9000,
-            path: this._path, // '/peerjs'    
-            config: {'iceServers': [
-                {urls: "turn:project-p2p.herokuapp.com",
-                username: "user",
-                credential: "password"}
-              ]}        
+            path: this._path // '/peerjs'          
         });
 
         this._peer.on('open', function (id_peer) {
