@@ -20,6 +20,8 @@ class PeerClient {
         this._path = pth;
         this._conn = undefined;
 
+        console.log("location ");
+        console.log(location);
         console.log("host ----> " + h);
         console.log("port ----> " + p);
         console.log("path ----> " + pth);
