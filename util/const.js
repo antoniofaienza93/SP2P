@@ -50,7 +50,7 @@ const PEER_SERVER = {
  */
 const PEER_CLIENT = {
     HOST: "project-p2p.herokuapp.com",
-    PORT: '',
+    PORT: 3333 || 3000,
     PATH: "/peerjs"
 }
 
