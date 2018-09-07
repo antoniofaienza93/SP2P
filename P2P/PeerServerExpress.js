@@ -11,7 +11,7 @@ var express = require('express');
 var app = express();
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var randomstring = require("randomstring");
-const PORT = process.env.PORT || 3000;
+const PORT =  3000; // process.env.PORT ||
 
 var options = {
     debug: true
