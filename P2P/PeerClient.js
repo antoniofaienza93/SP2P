@@ -23,7 +23,12 @@ class PeerClient {
         this._peer = new Peer(this._id, {
             host: this._host, // 'localhost',
             port: this._port, //  9000,
-            path: this._path // '/peerjs'            
+            path: this._path, // '/peerjs'    
+            config: {'iceServers': [
+                {urls: "turn:YOUR_SERVER",
+                username: "user",
+                credential: "password"}
+              ]}        
         });
 
         this._peer.on('open', function (id_peer) {
