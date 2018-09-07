@@ -4,7 +4,6 @@
   "description": "Project Peer to Peer",
   "main": "P2P/PeerServerExpress.js",
   "scripts": {
-    "postinstall": "npm run build",
     "start": "node P2P/PeerServerExpress.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
