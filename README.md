@@ -44,9 +44,7 @@ const PORT = process.env.PORT;
 // util/const.js
 const PEER_SERVER = {
     ENROLLMENT: "https://project-p2p.herokuapp.com/",
-    PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/",
-    POLLING: "https://project-p2p.herokuapp.com/updates/"
-    
+    PEER_AVAILABLES: "https://project-p2p.herokuapp.com/available-peer/"    
 }
 
 const PEER_CLIENT = {
@@ -63,9 +61,7 @@ const PORT = 9000;
 // util/const.js
 const PEER_SERVER = {
     ENROLLMENT: "http://localhost:9000",
-    PEER_AVAILABLES: "http://localhost:9000/available-peer/",
-    POLLING: "http://localhost:9000/updates/"
-    
+    PEER_AVAILABLES: "http://localhost:9000/available-peer/"    
 }
 
 
