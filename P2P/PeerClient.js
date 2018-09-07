@@ -20,7 +20,9 @@ class PeerClient {
         this._path = pth;
         this._conn = undefined;
 
-        console.log("PORTA ----> " + this._port);
+        console.log("host ----> " + h);
+        console.log("port ----> " + p);
+        console.log("path ----> " + pth);
         this._peer = new Peer(this._id, {
             host: this._host, // 'localhost',
             port: this._port, //  9000,
